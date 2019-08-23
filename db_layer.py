@@ -1,197 +1,186 @@
+import mysql.connector
 import pandas as pd
-import hashlib
-import json
-import traceback
-from sqlalchemy import create_engine
-from config import MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_PORT, MYSQL_DB, OBSERVED_MYSQL_HOST
-import datetime
+from datetime import datetime, timedelta
+from decimal import Decimal
 
 
-class MySqlAdapter:
-    def __init__(self):
-        # CONFIG = json.loads(open('/home/uwcc-admin/udp_150/hec_server/config.json').read())
-        # if 'MYSQL_HOST' in CONFIG:
-        #     MYSQL_HOST = CONFIG['MYSQL_HOST']
-        # if 'MYSQL_USER' in CONFIG:
-        #     MYSQL_USER = CONFIG['MYSQL_USER']
-        # if 'MYSQL_DB' in CONFIG:
-        #     MYSQL_DB = CONFIG['MYSQL_DB']
-        # if 'MYSQL_PASSWORD' in CONFIG:
-        #     MYSQL_PASSWORD = CONFIG['MYSQL_PASSWORD']
-        connection_string = 'mysql://{}:{}@{}:{}/{}'.format(MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
-        #connection_string = 'mysql://{}:{}@{}/{}'.format(MYSQL_USER, MYSQL_PASSWORD, OBSERVED_MYSQL_HOST, MYSQL_DB)
-        self.engine = create_engine(connection_string)
-        self.meta_struct = {
-            'station': '',
-            'variable': '',
-            'unit': '',
-            'type': '',
-            'source': '',
-            'name': ''
-        }
-        self.meta_struct_keys = sorted(self.meta_struct.keys())
-
-        self.station_struct = {
-            'id': '',
-            'stationId': '',
-            'name': '',
-            'latitude': '',
-            'longitude': '',
-            'resolution': '',
-            'description': ''
-        }
-        self.station_struct_keys = self.station_struct.keys()
-
-        self.source_struct = {
-            'id': '',
-            'source': '',
-            'parameters': ''
-        }
-        self.source_struct_keys = self.source_struct.keys()
-        self.connection = self.engine.connect()
+class CurwSimAdapter:
+    def __init__(self, mysql_user, mysql_password, mysql_host, mysql_db):
+        print('[mysql_user, mysql_password, mysql_host, mysql_db] : ',
+              [mysql_user, mysql_password, mysql_host, mysql_db])
+        try:
+            self.connection = mysql.connector.connect(user=mysql_user,
+                                                      password=mysql_password,
+                                                      host=mysql_host,
+                                                      database=mysql_db)
+            self.cursor = self.connection.cursor(buffered=True)
+        except ConnectionError as ex:
+            print('ConnectionError|ex: ', ex)
 
     def close_connection(self):
+        self.cursor.close()
         self.connection.close()
 
-def get_time_series_values(self, event_id, data_from, data_to):
-    sql = "SELECT `time`,`value` FROM `%s` WHERE `id`=\"%s\" " % ('data', event_id)
-    sql += "AND `%s`>=\"%s\" " % ('time', data_from)
-    sql += "AND `%s`<=\"%s\" " % ('time', data_to)
-    time_series_data = pd.read_sql_query(sql, self.engine)
-    #print(time_series_data)
-    #formatted_ts = pd.DataFrame(data=time_series_data.values, columns=['time', 'value']).set_index(keys='time')
-    #print('get_time_series_values|formatted_ts.columns.values: ', formatted_ts.columns.values)
-    return time_series_data
+    def get_flo2d_tms_ids(self, model, method):
+        id_date_list = []
+        cursor = self.cursor
+        try:
+            sql = 'select id,obs_end from curw_sim.run where model=\'{}\' and method=\'{}\' '.format(model, method)
+            print('sql : ', sql)
+            cursor.execute(sql)
+            results = cursor.fetchall()
+            for row in results:
+                id_date_list.append([row[0], row[1]])
+        except Exception as e:
+            print('save_init_state|Exception:', e)
+        finally:
+            return id_date_list
+
+    def get_flo2d_tms_ids(self, model, method):
+        id_date_list = []
+        cursor = self.cursor
+        try:
+            sql = 'select id,grid_id,obs_end from curw_sim.run where model=\'{}\' and method=\'{}\' '.format(model,
+                                                                                                             method)
+            print('sql : ', sql)
+            cursor.execute(sql)
+            results = cursor.fetchall()
+            for row in results:
+                id_date_list.append({'hash_id': row[0], 'grid_id': row[1], 'obs_end': row[2]})
+        except Exception as e:
+            print('save_init_state|Exception:', e)
+        finally:
+            return id_date_list
+
+    def get_cell_timeseries(self, timeseries_start, timeseries_end, hash_id, res_mins):
+        cursor = self.cursor
+        try:
+            sql = 'select time,value from curw_sim.data where time>=\'{}\' and time<\'{}\' and id=\'{}\' '.format(
+                timeseries_start, timeseries_end, hash_id)
+            cursor.execute(sql)
+            results = cursor.fetchall()
+            if len(results) > 0:
+                # return pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
+                return pd.DataFrame(data=results, columns=['time', 'value'])
+            else:
+                return None
+        except Exception as e:
+            print('get_cell_timeseries|Exception:', e)
+            return None
+
+    def get_station_timeseries(self, timeseries_start, timeseries_end, station_name, source, model='hechms',
+                               value_interpolation='MME', grid_interpolation='MDPA', acceppted_error=40):
+        cursor = self.cursor
+        try:
+            grid_id = 'rainfall_{}_{}_{}'.format(source, station_name, grid_interpolation)
+            sql = 'select id, obs_end from curw_sim.run where model=\'{}\' and method=\'{}\'  and grid_id=\'{}\''.format(
+                model, value_interpolation, grid_id)
+            print('sql : ', sql)
+            cursor.execute(sql)
+            result = cursor.fetchone()
+            if result:
+                hash_id = result[0]
+                print('hash_id : ', hash_id)
+                data_sql = 'select time,value from curw_sim.data where time>=\'{}\' and time<=\'{}\' and id=\'{}\' '.format(
+                    timeseries_start, timeseries_end, hash_id)
+                try:
+                    print('data_sql : ', data_sql)
+                    cursor.execute(data_sql)
+                    results = cursor.fetchall()
+                    # print('results : ', results)
+                    if len(results) > 0:
+                        time_step_count = int((datetime.strptime(timeseries_end, '%Y-%m-%d %H:%M:%S')
+                                               - datetime.strptime(timeseries_start,
+                                                                   '%Y-%m-%d %H:%M:%S')).total_seconds() / (60 * 5))
+                        print('timeseries_start : {}'.format(timeseries_start))
+                        print('timeseries_end : {}'.format(timeseries_end))
+                        print('time_step_count : {}'.format(time_step_count))
+                        print('len(results) : {}'.format(len(results)))
+                        data_error = ((time_step_count - len(results)) / time_step_count) * 100
+                        if data_error < 1:
+                            df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
+                            return df
+                        elif data_error <= acceppted_error:
+                            print('data_error : {}'.format(data_error))
+                            print('filling missing data.')
+                            formatted_ts = []
+                            i = 0
+                            for step in range(time_step_count):
+                                tms_step = datetime.strptime(timeseries_start, '%Y-%m-%d %H:%M:%S') + timedelta(
+                                    minutes=step * 5)
+                                if tms_step == results[i][0]:
+                                    formatted_ts.append(results[i])
+                                else:
+                                    formatted_ts.append((tms_step, Decimal(0)))
+                            df = pd.DataFrame(data=formatted_ts, columns=['time', 'value']).set_index(keys='time')
+                            print('get_station_timeseries|df: ', df)
+                            return df
+                        else:
+                            print('Missing data.')
+                            return None
+                    else:
+                        print('No data.')
+                        return None
+                except Exception as e:
+                    print('get_station_timeseries|data fetch|Exception:', e)
+                    return None
+            else:
+                print('No hash id.')
+                return None
+        except Exception as e:
+            print('get_station_timeseries|Exception:', e)
+            return None
 
 
-def save_time_series_values(self, data_frame):
-    try:
-        data_frame.to_sql(name='data', con=self.engine, if_exists='append', index=False)
-    except Exception:
-        traceback.print_exc()
+class CurwFcstAdapter:
+    def __init__(self, mysql_user, mysql_password, mysql_host, mysql_db):
+        print('[mysql_user, mysql_password, mysql_host, mysql_db] : ',
+              [mysql_user, mysql_password, mysql_host, mysql_db])
+        try:
+            self.connection = mysql.connector.connect(user=mysql_user,
+                                                      password=mysql_password,
+                                                      host=mysql_host,
+                                                      database=mysql_db)
+            self.cursor = self.connection.cursor()
+        except ConnectionError as ex:
+            print('ConnectionError|ex: ', ex)
 
+    def close_connection(self):
+        self.cursor.close()
+        self.connection.close()
 
-def get_event_id(self, meta_data):
-    event_id = None
-    m = hashlib.sha256()
-    hash_data = dict(self.meta_struct)
-    for i, value in enumerate(self.meta_struct_keys):
-        hash_data[value] = meta_data[value]
-
-    m.update(json.dumps(hash_data, sort_keys=True).encode("ascii"))
-    possible_id = m.hexdigest()
-    try:
-        result = self.connection.execute("SELECT 1 FROM `run` WHERE `id`='{}'".format(possible_id))
-        if result.fetchone() is not None:
-            event_id = possible_id
-    except Exception:
-        traceback.print_exc()
-    finally:
-        return event_id
-
-
-def create_event_id(self, meta_data):
-    hash_data = dict(self.meta_struct)
-    for i, value in enumerate(self.meta_struct_keys):
-        hash_data[value] = meta_data[value]
-    m = hashlib.sha256()
-    m.update(json.dumps(hash_data, sort_keys=True).encode("ascii"))
-    event_id = m.hexdigest()
-    try:
-        sql_list = [
-            "SELECT `id` as `station_id` FROM `station` WHERE `name`='{}'".format(meta_data['station']),
-            "SELECT `id` as `variable_id` FROM `variable` WHERE `variable`='{}'".format(meta_data['variable']),
-            "SELECT `id` as `unit_id` FROM `unit` WHERE `unit`='{}'".format(meta_data['unit']),
-            "SELECT `id` as `type_id` FROM `type` WHERE `type`='{}'".format(meta_data['type']),
-            "SELECT `id` as `source_id` FROM `source` WHERE `source`='{}'".format(meta_data['source'])
-        ]
-        station_id = self.connection.excute(sql_list[0]).fetchone()
-        variable_id = self.connection.excute(sql_list[1]).fetchone()
-        unit_id = self.connection.excute(sql_list[2]).fetchone()
-        type_id = self.connection.excute(sql_list[3]).fetchone()
-        source_id = self.connection.excute(sql_list[4]).fetchone()
-
-        sql = "INSERT INTO `run` (`id`, `name`, `station`, `variable`, `unit`, `type`, `source`) VALUES ({},{},{},{},{},{},{})"\
-            .format((event_id,meta_data['name'],station_id,variable_id,unit_id,type_id,source_id))
-        self.connection.excute(sql)
-    except Exception as e:
-        traceback.print_exc()
-        raise e
-    finally:
-        return event_id
-
-
-def get_type_from_date_time(date_time, type):
-    if isinstance(date_time, str):
-        date_time = datetime.datetime.strptime(date_time, '%Y-%m-%d %H:%M:%S')
-    if type == 'Forecast-0-d':
-        return 2
-    elif type == 'Forecast-1-d-after':
-        return 3
-    elif type == 'Forecast-2-d-after':
-        return 3
-    elif type == 'Forecast-3-d-after':
-        return 3
-    elif type == 'Forecast-4-d-after':
-        return 3
-    elif type == 'Forecast-5-d-after':
-        return 3
-    elif type == 'Forecast-6-d-after':
-        return 3
-    elif type == 'Forecast-7-d-after':
-        return 3
-    elif type == 'Forecast-8-d-after':
-        return 3
-    elif type == 'Forecast-9-d-after':
-        return 3
-
-
-def get_type_by_date(run_date, ts_date):
-    if isinstance(run_date, str):
-        run_date = datetime.datetime.strptime(run_date, '%Y-%m-%d')
-    if isinstance(ts_date, str):
-        ts_date = datetime.datetime.strptime(ts_date, '%Y-%m-%d')
-    if ts_date == run_date:
-        return 'Forecast-0-d'
-    elif ts_date == run_date + datetime.timedelta(days=1):
-        return 'Forecast-1-d-after'
-    elif ts_date == run_date + datetime.timedelta(days=2):
-        return 'Forecast-2-d-after'
-    elif ts_date == run_date + datetime.timedelta(days=3):
-        return 'Forecast-3-d-after'
-    elif ts_date == run_date + datetime.timedelta(days=4):
-        return 'Forecast-4-d-after'
-    elif ts_date == run_date + datetime.timedelta(days=5):
-        return 'Forecast-5-d-after'
-    elif ts_date == run_date + datetime.timedelta(days=6):
-        return 'Forecast-6-d-after'
-    elif ts_date == run_date + datetime.timedelta(days=7):
-        return 'Forecast-7-d-after'
-    elif ts_date == run_date + datetime.timedelta(days=8):
-        return 'Forecast-8-d-after'
-    elif ts_date == run_date + datetime.timedelta(days=9):
-        return 'Forecast-9-d-after'
-    else:
-        return 'Error'
-
-
-def save_init_state(self, date, init_data):
-    try:
-        sql = 'UPDATE tbl_hec_init SET file = {} WHERE date  = \'{}\' '.format(init_data, date)
-        self.connection.excute(sql)
-    except Exception as e:
-        print('save_init_state|Exception:', e)
-
-
-def get_init_state(self, date):
-    try:
-        sql = 'select file from tbl_hec_init WHERE date  = \'{}\' '.format(date)
-        result = self.connection.excute(sql)
-        for init_data in result:
-            return init_data
-    except Exception as e:
-        print('get_init_state|Exception:', e)
-        return None
-
-
+    def get_station_fcst_rainfall(self, station_ids, fcst_start, fcst_end, source=8, sim_tag='evening_18hrs'):
+        """
+        :param station_ids: list of station ids
+        :param fcst_start:
+        :param fcst_end:
+        :return:{station_id:dataframe, }
+        """
+        fcst_ts = {}
+        cursor = self.cursor
+        station_ids_str = ','.join(station_ids)
+        try:
+            sql = 'select station as station_id, id as hash_id from curw_fcst.run where sim_tag={} and source={} ' \
+                  'and station in ({}) '.format(sim_tag, source, station_ids_str)
+            cursor.execute(sql)
+            results = cursor.fetchall()
+            if len(results) > 0:
+                for row in results:
+                    station_id = row[0]
+                    hash_id = row[1]
+                    try:
+                        sql = 'select time,value from curw_fcst.data where time>=\'{}\' and time<\'{}\' and id=\'{}\' '.format(
+                            fcst_start, fcst_end, hash_id)
+                        cursor.execute(sql)
+                        results = cursor.fetchall()
+                        if len(results) > 0:
+                            fcst_ts[station_id] = pd.DataFrame(data=results, columns=['time', 'value'])
+                    except Exception as e:
+                        print('Exception:', str(e))
+                return fcst_ts
+            else:
+                return None
+        except Exception as e:
+            print('save_init_state|Exception:', e)
+            return None
 

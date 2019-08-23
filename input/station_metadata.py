@@ -135,17 +135,3 @@ meta_data = {
                    'event_type': 'Forecast-0-d',
                    'source': 'wrf0'}
 }
-
-# kub_points = {
-#             'Mahapallegama': [80.2586, 7.16984],
-#             'Hingurana': [80.40782, 6.90449],
-#             'Dickoya': [80.60312, 6.8722],
-#             'Waga': [80.60312, 6.90678],
-#             'Hanwella': [80.081667, 6.909722],
-#             'Norton Bridge': [80.516, 6.9],
-#             'Kitulgala': [80.41777, 6.98916],
-#             'Holombuwa': [80.26480, 7.18516],
-#             'Daraniyagala': [80.33805, 6.92444],
-#             'Glencourse': [80.20305, 6.97805],
-#             'Norwood': [80.61466, 6.83563]
-#         }

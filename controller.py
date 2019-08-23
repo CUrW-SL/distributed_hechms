@@ -86,7 +86,7 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'
     print('run_datetime : ', run_datetime)
     print('back_days : ', back_days)
     print('forward_days : ', forward_days)
-    run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')
+    run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d 00:00:00')
     to_date = run_datetime + timedelta(days=forward_days)
     from_date = run_datetime - timedelta(days=back_days)
     file_date = run_datetime.strftime('%Y-%m-%d')
@@ -96,7 +96,7 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'
     print('file_name : ', file_name)
     print('{from_date, to_date} : ', {from_date, to_date})
     try:
-        get_rain_files(file_name, run_datetime.strftime('%Y-%m-%d %H:%M:%S'), forward_days, back_days)
+        get_rain_files(file_name, from_date, to_date)
         rain_fall_file = Path(file_name)
         if rain_fall_file.is_file():
             create_gage_file_by_rain_file('distributed_model', file_name)

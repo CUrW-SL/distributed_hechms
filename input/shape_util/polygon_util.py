@@ -1,3 +1,4 @@
+from db_layer import CurwSimAdapter
 from resources import manager as res_mgr
 from .spatial_util import get_voronoi_polygons
 import pandas as pd
@@ -7,9 +8,8 @@ import datetime
 import numpy as np
 import geopandas as gpd
 from input.station_metadata import meta_data
-from db_layer import get_event_id, get_time_series_values
-from config import SUB_CATCHMENT_SHAPE_FILE_DIR, THESSIAN_DECIMAL_POINTS
-from db_layer import MySqlAdapter
+from config import SUB_CATCHMENT_SHAPE_FILE_DIR, THESSIAN_DECIMAL_POINTS, \
+                        MYSQL_USER, MYSQL_DB, MYSQL_HOST, MYSQL_PASSWORD, MYSQL_PORT
 from functools import reduce
 import csv
 
@@ -108,35 +108,6 @@ def calculate_intersection(thessian_df, catchment_df):
     return sub_ratios
 
 
-def get_sub_catchment_rainfall(data_from, data_to, db_adapter, sub_dict, station_metadata=meta_data):
-    stations_meta = copy.deepcopy(station_metadata)
-    sub_catchment_name = sub_dict['sub_catchment_name']
-    print('sub_catchment_name:', sub_catchment_name)
-    ratio_list = sub_dict['ratios']
-    for gage_dict in ratio_list:
-        print('gage_dict:', gage_dict)
-        gage_name = gage_dict['gage_name']
-        timeseries_meta = stations_meta[gage_name]
-        print('timeseries_meta:', timeseries_meta)
-        try:
-            db_meta_data = {'station': gage_name,
-                            'variable': timeseries_meta['variable'],
-                            'unit': timeseries_meta['unit'],
-                            'type': timeseries_meta['event_type'],
-                            'source': timeseries_meta['source'],
-                            'name': timeseries_meta['run_name']}
-            event_id = get_event_id(db_adapter, db_meta_data)
-            print('event_id:', event_id)
-            time_series_df = get_time_series_values(db_adapter, event_id, data_from, data_to)
-            ratio = gage_dict['ratio']
-            print('ratio:', ratio)
-            time_series_df.loc[:, 'value'] *= ratio
-            print('time_series_df:', time_series_df)
-
-        except Exception as e:
-            print("get_event_id|Exception|e : ", e)
-
-
 def get_kub_points_from_meta_data(station_metadata=meta_data):
     kub_points = {}
     #print('station_metadata : ', type(station_metadata))
@@ -160,15 +131,14 @@ def get_valid_kub_points_from_meta_data(validated_gages, station_metadata=meta_d
     return kub_points
 
 
-def validate_gage_points(db_adapter, run_date, forward, backward, station_metadata=meta_data):
+def validate_gage_points(sim_adapter, ts_start, ts_end, station_metadata=meta_data):
     validated_gages = {}
     for key, value in station_metadata.items():
         try:
-            time_series_df = get_timeseries_data(db_adapter, run_date, forward, backward, key, value)
+            time_series_df = sim_adapter.get_station_timeseries(ts_start, ts_end, key, value['run_name'])
             if time_series_df.size > 0:
-                filled_ts = fill_timeseries(run_date, forward, backward, time_series_df)
+                filled_ts = fill_timeseries(ts_start, ts_end, time_series_df)
                 filled_ts = filled_ts.set_index('time')
-                #formatted_ts = pd.DataFrame(data=time_series_data.values, columns=['time', 'value']).set_index(keys='time')
                 print(filled_ts)
                 formatted_ts = filled_ts.resample('1H').sum().fillna(0)
                 validated_gages[key] = formatted_ts
@@ -179,12 +149,9 @@ def validate_gage_points(db_adapter, run_date, forward, backward, station_metada
     return validated_gages
 
 
-def fill_timeseries(run_date, forward, backward, timeseries):
-    current_date = datetime.datetime.strptime(run_date, '%Y-%m-%d %H:%M:%S')
-    print('{current_date, forward, backward} : ', {current_date, forward, backward})
-    start_date = current_date - datetime.timedelta(days=backward)
-    end_date = current_date + datetime.timedelta(days=forward)
-    print('current_date:', current_date)
+def fill_timeseries(ts_start, ts_end, timeseries):
+    start_date = datetime.datetime.strptime(ts_start, '%Y-%m-%d %H:%M:%S')
+    end_date = datetime.datetime.strptime(ts_end, '%Y-%m-%d %H:%M:%S')
     print('start_date:', start_date)
     print('end_date:', end_date)
     available_start = timeseries.iloc[0]['time']
@@ -215,102 +182,10 @@ def fill_timeseries(run_date, forward, backward, timeseries):
     return timeseries
 
 
-def get_timeseries_data(db_adapter, run_date, forward, backward, key, value):
-    if backward == 2 and forward == 3:
-        observed_end = datetime.datetime.strptime(run_date, '%Y-%m-%d %H:%M:%S')
-        observed_start = observed_end - datetime.timedelta(hours=24 * backward)
-        forecast_0d_start = datetime.datetime.strptime(run_date, '%Y-%m-%d %H:%M:%S')
-        forecast_0d_end = forecast_0d_start + datetime.timedelta(hours=24)
-        forecast_1d_start = forecast_0d_end
-        forecast_1d_end = forecast_1d_start + datetime.timedelta(hours=24)
-        forecast_2d_start = forecast_1d_end
-        forecast_2d_end = forecast_2d_start + datetime.timedelta(hours=24)
-        # 'Forecast-0-d', 'Forecast-1-d-after', 'Forecast-2-d-after'
-        try:
-            observed_meta_data = {'station': key,
-                                  'variable': value['variable'],
-                                  'unit': value['unit'],
-                                  'type': value['event_type'],
-                                  'source': value['source'],
-                                  'name': value['run_name']}
-            event_id = get_event_id(db_adapter, observed_meta_data)
-            observed_ts = get_time_series_values(db_adapter, event_id, observed_start, observed_end)
-            forecast_d0_meta_data = {'station': key,
-                                     'variable': value['variable'],
-                                     'unit': value['unit'],
-                                     'type': 'Forecast-0-d',
-                                     'source': 'wrf0',
-                                     'name': 'Cloud-1'}
-            event_id0 = get_event_id(db_adapter, forecast_d0_meta_data)
-            forecast_d0_ts = get_time_series_values(db_adapter, event_id0, forecast_0d_start, forecast_0d_end)
-            forecast_d1_meta_data = {'station': key,
-                                     'variable': value['variable'],
-                                     'unit': value['unit'],
-                                     'type': 'Forecast-1-d-after',
-                                     'source': 'wrf0',
-                                     'name': 'Cloud-1'}
-            event_id1 = get_event_id(db_adapter, forecast_d1_meta_data)
-            forecast_d1_ts = get_time_series_values(db_adapter, event_id1, forecast_1d_start, forecast_1d_end)
-            forecast_d2_meta_data = {'station': key,
-                                     'variable': value['variable'],
-                                     'unit': value['unit'],
-                                     'type': 'Forecast-2-d-after',
-                                     'source': 'wrf0',
-                                     'name': 'Cloud-1'}
-            event_id2 = get_event_id(db_adapter, forecast_d2_meta_data)
-            forecast_d2_ts = get_time_series_values(db_adapter, event_id2, forecast_2d_start, forecast_2d_end)
-            total_forecast_ts = pd.concat([forecast_d0_ts, forecast_d1_ts, forecast_d2_ts])
-
-            final_ts = pd.concat([observed_ts, total_forecast_ts])
-            return final_ts
-        except Exception as ex:
-            print('get_timeseries_data|Exception|ex:', ex)
-
-
-def get_forecasted_ts_data(db_adapter, run_date, forward, key, value):
-    if forward == 3:
-        forecast_0d_start = datetime.datetime.strptime(run_date, '%Y-%m-%d %H:%M:%S')
-        forecast_0d_end = forecast_0d_start + datetime.timedelta(hours=24)
-        forecast_1d_start = forecast_0d_end
-        forecast_1d_end = forecast_1d_start + datetime.timedelta(hours=24)
-        forecast_2d_start = forecast_1d_end
-        forecast_2d_end = forecast_2d_start + datetime.timedelta(hours=24)
-        try:
-            db_meta_data = {'station': key,
-                            'variable': value['variable'],
-                            'unit': value['unit'],
-                            'type': value['event_type'],
-                            'source': value['source'],
-                            'name': value['run_name']}
-            event_id0 = get_event_id(db_adapter, db_meta_data)
-            forecast_d0_ts = get_time_series_values(db_adapter, event_id0, forecast_0d_start, forecast_0d_end)
-            db_meta_data = {'station': key,
-                            'variable': value['variable'],
-                            'unit': value['unit'],
-                            'type': value['event_type'],
-                            'source': value['source'],
-                            'name': value['run_name']}
-            event_id1 = get_event_id(db_adapter, db_meta_data)
-            forecast_d1_ts = get_time_series_values(db_adapter, event_id1, forecast_1d_start, forecast_1d_end)
-            db_meta_data = {'station': key,
-                            'variable': value['variable'],
-                            'unit': value['unit'],
-                            'type': value['event_type'],
-                            'source': value['source'],
-                            'name': value['run_name']}
-            event_id2 = get_event_id(db_adapter, db_meta_data)
-            forecast_d2_ts = get_time_series_values(db_adapter, event_id2, forecast_2d_start, forecast_2d_end)
-            total_forecast_ts = forecast_d0_ts + forecast_d1_ts + forecast_d2_ts
-            #print('total_forecast_ts : ', total_forecast_ts)
-            return total_forecast_ts
-        except Exception as ex:
-            print("get_forecasted_ts_data|Exception|e : ", ex)
-
-
-def get_rain_files(file_name, run_datetime, forward=3, backward=2):
-    print('get_rain_files|{run_datetime, forward, backward}: ', {run_datetime, forward, backward})
-    db_adapter = MySqlAdapter()
-    valid_gages = validate_gage_points(db_adapter, run_datetime, forward, backward)
+def get_rain_files(file_name, ts_start, ts_end):
+    print('get_rain_files|{file_name, ts_start, ts_end}: ', {file_name, ts_start, ts_end})
+    sim_adapter = CurwSimAdapter(MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DB)
+    valid_gages = validate_gage_points(sim_adapter, ts_start, ts_end)
     print('valid_gages.keys() : ', valid_gages.keys())
     kub_points = get_valid_kub_points_from_meta_data(valid_gages)
     try:
@@ -341,7 +216,6 @@ def get_rain_files(file_name, run_datetime, forward=3, backward=2):
             if sub_catchment_df.size > 0:
                 catchments_list.append(sub_catchment_name)
                 catchments_rf_df_list.append(sub_catchment_df)
-        MySqlAdapter.close_connection(db_adapter)
         df_merged = reduce(lambda left, right: pd.merge(left, right, on=['time'],
                                                         how='outer'), catchments_rf_df_list)
         df_merged.to_csv('df_merged.csv', header=False)
@@ -360,109 +234,5 @@ def get_rain_files(file_name, run_datetime, forward=3, backward=2):
         csvWriter.writerow(third_row)
         file_handler.close()
         df_merged.to_csv(file_name, mode='a', header=False)
-    except Exception as e:
-        MySqlAdapter.close_connection(db_adapter)
-        print("get_thessian_polygon_from_gage_points|Exception|e : ", e)
-
-
-def get_sub_catchment_rain_files(file_name, from_datetime, to_datetime):
-    print('get_sub_catchment_rain_files|{from_datetime, to_datetime}: ', {from_datetime, to_datetime})
-    db_adapter = MySqlAdapter()
-    valid_gages = validate_gage_points(db_adapter, from_datetime, to_datetime)
-    print('valid_gages : ', valid_gages)
-    print('valid_gages.keys() : ', valid_gages.keys())
-    kub_points = get_valid_kub_points_from_meta_data(valid_gages)
-    try:
-        shape_file = 'kub-wgs84/kub-wgs84.shp'
-        # catchment_file = 'kub/sub_catchments/sub_catchments1.shp'
-        catchment_file = 'sub_catchments/Hasitha_subcatchments.shp'
-        thessian_df = get_thessian_polygon_from_gage_points(shape_file, kub_points)
-        catchment_df = get_catchment_area(catchment_file)
-        sub_ratios = calculate_intersection(thessian_df, catchment_df)
-        print(sub_ratios)
-        catchments_list = []
-        catchments_rf_df_list = []
-        for sub_dict in sub_ratios:
-            ratio_list = sub_dict['ratios']
-            sub_catchment_name = sub_dict['sub_catchment_name']
-            gage_dict = ratio_list[0]
-            print('gage_dict:', gage_dict)
-            gage_name = gage_dict['gage_name']
-            sub_catchment_df = valid_gages[gage_name]
-            ratio = gage_dict['ratio']
-            print('ratio:', ratio)
-            sub_catchment_df.loc[:, 'value'] *= ratio
-            ratio_list.remove(gage_dict)
-            for gage_dict in ratio_list:
-                print('gage_dict:', gage_dict)
-                gage_name = gage_dict['gage_name']
-                time_series_df = valid_gages[gage_name]
-                ratio = gage_dict['ratio']
-                print('ratio:', ratio)
-                time_series_df.loc[:, 'value'] *= ratio
-                sub_catchment_df['value'] = sub_catchment_df['value'] + time_series_df['value']
-            catchments_list.append(sub_catchment_name)
-            catchments_rf_df_list.append(sub_catchment_df)
-        MySqlAdapter.close_connection(db_adapter)
-        print("catchments_list : ", catchments_list)
-        df_merged = reduce(lambda left, right: pd.merge(left, right, on=['time'],
-                                                        how='outer'), catchments_rf_df_list)
-        print('df_merged : ', df_merged)
-        print('df_merged.columns : ', df_merged.columns.values)
-        df_merged.to_csv('df_merged.csv', header=False)
-        file_handler = open(file_name, 'w')
-        csvWriter = csv.writer(file_handler, delimiter=',', quotechar='|')
-        # Write Metadata https://publicwiki.deltares.nl/display/FEWSDOC/CSV
-        first_row = ['Location Names']
-        first_row.extend(catchments_list)
-        second_row = ['Location Ids']
-        second_row.extend(catchments_list)
-        third_row = ['Time']
-        for i in range(len(catchments_list)):
-            third_row.append('Rainfall')
-        csvWriter.writerow(first_row)
-        csvWriter.writerow(second_row)
-        csvWriter.writerow(third_row)
-        file_handler.close()
-        df_merged.to_csv(file_name, mode='a', header=False)
-    except Exception as e:
-        MySqlAdapter.close_connection(db_adapter)
-        print("get_thessian_polygon_from_gage_points|Exception|e : ", e)
-
-
-def get_valid_gages(start_date, end_date):
-    db_adapter = MySqlAdapter()
-    valid_gages = validate_gage_points(db_adapter, start_date, end_date)
-    MySqlAdapter.close_connection(db_adapter)
-    print(valid_gages.keys())
-    return valid_gages
-
-
-def get_sub_ratios():
-    try:
-        shape_file = 'kub-wgs84/kub-wgs84.shp'
-        catchment_file = 'kub/sub_catchments/sub_catchments1.shp'
-        kub_points = get_kub_points_from_meta_data()
-        thessian_df = get_thessian_polygon_from_gage_points(shape_file, kub_points)
-        catchment_df = get_catchment_area(catchment_file)
-        sub_ratios = calculate_intersection(thessian_df, catchment_df)
-        print(sub_ratios)
-        return sub_ratios
-    except Exception as e:
-        print("get_thessian_polygon_from_gage_points|Exception|e : ", e)
-
-
-def get_timeseris():
-    try:
-        shape_file = 'kub-wgs84/kub-wgs84.shp'
-        catchment_file = 'kub/sub_catchments/sub_catchments1.shp'
-        kub_points = get_kub_points_from_meta_data()
-        thessian_df = get_thessian_polygon_from_gage_points(shape_file, kub_points)
-        catchment_df = get_catchment_area(catchment_file)
-        sub_ratios = calculate_intersection(thessian_df, catchment_df)
-        print(sub_ratios)
-        db_adapter = MySqlAdapter()
-        get_sub_catchment_rainfall('2018-09-27 00:00:00', '2018-09-30 00:00:00', db_adapter, sub_ratios[1])
-        MySqlAdapter.close_connection(db_adapter)
     except Exception as e:
         print("get_thessian_polygon_from_gage_points|Exception|e : ", e)
