@@ -7,9 +7,9 @@ import copy
 import datetime
 import numpy as np
 import geopandas as gpd
-from input.station_metadata import meta_data
+from input.station_metadata import meta_data_observed as meta_data
 from config import SUB_CATCHMENT_SHAPE_FILE_DIR, THESSIAN_DECIMAL_POINTS, \
-                        MYSQL_USER, MYSQL_DB, MYSQL_HOST, MYSQL_PASSWORD, MYSQL_PORT
+                        MYSQL_USER, MYSQL_DB, MYSQL_HOST, MYSQL_PASSWORD
 from functools import reduce
 import csv
 
