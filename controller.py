@@ -2,12 +2,12 @@ from flask import Flask, request, jsonify
 from flask_json import FlaskJSON, JsonError, json_response
 from flask_uploads import UploadSet, configure_uploads
 from os import path
-from datetime import datetime,timedelta
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from config import UPLOADS_DEFAULT_DEST, INIT_DATE_TIME_FORMAT, RAIN_FALL_FILE_NAME, HEC_HMS_MODEL_DIR
 from input.shape_util.polygon_util import get_rain_files
-from input.gage.model_gage import create_gage_file, create_gage_file_by_rain_file
+from input.gage.model_gage import create_gage_file_by_rain_file
 from input.control.model_control import create_control_file, create_control_file_by_rain_file
 from input.run.model_run import create_run_file
 from model.model_execute import execute_pre_dssvue, execute_post_dssvue, execute_hechms
@@ -102,7 +102,7 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'
             create_gage_file_by_rain_file('distributed_model', file_name)
             create_control_file_by_rain_file('distributed_model', file_name)
         else:
-            create_gage_file('distributed_model', from_date, to_date)
+            #create_gage_file('distributed_model', from_date, to_date)
             create_control_file('distributed_model', from_date, to_date)
         create_run_file('distributed_model', run_datetime.strftime('%Y-%m-%d %H:%M:%S'))
         return jsonify({'Result': 'Success'})
