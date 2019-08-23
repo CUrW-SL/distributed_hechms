@@ -1,0 +1,12 @@
+Control: distributed_model
+     Last Modified Date: 30 May 2018
+     Last Modified Time: 07:30:54
+     Version: 4.2.1
+     Start Date: 28 May 2018
+     Start Time: 13:00
+     End Date: 05 Jun 2018
+     End Time: 13:00
+     Time Interval: 60
+     Grid Write Interval: 60
+     Grid Write Time Shift: 0
+End:

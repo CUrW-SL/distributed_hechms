@@ -1,0 +1,31 @@
+{
+  "algo_config": {
+    "curw_rain_gage_file": "/home/hasitha/PycharmProjects/hechms-distributed/resources/configs/CurwRainGauges.csv",
+    "kub_shape_file": "/home/hasitha/PycharmProjects/hechms-distributed/resources/configs/kelani-upper-basin.shp",
+    "sub_catchment_file": "/home/hasitha/PycharmProjects/hechms-distributed/resources/configs/kub-wgs84.shp",
+    "sub_catchment_polygon_file": "/home/hasitha/PycharmProjects/hechms-distributed/resources/configs/sub_catchments1.shp",
+    "INIT_DATE_TIME_FORMAT": "%Y-%m-%d_%H:%M:%S",
+    "THESSIAN_DECIMAL_POINTS": 4
+  },
+
+  "input_config": {
+    "observed_db_config": {
+      "host": "192.168.1.43",
+      "port": 3306,
+      "user": "curw",
+      "password": "curw",
+      "db": "curw"
+    },
+    "forecast_db_config": {
+      "host": "192.168.1.42",
+      "port": 3306,
+      "user": "curw",
+      "password": "curw",
+      "db": "curw"
+    }
+  },
+
+  "output_config": {
+    "daily_rain_fp": "/home/hasitha/PycharmProjects/hechms-distributed/DailyRain.csv"
+  }
+}

@@ -1,0 +1,109 @@
+Gage Manager: distributed_model
+     Version: 4.2.1
+     Filepath Separator: /
+End:
+
+Gage: SB-1
+     Last Modified Date: 26 May 2018
+     Last Modified Time: 07:25:21
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Gage Type: Precipitation
+     Precipitation Type: Incremental
+     Units: MM
+     Data Type: PER-CUM
+     Data Source Type: Modifiable DSS
+     Variant: Variant-1
+       Last Variant Modified Date: 21 May 2018
+       Last Variant Modified Time: 13:26:44
+       Default Variant: Yes
+       DSS File Name: distributed_model_input.dss
+       DSS Pathname: //SB-1/PRECIP-INC//1HOUR/GAGE/
+       Start Time: 17 December 2018, 10:30
+       End Time: 22 December 2018, 10:30
+     End Variant: Variant-1
+End:
+
+Gage: SB-2
+     Last Modified Date: 8 November 2018
+     Last Modified Time: 10:05:00
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Gage Type: Precipitation
+     Precipitation Type: Incremental
+     Units: MM
+     Data Type: PER-CUM
+     Data Source Type: Modifiable DSS
+     Variant: Variant-1
+       Last Variant Modified Date: 21 May 2018
+       Last Variant Modified Time: 13:14:15
+       Default Variant: Yes
+       DSS File Name: distributed_model_input.dss
+       DSS Pathname: //SB-2/PRECIP-INC//1HOUR/GAGE/
+       Start Time: 17 December 2018, 10:30
+       End Time: 22 December 2018, 10:30
+     End Variant: Variant-1
+End:
+
+Gage: SB-3
+     Last Modified Date: 26 May 2018
+     Last Modified Time: 07:22:28
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Gage Type: Precipitation
+     Precipitation Type: Incremental
+     Units: MM
+     Data Type: PER-CUM
+     Data Source Type: Modifiable DSS
+     Variant: Variant-1
+       Last Variant Modified Date: 21 May 2018
+       Last Variant Modified Time: 13:03:27
+       Default Variant: Yes
+       DSS File Name: distributed_model_input.dss
+       DSS Pathname: //SB-3/PRECIP-INC//1HOUR/GAGE/
+       Start Time: 17 December 2018, 10:30
+       End Time: 22 December 2018, 10:30
+     End Variant: Variant-1
+End:
+
+Gage: SB-4
+     Last Modified Date: 26 May 2018
+     Last Modified Time: 07:20:55
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Gage Type: Precipitation
+     Precipitation Type: Incremental
+     Units: MM
+     Data Type: PER-CUM
+     Data Source Type: Modifiable DSS
+     Variant: Variant-1
+       Last Variant Modified Date: 21 May 2018
+       Last Variant Modified Time: 12:42:42
+       Default Variant: Yes
+       DSS File Name: distributed_model_input.dss
+       DSS Pathname: //SB-4/PRECIP-INC//1HOUR/GAGE/
+       Start Time: 17 December 2018, 10:30
+       End Time: 22 December 2018, 10:30
+     End Variant: Variant-1
+End:
+
+Gage: SB-5
+     Last Modified Date: 26 May 2018
+     Last Modified Time: 07:21:34
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Gage Type: Precipitation
+     Precipitation Type: Incremental
+     Units: MM
+     Data Type: PER-CUM
+     Data Source Type: Modifiable DSS
+     Variant: Variant-1
+       Last Variant Modified Date: 21 May 2018
+       Last Variant Modified Time: 12:43:49
+       Default Variant: Yes
+       DSS File Name: distributed_model_input.dss
+       DSS Pathname: //SB-5/PRECIP-INC//1HOUR/GAGE/
+       Start Time: 17 December 2018, 10:30
+       End Time: 22 December 2018, 10:30
+     End Variant: Variant-1
+End:

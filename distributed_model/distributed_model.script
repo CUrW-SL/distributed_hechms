@@ -1,0 +1,4 @@
+from hms.model.JythonHms import *
+OpenProject("distributed_model", "../distributed_model")
+Compute("Run 1")
+Exit(1)

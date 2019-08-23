@@ -1,0 +1,14 @@
+NOTE 15301:  Began computing simulation run "Run 1" at time 19Dec2018, 07:52:42.
+NOTE 10181:  Opened control specifications "Control 1" at time 19Dec2018, 07:52:42.
+NOTE 20364:  Found no parameter problems in meteorologic model "Met 1".
+NOTE 40049:  Found no parameter problems in basin model "Basin 1".
+WARNING 21360:  Gage "SB-1" for subbasin "Sub1" contains 1 missing precipitation values that were set to zero.
+WARNING 21360:  Gage "SB-2" for subbasin "Sub2" contains 1 missing precipitation values that were set to zero.
+WARNING 21360:  Gage "SB-3" for subbasin "Sub3" contains 1 missing precipitation values that were set to zero.
+WARNING 21360:  Gage "SB-4" for subbasin "Sub4" contains 1 missing precipitation values that were set to zero.
+WARNING 21360:  Gage "SB-5" for subbasin "Sub5" contains 1 missing precipitation values that were set to zero.
+WARNING 41167:  Total inflow to reach "Reach-1" is zero.
+WARNING 41169:  Muskingum routing is unstable with the given parameters for reach "Reach-1".
+WARNING 41167:  Total inflow to reach "Reach-1" is zero.
+WARNING 41169:  Muskingum routing is unstable with the given parameters for reach "Reach-1".
+NOTE 15302:  Finished computing simulation run "Run 1" at time 19Dec2018, 07:53:00.
