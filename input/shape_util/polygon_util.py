@@ -1,3 +1,5 @@
+import decimal
+
 from db_layer import CurwSimAdapter
 from resources import manager as res_mgr
 from .spatial_util import get_voronoi_polygons
@@ -15,6 +17,23 @@ import csv
 
 TIME_GAP_MINUTES = 5
 MISSING_ERROR_PERCENTAGE = 0.3
+
+
+def validate_gage_points(sim_adapter, ts_start, ts_end, station_metadata=meta_data):
+    validated_gages = {}
+    for key, value in station_metadata.items():
+        try:
+            time_series_df = sim_adapter.get_station_timeseries(ts_start, ts_end, key, value['run_name'])
+            if time_series_df.size > 0:
+                filled_ts = fill_timeseries(ts_start, ts_end, time_series_df)
+                filled_ts = filled_ts.set_index('time')
+                formatted_ts = filled_ts.resample('1H').sum().fillna(0)
+                validated_gages[key] = formatted_ts
+            else:
+                print('')
+        except Exception as e:
+            print('')
+    return validated_gages
 
 
 def _voronoi_finite_polygons_2d(vor, radius=None):
@@ -136,6 +155,7 @@ def validate_gage_points(sim_adapter, ts_start, ts_end, station_metadata=meta_da
     for key, value in station_metadata.items():
         try:
             time_series_df = sim_adapter.get_station_timeseries(ts_start, ts_end, key, value['run_name'])
+            print('time_series_df : ', time_series_df)
             if time_series_df.size > 0:
                 filled_ts = fill_timeseries(ts_start, ts_end, time_series_df)
                 filled_ts = filled_ts.set_index('time')
@@ -205,19 +225,20 @@ def get_rain_files(file_name, ts_start, ts_end):
             sub_catchment_df = valid_gages[gage_name]
             ratio = gage_dict['ratio']
             if ratio > 0:
-                sub_catchment_df.loc[:, 'value'] *= ratio
+                sub_catchment_df.loc[:, 'value'] *= decimal.Decimal(ratio)
             ratio_list.remove(gage_dict)
             for gage_dict in ratio_list:
                 gage_name = gage_dict['gage_name']
                 time_series_df = valid_gages[gage_name]
                 ratio = gage_dict['ratio']
-                time_series_df.loc[:, 'value'] *= ratio
+                time_series_df.loc[:, 'value'] *= decimal.Decimal(ratio)
                 sub_catchment_df['value'] = sub_catchment_df['value'] + time_series_df['value']
             if sub_catchment_df.size > 0:
                 catchments_list.append(sub_catchment_name)
                 catchments_rf_df_list.append(sub_catchment_df)
         df_merged = reduce(lambda left, right: pd.merge(left, right, on=['time'],
                                                         how='outer'), catchments_rf_df_list)
+        print('df_merged : ', df_merged)
         df_merged.to_csv('df_merged.csv', header=False)
         file_handler = open(file_name, 'w')
         csvWriter = csv.writer(file_handler, delimiter=',', quotechar='|')
