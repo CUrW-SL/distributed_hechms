@@ -79,7 +79,7 @@ class CurwSimAdapter:
             results = cursor.fetchall()
             for row in results:
                 hash_id = row[0]
-                station = row[1].split('_')[2]
+                station = row[1].split('_')[1]
                 available_list.append([hash_id, station])
         except Exception as e:
             print('get_available_stations|Exception:', e)
@@ -90,7 +90,7 @@ class CurwSimAdapter:
                                value_interpolation='MME', grid_interpolation='MDPA', acceppted_error=40):
         cursor = self.cursor
         try:
-            grid_id = 'rainfall_{}_{}_{}'.format(source, station_name, grid_interpolation)
+            grid_id = 'rainfall_{}_{}'.format(station_name, grid_interpolation)
             sql = 'select id, obs_end from curw_sim.run where model=\'{}\' and method=\'{}\'  and grid_id=\'{}\''.format(
                 model, value_interpolation, grid_id)
             print('sql : ', sql)
