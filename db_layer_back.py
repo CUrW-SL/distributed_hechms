@@ -68,6 +68,24 @@ class CurwSimAdapter:
             print('get_cell_timeseries|Exception:', e)
             return None
 
+    def get_available_stations(self, date_time, model='hechms', method='MME'):
+        available_list = []
+        print('get_available_stations|date_time : ', date_time)
+        cursor = self.cursor
+        try:
+            sql = 'select id,grid_id from curw_sim.run where model=\'{}\' and method=\'{}\'  and obs_end>=\'{}\''.format(model, method, date_time)
+            print('sql : ', sql)
+            cursor.execute(sql)
+            results = cursor.fetchall()
+            for row in results:
+                hash_id = row[0]
+                station = row[1].split('_')[1]
+                available_list.append([hash_id, station])
+        except Exception as e:
+            print('get_available_stations|Exception:', e)
+        finally:
+            return available_list
+
     def get_station_timeseries(self, timeseries_start, timeseries_end, station_name, source, model='hechms',
                                value_interpolation='MME', grid_interpolation='MDPA', acceppted_error=40):
         cursor = self.cursor
@@ -108,14 +126,10 @@ class CurwSimAdapter:
                             for step in range(time_step_count):
                                 tms_step = datetime.strptime(timeseries_start, '%Y-%m-%d %H:%M:%S') + timedelta(
                                     minutes=step * 5)
-                                if step < len(results):
-                                    if tms_step == results[i][0]:
-                                        formatted_ts.append(results[i])
-                                    else:
-                                        formatted_ts.append((tms_step, Decimal(0)))
+                                if tms_step == results[i][0]:
+                                    formatted_ts.append(results[i])
                                 else:
                                     formatted_ts.append((tms_step, Decimal(0)))
-                                i += 1
                             df = pd.DataFrame(data=formatted_ts, columns=['time', 'value']).set_index(keys='time')
                             print('get_station_timeseries|df: ', df)
                             return df
@@ -134,101 +148,6 @@ class CurwSimAdapter:
         except Exception as e:
             print('get_station_timeseries|Exception:', e)
             return None
-
-    def get_timeseries_by_id(self, hash_id, timeseries_start, timeseries_end, time_step_size=5):
-        cursor = self.cursor
-        data_sql = 'select time,value from curw_sim.data where time>=\'{}\' and time<=\'{}\' and id=\'{}\' '.format(
-            timeseries_start, timeseries_end, hash_id)
-        try:
-            print('data_sql : ', data_sql)
-            cursor.execute(data_sql)
-            results = cursor.fetchall()
-            # print('results : ', results)
-            if len(results) > 0:
-                time_step_count = int((datetime.strptime(timeseries_end, '%Y-%m-%d %H:%M:%S')
-                                       - datetime.strptime(timeseries_start,
-                                                           '%Y-%m-%d %H:%M:%S')).total_seconds() / (60 * time_step_size))
-                print('timeseries_start : {}'.format(timeseries_start))
-                print('timeseries_end : {}'.format(timeseries_end))
-                print('time_step_count : {}'.format(time_step_count))
-                print('len(results) : {}'.format(len(results)))
-                data_error = ((time_step_count - len(results)) / time_step_count) * 100
-                if data_error < 1:
-                    df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
-                    return df
-                else:
-                    print('data_error : {}'.format(data_error))
-                    print('filling missing data.')
-                    formatted_ts = []
-                    i = 0
-                    for step in range(time_step_count):
-                        tms_step = datetime.strptime(timeseries_start, '%Y-%m-%d %H:%M:%S') + timedelta(
-                            minutes=step * time_step_size)
-                        if step < len(results):
-                            if tms_step == results[i][0]:
-                                formatted_ts.append(results[i])
-                            else:
-                                formatted_ts.append((tms_step, Decimal(0)))
-                        else:
-                            formatted_ts.append((tms_step, Decimal(0)))
-                        i += 1
-                    df = pd.DataFrame(data=formatted_ts, columns=['time', 'value']).set_index(keys='time')
-                    print('get_station_timeseries|df: ', df)
-                    return df
-            else:
-                print('No data.')
-                return None
-        except Exception as e:
-            print('get_timeseries_by_id|data fetch|Exception:', e)
-            return None
-
-    def get_available_stations(self, date_time, model='hechms', method='MME'):
-        available_list = []
-        print('get_available_stations|date_time : ', date_time)
-        cursor = self.cursor
-        try:
-            sql = 'select id,grid_id, latitude, longitude from curw_sim.run where model=\'{}\' and method=\'{}\'  and obs_end>=\'{}\''.format(
-                model, method, date_time)
-            print('sql : ', sql)
-            cursor.execute(sql)
-            results = cursor.fetchall()
-            for row in results:
-                hash_id = row[0]
-                station = row[1].split('_')[2]
-                available_list.append([hash_id, station])
-        except Exception as e:
-            print('get_available_stations|Exception:', e)
-        finally:
-            return available_list
-
-    def get_available_stations_info(self, date_time, model='hechms', method='MME'):
-        """
-        To get station information where it has obs_end for before the given limit
-        :param date_time: '2019-08-27 05:00:00'
-        :param model:
-        :param method:
-        :return: {station_name:{'hash_id': hash_id, 'latitude': latitude, 'longitude': longitude},
-        station_name1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1}}
-        """
-        available_stations = {}
-        print('get_available_stations_info|date_time : ', date_time)
-        cursor = self.cursor
-        try:
-            sql = 'select id, grid_id, latitude, longitude from curw_sim.run where model=\'{}\' and method=\'{}\'  and obs_end>=\'{}\''.format(
-                model, method, date_time)
-            print('sql : ', sql)
-            cursor.execute(sql)
-            results = cursor.fetchall()
-            for row in results:
-                hash_id = row[0]
-                station = row[1].split('_')[1]
-                latitude = Decimal(row[2])
-                longitude = Decimal(row[3])
-                available_stations[station] = {'hash_id': hash_id, 'latitude': latitude, 'longitude': longitude}
-        except Exception as e:
-            print('get_available_stations_info|Exception:', e)
-        finally:
-            return available_stations
 
 
 class CurwFcstAdapter:
