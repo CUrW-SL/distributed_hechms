@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, request, jsonify
 from flask_json import FlaskJSON, JsonError, json_response
 from flask_uploads import UploadSet, configure_uploads
@@ -5,7 +7,7 @@ from os import path
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from config import UPLOADS_DEFAULT_DEST, INIT_DATE_TIME_FORMAT, RAIN_FALL_FILE_NAME, HEC_HMS_MODEL_DIR
+from config import UPLOADS_DEFAULT_DEST, INIT_DATE_TIME_FORMAT, RAIN_FALL_FILE_NAME, HEC_HMS_MODEL_DIR, OUTPUT_DIR
 from input.shape_util.polygon_util import get_rain_files
 from input.gage.model_gage import create_gage_file_by_rain_file
 from input.control.model_control import create_control_file, create_control_file_by_rain_file
@@ -86,13 +88,15 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'
     print('run_datetime : ', run_datetime)
     print('back_days : ', back_days)
     print('forward_days : ', forward_days)
+    file_date = (datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')).strftime('%Y-%m-%d')
+    file_time = (datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')).strftime('%H:00:00')
     run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d 00:00:00')
     to_date = run_datetime + timedelta(days=forward_days)
     from_date = run_datetime - timedelta(days=back_days)
     file_date = run_datetime.strftime('%Y-%m-%d')
     from_date = from_date.strftime('%Y-%m-%d %H:%M:%S')
     to_date = to_date.strftime('%Y-%m-%d %H:%M:%S')
-    file_name = RAIN_FALL_FILE_NAME.format(file_date)
+    file_name = os.path.join(OUTPUT_DIR, file_date, file_time, 'DailyRain.csv')
     print('file_name : ', file_name)
     print('{from_date, to_date} : ', {from_date, to_date})
     try:

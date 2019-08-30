@@ -15,6 +15,8 @@ MYSQL_DB = 'curw_sim'
 
 BACK_DAYS = 2
 
+OUTPUT_DIR = '/mnt/disks/curwsl_nfs/hechms/'
+
 RAIN_FALL_FILE_NAME = '/home/curw/distributed_hec/OUTPUT/DailyRain-{}.csv'
 DISCHARGE_FILE_NAME = '/home/curw/distributed_hec/OUTPUT/DailyDischarge-{}.csv'
 
