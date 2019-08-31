@@ -14,6 +14,8 @@ from input.control.model_control import create_control_file, create_control_file
 from input.run.model_run import create_run_file
 from model.model_execute import execute_pre_dssvue, execute_post_dssvue, execute_hechms
 
+from input.rainfall.mean_rain import get_mean_rain
+
 import logging
 logging.basicConfig(filename="/home/curw/distributed_hec/HecHmsDistributed/hechms.log", level=logging.DEBUG)
 
@@ -93,22 +95,22 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'
     run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d 00:00:00')
     to_date = run_datetime + timedelta(days=forward_days)
     from_date = run_datetime - timedelta(days=back_days)
-    file_date = run_datetime.strftime('%Y-%m-%d')
     from_date = from_date.strftime('%Y-%m-%d %H:%M:%S')
     to_date = to_date.strftime('%Y-%m-%d %H:%M:%S')
-    file_name = os.path.join(OUTPUT_DIR, file_date, file_time, 'DailyRain.csv')
-    print('file_name : ', file_name)
+    output_dir = os.path.join(OUTPUT_DIR, file_date, file_time)
+    print('output_dir : ', output_dir)
     print('{from_date, to_date} : ', {from_date, to_date})
     try:
-        get_rain_files(file_name, from_date, to_date)
-        rain_fall_file = Path(file_name)
-        if rain_fall_file.is_file():
-            create_gage_file_by_rain_file('distributed_model', file_name)
-            create_control_file_by_rain_file('distributed_model', file_name)
-        else:
-            #create_gage_file('distributed_model', from_date, to_date)
-            create_control_file('distributed_model', from_date, to_date)
-        create_run_file('distributed_model', run_datetime.strftime('%Y-%m-%d %H:%M:%S'))
+        get_rain_files(output_dir, from_date, to_date)
+        get_mean_rain(from_date, to_date, output_dir)
+        # rain_fall_file = Path(file_name)
+        # if rain_fall_file.is_file():
+        #     create_gage_file_by_rain_file('distributed_model', file_name)
+        #     create_control_file_by_rain_file('distributed_model', file_name)
+        # else:
+        #     #create_gage_file('distributed_model', from_date, to_date)
+        #     create_control_file('distributed_model', from_date, to_date)
+        # create_run_file('distributed_model', run_datetime.strftime('%Y-%m-%d %H:%M:%S'))
         return jsonify({'Result': 'Success'})
     except Exception as e:
         print('prepare_input_files|Exception: ', e)
