@@ -2,6 +2,8 @@ import mysql.connector
 import pandas as pd
 from datetime import datetime, timedelta
 from decimal import Decimal
+from shapely.geometry import Polygon, Point
+import geopandas as gpd
 
 
 class CurwSimAdapter:
@@ -229,6 +231,53 @@ class CurwSimAdapter:
             print('get_available_stations_info|Exception:', e)
         finally:
             return available_stations
+
+    def get_available_stations_in_sub_basin(db_adapter, sub_basin_shape_file, date_time):
+        """
+        Getting station points resides in the given shapefile
+        :param db_adapter:
+        :param sub_basin_shape_file:
+        :param date_time: '2019-08-28 11:00:00'
+        :return: {station1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1}, station2:{}}
+        """
+        available_stations = db_adapter.get_available_stations_info(date_time)
+        corrected_available_stations = {}
+        if len(available_stations):
+            for station, info in available_stations.items():
+                shape_attribute = ['OBJECTID', 1]
+                shape_df = gpd.GeoDataFrame.from_file(sub_basin_shape_file)
+                shape_polygon_idx = shape_df.index[shape_df[shape_attribute[0]] == shape_attribute[1]][0]
+                shape_polygon = shape_df['geometry'][shape_polygon_idx]
+                if Point(info['longitude'], info['latitude']).within(
+                        shape_polygon):  # make a point and see if it's in the polygon
+                    corrected_available_stations[station] = info
+                    print('Station {} in the sub-basin'.format(station))
+            return corrected_available_stations
+        else:
+            print('Not available stations..')
+            return {}
+
+    def get_basin_available_stations_timeseries(shape_file, adapter, start_time, end_time):
+        """
+        Add time series to the given available station list.
+        :param shape_file:
+        :param hourly_csv_file_dir:
+        :param adapter:
+        :param start_time: '2019-08-28 11:00:00'
+        :param end_time: '2019-08-28 11:00:00'
+        :return: {station1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1, 'timeseries': timeseries1}, station2:{}}
+        """
+        basin_available_stations = get_available_stations_in_sub_basin(adapter, shape_file, start_time)
+        print('get_basin_available_stations_timeseries|basin_available_stations: ', basin_available_stations)
+        for station, info in basin_available_stations.items():
+            hash_id = info['hash_id']
+            station_df = adapter.get_timeseries_by_id(hash_id, start_time, end_time)
+            if station_df is not None:
+                if not station_df.empty:
+                    basin_available_stations[station]['timeseries'] = station_df
+            else:
+                print('No times series data avaialble for the station ', station)
+        return basin_available_stations
 
 
 class CurwFcstAdapter:
