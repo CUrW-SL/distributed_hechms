@@ -7,6 +7,7 @@ from db_layer import CurwSimAdapter
 from resources import manager as res_mgr
 from config import MYSQL_USER, MYSQL_DB, MYSQL_HOST, MYSQL_PASSWORD
 
+THESSIAN_DECIMAL_POINTS = 4
 
 def _voronoi_finite_polygons_2d(vor, radius=None):
     """
@@ -138,6 +139,24 @@ def get_thessian_polygon_from_gage_points(output_dir, shape_file, gage_points):
     return voronoi_polygon
 
 
+def calculate_intersection(thessian_df, catchment_df):
+    sub_ratios = []
+    for i, catchment_polygon in enumerate(catchment_df['geometry']):
+        sub_catchment_name = catchment_df.iloc[i]['Name_of_Su']
+        ratio_list = []
+        for j, thessian_polygon in enumerate(thessian_df['geometry']):
+            if catchment_polygon.intersects(thessian_polygon):
+                gage_name = thessian_df.iloc[j]['id']
+                intersection = catchment_polygon.intersection(thessian_polygon)
+                ratio = np.round(intersection.area / thessian_polygon.area, THESSIAN_DECIMAL_POINTS)
+                ratio_dic = {'gage_name': gage_name, 'ratio': ratio}
+                ratio_list.append(ratio_dic)
+        # print('')
+        sub_dict = {'sub_catchment_name': sub_catchment_name, 'ratios': ratio_list}
+        sub_ratios.append(sub_dict)
+    return sub_ratios
+
+
 def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
     try:
         print('[ts_start, ts_end, output_dir, catchment] : ', [ts_start, ts_end, output_dir, catchment])
@@ -160,6 +179,8 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
         print('shape_file : ', shape_file)
         catchment_df = gpd.GeoDataFrame.from_file(shape_file)
         print('catchment_df : ', catchment_df)
+        sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
+        print('sub_ratios : ', sub_ratios)
         sim_adapter.close_connection()
     except Exception as e:
         print("get_mean_rain|Exception|e : ", e)
