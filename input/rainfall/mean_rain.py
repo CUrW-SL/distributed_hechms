@@ -127,23 +127,26 @@ def get_thessian_polygon_from_gage_points(output_dir, shape_file, gage_points):
 
 
 def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
-    print('[ts_start, ts_end, output_dir, catchment] : ', [ts_start, ts_end, output_dir, catchment])
-    sim_adapter = CurwSimAdapter(MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DB)
-    if catchment == 'kub':
-        shape_file = res_mgr.get_resource_path('kub-wgs84/kub-wgs84.shp')
-    else:
-        shape_file = res_mgr.get_resource_path('klb-wgs84/klb-wgs84.shp')
-    # {station1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1, 'timeseries': timeseries1}}
-    available_stations = sim_adapter.get_basin_available_stations_timeseries(shape_file, ts_start, ts_end)
-    # {'id' --> [lon, lat]}
-    gauge_points = {}
-    for station, info in available_stations.items():
-        gauge_points[station] = [info['longitude'], info['latitude']]
-    print('gauge_points : ', gauge_points)
-    gauge_points_thessian = get_thessian_polygon_from_gage_points(output_dir, shape_file, gauge_points)
-    print('gauge_points_thessian : ', gauge_points_thessian)
-    shape = res_mgr.get_resource_path('sub_catchments/sub_catchments.shp')
-    catchment_df = gpd.GeoDataFrame.from_file(shape)
-    print('catchment_df : ', catchment_df)
-    sim_adapter.close_connection()
+    try:
+        print('[ts_start, ts_end, output_dir, catchment] : ', [ts_start, ts_end, output_dir, catchment])
+        sim_adapter = CurwSimAdapter(MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DB)
+        if catchment == 'kub':
+            shape_file = res_mgr.get_resource_path('kub-wgs84/kub-wgs84.shp')
+        else:
+            shape_file = res_mgr.get_resource_path('klb-wgs84/klb-wgs84.shp')
+        # {station1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1, 'timeseries': timeseries1}}
+        available_stations = sim_adapter.get_basin_available_stations_timeseries(shape_file, ts_start, ts_end)
+        # {'id' --> [lon, lat]}
+        gauge_points = {}
+        for station, info in available_stations.items():
+            gauge_points[station] = [info['longitude'], info['latitude']]
+        print('gauge_points : ', gauge_points)
+        gauge_points_thessian = get_thessian_polygon_from_gage_points(output_dir, shape_file, gauge_points)
+        print('gauge_points_thessian : ', gauge_points_thessian)
+        shape = res_mgr.get_resource_path('sub_catchments/sub_catchments.shp')
+        catchment_df = gpd.GeoDataFrame.from_file(shape)
+        print('catchment_df : ', catchment_df)
+        sim_adapter.close_connection()
+    except Exception as e:
+        print("get_mean_rain|Exception|e : ", e)
 
