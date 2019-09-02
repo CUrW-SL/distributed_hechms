@@ -114,6 +114,9 @@ def get_voronoi_polygons(points_dict, shape_file, shape_attribute=None, output_s
                          'geometry': intersection
                          })
     df = gpd.GeoDataFrame(data, columns=['id', 'lon', 'lat', 'area', 'geometry'], crs=shape_df.crs)
+    if output_shape_file is not None:
+        df.to_file(output_shape_file)
+
     return df
 
 
