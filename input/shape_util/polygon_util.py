@@ -157,11 +157,11 @@ def validate_gage_points(sim_adapter, ts_start, ts_end, station_metadata=meta_da
             time_series_df = sim_adapter.get_station_timeseries(ts_start, ts_end, key, value['run_name'])
             print('time_series_df : ', time_series_df)
             if time_series_df.size > 0:
-                filled_ts = fill_timeseries(ts_start, ts_end, time_series_df)
-                filled_ts = filled_ts.set_index('time')
-                print(filled_ts)
-                formatted_ts = filled_ts.resample('1H').sum().fillna(0)
-                validated_gages[key] = formatted_ts
+                # filled_ts = fill_timeseries(ts_start, ts_end, time_series_df)
+                # filled_ts = filled_ts.set_index('time')
+                # print(filled_ts)
+                # formatted_ts = filled_ts.resample('1H').sum().fillna(0)
+                validated_gages[key] = time_series_df
             else:
                 print('Empty timeseries.')
         except Exception as e:
