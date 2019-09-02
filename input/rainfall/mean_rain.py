@@ -117,11 +117,20 @@ def get_voronoi_polygons(points_dict, shape_file, shape_attribute=None, output_s
     return df
 
 
+def create_dir_if_not_exists(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return path
+
+
 def get_thessian_polygon_from_gage_points(output_dir, shape_file, gage_points):
-    shape = res_mgr.get_resource_path(shape_file)
+    # shape = res_mgr.get_resource_path(shape_file)
     # calculate the voronoi/thesian polygons w.r.t given station points.
-    voronoi_polygon = get_voronoi_polygons(gage_points, shape, ['OBJECTID', 1],
-                                       output_shape_file=os.path.join(output_dir, 'shape', 'sub_catchment.shp'))
+    output_shape_path = os.path.join(output_dir, 'shape')
+    create_dir_if_not_exists(output_shape_path)
+    output_shape_file = os.path.join(output_shape_path, 'output.shp')
+    voronoi_polygon = get_voronoi_polygons(gage_points, shape_file, ['OBJECTID', 1],
+                                       output_shape_file=output_shape_file)
     print('voronoi_polygon : ', voronoi_polygon)
     return voronoi_polygon
 
@@ -139,12 +148,14 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
         # {'id' --> [lon, lat]}
         gauge_points = {}
         for station, info in available_stations.items():
-            gauge_points[station] = [info['longitude'], info['latitude']]
+            gauge_points[station] = ['%.6f' % info['longitude'], '%.6f' % info['latitude']]
         print('gauge_points : ', gauge_points)
+        print('output_dir : ', output_dir)
         gauge_points_thessian = get_thessian_polygon_from_gage_points(output_dir, shape_file, gauge_points)
         print('gauge_points_thessian : ', gauge_points_thessian)
-        shape = res_mgr.get_resource_path('sub_catchments/sub_catchments.shp')
-        catchment_df = gpd.GeoDataFrame.from_file(shape)
+        shape_file = res_mgr.get_resource_path('sub_catchments/sub_catchments.shp')
+        print('shape_file : ', shape_file)
+        catchment_df = gpd.GeoDataFrame.from_file(shape_file)
         print('catchment_df : ', catchment_df)
         sim_adapter.close_connection()
     except Exception as e:
