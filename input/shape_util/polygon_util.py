@@ -210,7 +210,7 @@ def get_rain_files(file_name, ts_start, ts_end):
     kub_points = get_valid_kub_points_from_meta_data(valid_gages)
     try:
         shape_file = 'kub-wgs84/kub-wgs84.shp'
-        catchment_file = 'sub_catchments/Hasitha_subcatchments.shp'
+        catchment_file = 'sub_catchments/sub_catchments.shp'
         thessian_df = get_thessian_polygon_from_gage_points(shape_file, kub_points)
         catchment_df = get_catchment_area(catchment_file)
         sub_ratios = calculate_intersection(thessian_df, catchment_df)
