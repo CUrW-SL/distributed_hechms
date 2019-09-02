@@ -33,6 +33,12 @@ configure_uploads(app, model_distributed)
 flask_json.init_app(app)
 
 
+def create_dir_if_not_exists(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return path
+
+
 @app.route('/')
 def hello_world():
     return 'Welcome to HecHms(Distributed) Server!'
@@ -91,7 +97,7 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'
     print('back_days : ', back_days)
     print('forward_days : ', forward_days)
     file_date = (datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')).strftime('%Y-%m-%d')
-    file_time = (datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')).strftime('%H:00:00')
+    file_time = (datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')).strftime('%H:%M:%S')
     run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d 00:00:00')
     to_date = run_datetime + timedelta(days=forward_days)
     from_date = run_datetime - timedelta(days=back_days)
@@ -101,6 +107,7 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'
     print('output_dir : ', output_dir)
     print('{from_date, to_date} : ', {from_date, to_date})
     try:
+        create_dir_if_not_exists(output_dir)
         get_rain_files(output_dir, from_date, to_date)
         get_mean_rain(from_date, to_date, output_dir)
         # rain_fall_file = Path(file_name)
