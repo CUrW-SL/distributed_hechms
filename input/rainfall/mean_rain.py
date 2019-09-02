@@ -193,15 +193,15 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
                 gauge_name = ratio['gage_name']
                 ratio = ratio['ratio']
                 gauge_ts = available_stations[gauge_name]['timeseries']
+                gauge_file = os.path.join(output_dir, '{}.csv'.format(gauge_name))
+                gauge_ts.to_csv(gauge_file, header=False)
                 modified_gauge_ts = gauge_ts.multiply(Decimal(ratio), axis='value')
+                gauge_modified_file = os.path.join(output_dir, '{}_modified.csv'.format(gauge_name))
+                modified_gauge_ts.to_csv(gauge_modified_file, header=False)
                 catchment_ts_list.append(modified_gauge_ts)
             total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
-            # if len(catchment_ts_list) == 1:
-            #     catchment_rain = catchment_ts_list[0]
-            # elif len(catchment_ts_list) > 1:
-            #     catchment_rain = catchment_ts_list[0]
-            #     for i in range(len(catchment_ts_list)-1):
-            #         catchment_rain = catchment_ts_list[i+1]
+            total_rain_file = os.path.join(output_dir, 'total_rain.csv')
+            total_rain.to_csv(total_rain_file, header=False)
             print('total_rain : ', total_rain)
             catchment_rain[catchment_name] = total_rain
         sim_adapter.close_connection()
