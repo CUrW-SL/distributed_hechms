@@ -1,4 +1,5 @@
 import os
+from _decimal import Decimal
 import geopandas as gpd
 import numpy as np
 from scipy.spatial import Voronoi
@@ -6,6 +7,7 @@ from shapely.geometry import Polygon, Point
 from db_layer import CurwSimAdapter
 from resources import manager as res_mgr
 from config import MYSQL_USER, MYSQL_DB, MYSQL_HOST, MYSQL_PASSWORD
+from functools import reduce
 
 THESSIAN_DECIMAL_POINTS = 4
 
@@ -151,7 +153,6 @@ def calculate_intersection(thessian_df, catchment_df):
                 ratio = np.round(intersection.area / thessian_polygon.area, THESSIAN_DECIMAL_POINTS)
                 ratio_dic = {'gage_name': gage_name, 'ratio': ratio}
                 ratio_list.append(ratio_dic)
-        # print('')
         sub_dict = {'sub_catchment_name': sub_catchment_name, 'ratios': ratio_list}
         sub_ratios.append(sub_dict)
     return sub_ratios
@@ -181,6 +182,28 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
         print('catchment_df : ', catchment_df)
         sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
         print('sub_ratios : ', sub_ratios)
+        catchment_rain = {}
+        for sub_ratio in sub_ratios:
+            print('sub_ratio : ', sub_ratio)
+            catchment_name = sub_ratio['sub_catchment_name']
+            catchment_ts_list = []
+            ratios = sub_ratio['ratios']
+            for ratio in ratios:
+                # {'gage_name': 'Dickoya', 'ratio': 0.9878}
+                gauge_name = ratio['gage_name']
+                ratio = ratio['ratio']
+                gauge_ts = available_stations[gauge_name]['timeseries']
+                modified_gauge_ts = gauge_ts.multiply(Decimal(ratio), axis='value')
+                catchment_ts_list.append(modified_gauge_ts)
+            total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
+            # if len(catchment_ts_list) == 1:
+            #     catchment_rain = catchment_ts_list[0]
+            # elif len(catchment_ts_list) > 1:
+            #     catchment_rain = catchment_ts_list[0]
+            #     for i in range(len(catchment_ts_list)-1):
+            #         catchment_rain = catchment_ts_list[i+1]
+            print('total_rain : ', total_rain)
+            catchment_rain[catchment_name] = total_rain
         sim_adapter.close_connection()
     except Exception as e:
         print("get_mean_rain|Exception|e : ", e)
