@@ -177,14 +177,11 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
         gauge_points_thessian = get_thessian_polygon_from_gage_points(output_dir, shape_file, gauge_points)
         print('gauge_points_thessian : ', gauge_points_thessian)
         shape_file = res_mgr.get_resource_path('sub_catchments/sub_catchments.shp')
-        print('shape_file : ', shape_file)
         catchment_df = gpd.GeoDataFrame.from_file(shape_file)
-        print('catchment_df : ', catchment_df)
         sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
         print('sub_ratios : ', sub_ratios)
-        catchment_rain = {}
+        catchment_rain = []
         for sub_ratio in sub_ratios:
-            print('sub_ratio : ', sub_ratio)
             catchment_name = sub_ratio['sub_catchment_name']
             catchment_ts_list = []
             ratios = sub_ratio['ratios']
@@ -193,17 +190,17 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
                 gauge_name = ratio['gage_name']
                 ratio = ratio['ratio']
                 gauge_ts = available_stations[gauge_name]['timeseries']
-                gauge_file = os.path.join(output_dir, '{}.csv'.format(gauge_name))
-                gauge_ts.to_csv(gauge_file, header=False)
                 modified_gauge_ts = gauge_ts.multiply(Decimal(ratio), axis='value')
-                gauge_modified_file = os.path.join(output_dir, '{}_modified.csv'.format(gauge_name))
-                modified_gauge_ts.to_csv(gauge_modified_file, header=False)
                 catchment_ts_list.append(modified_gauge_ts)
             total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
-            total_rain_file = os.path.join(output_dir, 'total_rain.csv')
-            total_rain.to_csv(total_rain_file, header=False)
-            print('total_rain : ', total_rain)
-            catchment_rain[catchment_name] = total_rain
+            total_rain.rename(columns={'value': catchment_name}, inplace=True)
+            catchment_rain.append(total_rain)
+        print('catchment_rain : ', catchment_rain)
+        if len(catchment_rain) >= 1:
+            mean_rain = catchment_rain[0].join(catchment_rain[1:])
+            print('mean_rain : ', mean_rain)
+            output_file = os.path.join(output_dir, 'DailyRain.csv')
+            mean_rain.to_csv(output_file, header=False)
         sim_adapter.close_connection()
     except Exception as e:
         print("get_mean_rain|Exception|e : ", e)
