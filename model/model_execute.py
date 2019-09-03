@@ -3,27 +3,21 @@ from datetime import timedelta
 from os import path
 
 from config import HEC_HMS_HOME, HEC_HMS_SH, HEC_DSSVUE_HOME, HEC_DSSVUE_SH, HEC_EVENT_SCRIPT,\
-    PRE_PROCESSING_SCRIPT,POST_PROCESSING_SCRIPT, RAIN_FALL_FILE_NAME, DISCHARGE_FILE_NAME, \
+    PRE_PROCESSING_SCRIPT, POST_PROCESSING_SCRIPT, RAIN_FALL_FILE_NAME, DISCHARGE_FILE_NAME, \
     HEC_INPUT_DSS, HEC_OUTPUT_DSS
 
 
-def execute_pre_dssvue(run_date_time, back_days):
+def execute_pre_dssvue(run_date_time, ts_start_date, ts_start_time):
     python_script_fp = PRE_PROCESSING_SCRIPT
     run_date = run_date_time.strftime('%Y-%m-%d')
     run_time = run_date_time.strftime('%H:%M:%S')
-    ts_start_date_time = run_date_time - timedelta(days=back_days)
-    ts_start_date = ts_start_date_time.strftime('%Y-%m-%d')
-    ts_start_time = ts_start_date_time.strftime('%H:%M:%S')
     return _execute_hec_dssvue(python_script_fp, run_date, run_time, ts_start_date, ts_start_time)
 
 
-def execute_post_dssvue(run_date_time, back_days):
+def execute_post_dssvue(run_date_time, ts_start_date, ts_start_time):
     python_script_fp = POST_PROCESSING_SCRIPT
     run_date = run_date_time.strftime('%Y-%m-%d')
     run_time = run_date_time.strftime('%H:%M:%S')
-    ts_start_date_time = run_date_time - timedelta(days=back_days)
-    ts_start_date = ts_start_date_time.strftime('%Y-%m-%d')
-    ts_start_time = ts_start_date_time.strftime('%H:%M:%S')
     return _execute_hec_dssvue(python_script_fp, run_date, run_time, ts_start_date, ts_start_time)
 
 

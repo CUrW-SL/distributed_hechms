@@ -104,10 +104,10 @@ try :
 
         myDss = HecDss.open(DSS_INPUT_FILE)
         
-        fileName = RAIN_CSV_FILE.rsplit('.', 1)
+        #fileName = RAIN_CSV_FILE.rsplit('.', 1)
         # str .format not working on this version
-        fileName = '%s-%s%s.%s' % (fileName[0], date, '.'+tag if tag else '', fileName[1])
-        RAIN_CSV_FILE_PATH = os.path.join(OUTPUT_DIR, fileName)
+        #fileName = '%s-%s%s.%s' % (fileName[0], date, '.'+tag if tag else '', fileName[1])
+        RAIN_CSV_FILE_PATH = os.path.join(OUTPUT_DIR, date, time, 'DailyRain.csv')
         print 'Open Rainfall CSV ::', RAIN_CSV_FILE_PATH
         csvReader = csv.reader(open(RAIN_CSV_FILE_PATH, 'r'), delimiter=',', quotechar='|')
         csvList = list(csvReader)

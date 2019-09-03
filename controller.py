@@ -113,29 +113,34 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'
     output_file = os.path.join(output_dir, 'DailyRain.csv')
     try:
         create_dir_if_not_exists(output_dir)
-        get_rain_files(output_file, from_date, to_date)
         get_mean_rain(from_date, to_date, output_dir)
-        # rain_fall_file = Path(file_name)
-        # if rain_fall_file.is_file():
-        #     create_gage_file_by_rain_file('distributed_model', file_name)
-        #     create_control_file_by_rain_file('distributed_model', file_name)
-        # else:
-        #     #create_gage_file('distributed_model', from_date, to_date)
-        #     create_control_file('distributed_model', from_date, to_date)
-        # create_run_file('distributed_model', run_datetime.strftime('%Y-%m-%d %H:%M:%S'))
-        return jsonify({'Result': 'Success'})
+        rain_fall_file = Path(output_file)
+        if rain_fall_file.is_file():
+            create_gage_file_by_rain_file('distributed_model', output_file)
+            create_control_file_by_rain_file('distributed_model', output_file)
+            create_run_file('distributed_model', run_datetime.strftime('%Y-%m-%d %H:%M:%S'))
+            return jsonify({'Result': 'Success'})
+        else :
+            return jsonify({'Result': 'Fail'})
     except Exception as e:
         print('prepare_input_files|Exception: ', e)
         logging.debug("prepare_input_files|Exception|{}".format(e))
         return jsonify({'Result': 'Fail'})
 
 
-@app.route('/HECHMS/distributed/pre-process/<string:run_datetime>/<int:back_days>',  methods=['GET', 'POST'])
-def pre_processing(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), back_days=2):
+@app.route('/HECHMS/distributed/pre-process/<string:run_datetime>/<int:back_days>/<int:forward_days>',  methods=['GET', 'POST'])
+def pre_processing(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), back_days=3, forward_days=2):
     print('pre_processing.')
     print('run_datetime : ', run_datetime)
     run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')
-    ret_code = execute_pre_dssvue(run_datetime, back_days)
+    exec_datetime = (datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')).strftime('%Y-%m-%d %H:%M:%S')
+    run_datetime = datetime.strptime(run_datetime.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
+    from_date = run_datetime - timedelta(days=back_days)
+    ts_start_date = from_date.strftime('%Y-%m-%d')
+    ts_start_time = from_date.strftime('%H:%M:%S')
+
+    # ts_end = to_date.strftime('%Y-%m-%d %H:%M:%S')
+    ret_code = execute_pre_dssvue(exec_datetime, ts_start_date, ts_start_time)
     if ret_code == 0:
         return jsonify({'Result': 'Success'})
     else:
@@ -152,12 +157,17 @@ def run_hec_hms_model():
         return jsonify({'Result': 'Fail'})
 
 
-@app.route('/HECHMS/distributed/post-process/<string:run_datetime>/<int:back_days>',  methods=['GET', 'POST'])
-def post_processing(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), back_days=2):
+@app.route('/HECHMS/distributed/post-process/<string:run_datetime>/<int:back_days>/<int:forward_days>',  methods=['GET', 'POST'])
+def post_processing(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), back_days=3, forward_days=2):
     print('pre_processing.')
     print('run_datetime : ', run_datetime)
     run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')
-    ret_code = execute_post_dssvue(run_datetime, back_days)
+    exec_datetime = (datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')).strftime('%Y-%m-%d %H:%M:%S')
+    run_datetime = datetime.strptime(run_datetime.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
+    from_date = run_datetime - timedelta(days=back_days)
+    ts_start_date = from_date.strftime('%Y-%m-%d')
+    ts_start_time = from_date.strftime('%H:%M:%S')
+    ret_code = execute_post_dssvue(exec_datetime, ts_start_date, ts_start_time)
     if ret_code == 0:
         return jsonify({'Result': 'Success'})
     else:
@@ -205,8 +215,6 @@ def get_gage_file(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), bac
     rain_fall_file = Path(file_name)
     if rain_fall_file.is_file():
         create_gage_file_by_rain_file('distributed_model', file_name)
-    else:
-        create_gage_file('distributed_model', from_date, to_date)
     return jsonify({'timeseries': {}})
 
 
