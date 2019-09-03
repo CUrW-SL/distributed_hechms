@@ -1,3 +1,4 @@
+import csv
 import os
 from _decimal import Decimal
 import geopandas as gpd
@@ -181,6 +182,7 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
         sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
         print('sub_ratios : ', sub_ratios)
         catchment_rain = []
+        catchment_name_list = []
         for sub_ratio in sub_ratios:
             catchment_name = sub_ratio['sub_catchment_name']
             catchment_ts_list = []
@@ -194,13 +196,29 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
                 catchment_ts_list.append(modified_gauge_ts)
             total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
             total_rain.rename(columns={'value': catchment_name}, inplace=True)
+            catchment_name_list.append(catchment_name)
             catchment_rain.append(total_rain)
         print('catchment_rain : ', catchment_rain)
         if len(catchment_rain) >= 1:
             mean_rain = catchment_rain[0].join(catchment_rain[1:])
             print('mean_rain : ', mean_rain)
             output_file = os.path.join(output_dir, 'DailyRain.csv')
-            mean_rain.to_csv(output_file, header=False)
+            #mean_rain.to_csv(output_file, header=False)
+            file_handler = open(output_file, 'w')
+            csvWriter = csv.writer(file_handler, delimiter=',', quotechar='|')
+            # Write Metadata https://publicwiki.deltares.nl/display/FEWSDOC/CSV
+            first_row = ['Location Names']
+            first_row.extend(catchment_name_list)
+            second_row = ['Location Ids']
+            second_row.extend(catchment_name_list)
+            third_row = ['Time']
+            for i in range(len(catchment_name_list)):
+                third_row.append('Rainfall')
+            csvWriter.writerow(first_row)
+            csvWriter.writerow(second_row)
+            csvWriter.writerow(third_row)
+            file_handler.close()
+            mean_rain.to_csv(output_file, mode='a', header=False)
         sim_adapter.close_connection()
     except Exception as e:
         print("get_mean_rain|Exception|e : ", e)
