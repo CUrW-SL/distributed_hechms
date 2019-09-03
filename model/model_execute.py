@@ -11,6 +11,7 @@ def execute_pre_dssvue(run_date_time, ts_start_date, ts_start_time):
     python_script_fp = PRE_PROCESSING_SCRIPT
     run_date = run_date_time.strftime('%Y-%m-%d')
     run_time = run_date_time.strftime('%H:%M:%S')
+    print('[run_date, run_time] : ', [run_date, run_time])
     return _execute_hec_dssvue(python_script_fp, run_date, run_time, ts_start_date, ts_start_time)
 
 

@@ -4,6 +4,7 @@ DISTRIBUTED_MODEL_TEMPLATE_DIR = ''
 HECHMS_LIBS_DIR = ''
 SUB_CATCHMENT_SHAPE_FILE_DIR = ''
 THESSIAN_DECIMAL_POINTS = 4
+STATE_INTERVAL = 1 * 24 * 60  # In minutes (1 day)
 
 OBSERVED_MYSQL_HOST = '192.168.1.43'
 
@@ -41,7 +42,7 @@ CONTROL_TEMPLATE = 'Control: {MODEL_NAME}\n     Description: Distributed HecHms\
 
 CONTROL_FILE_NAME = '/home/curw/distributed_hec/distributed_model/{MODEL_NAME}.control'
 
-RUN_FILE_TEMPLATE = 'Run: {MODEL_NAME}\n     Default Description: Yes\n     Log File: {MODEL_NAME}.log\n' \
+RUN_FILE_TEMPLATE0 = 'Run: {MODEL_NAME}\n     Default Description: Yes\n     Log File: {MODEL_NAME}.log\n' \
                     '     DSS File: {MODEL_NAME}_run.dss\n' \
                     '     Last Modified Date: {LAST_MODIFIED_DATE}\n' \
                     '     Last Modified Time: {LAST_MODIFIED_TIME}\n' \
@@ -50,7 +51,25 @@ RUN_FILE_TEMPLATE = 'Run: {MODEL_NAME}\n     Default Description: Yes\n     Log 
                     '     Basin: {MODEL_NAME}\n' \
                     '     Precip: {MODEL_NAME}\n' \
                     '     Control: {MODEL_NAME}\n' \
+                    '     Save State Name: State_{START_STATE_DATE}_To_{SAVE_STATE_DATE_TIME}\n' \
+                    '     Save State Date: {SAVE_STATE_DATE_DSS}\n' \
+                    '     Save State Time: {SAVE_STATE_TIME_DSS}\n' \
                     'End:'
+
+RUN_FILE_TEMPLATE1 = 'Run: {MODEL_NAME}\n     Default Description: Yes\n     Log File: {MODEL_NAME}.log\n' \
+                     '     DSS File: {MODEL_NAME}_run.dss\n' \
+                     '     Last Modified Date: {LAST_MODIFIED_DATE}\n' \
+                     '     Last Modified Time: {LAST_MODIFIED_TIME}\n' \
+                     '     Last Execution Date: {EXECUSION_DATE}\n' \
+                     '     Last Execution Time: {EXECUSION_TIME}\n' \
+                     '     Basin: {MODEL_NAME}\n' \
+                     '     Precip: {MODEL_NAME}\n' \
+                     '     Control: {MODEL_NAME}\n' \
+                     '     Save State Name: State_{START_STATE_DATE}_To_{SAVE_STATE_DATE_TIME}\n' \
+                     '     Save State Date: {SAVE_STATE_DATE_DSS}\n' \
+                     '     Save State Time: {SAVE_STATE_TIME_DSS}\n' \
+                     '     Start State Name: State_{START_STATE_DATE_TIME}_To_{START_STATE_DATE}\n' \
+                     'End:'
 
 RUN_FILE_NAME = '/home/curw/distributed_hec/distributed_model/{MODEL_NAME}.run'
 
