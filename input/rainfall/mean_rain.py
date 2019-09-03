@@ -151,7 +151,7 @@ def calculate_intersection(thessian_df, catchment_df):
             if catchment_polygon.intersects(thessian_polygon):
                 gage_name = thessian_df.iloc[j]['id']
                 intersection = catchment_polygon.intersection(thessian_polygon)
-                ratio = np.round(intersection.area / thessian_polygon.area, THESSIAN_DECIMAL_POINTS)
+                ratio = np.round(intersection.area / catchment_polygon.area, THESSIAN_DECIMAL_POINTS)
                 ratio_dic = {'gage_name': gage_name, 'ratio': ratio}
                 ratio_list.append(ratio_dic)
         sub_dict = {'sub_catchment_name': sub_catchment_name, 'ratios': ratio_list}
