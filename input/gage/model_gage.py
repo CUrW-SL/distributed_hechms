@@ -15,7 +15,7 @@ def get_gages(id_list):
 def create_gage_file_by_rain_file(model_name, rain_filename):
     rf_data_frame = pd.read_csv(rain_filename, sep=',')
     gage_list = get_gages(rf_data_frame.iloc[0])
-    start_datetime = rf_data_frame.iloc[3][0]
+    start_datetime = rf_data_frame.iloc[2][0]
     end_datetime = rf_data_frame.iloc[-1][0]
     print('gage_list : ', gage_list)
     print('start_datetime : ', start_datetime)

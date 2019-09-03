@@ -133,7 +133,7 @@ def pre_processing(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), ba
     print('pre_processing.')
     print('run_datetime : ', run_datetime)
     run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')
-    exec_datetime = (datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')).strftime('%Y-%m-%d %H:%M:%S')
+    exec_datetime = run_datetime
     run_datetime = datetime.strptime(run_datetime.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
     from_date = run_datetime - timedelta(days=back_days)
     ts_start_date = from_date.strftime('%Y-%m-%d')
@@ -162,7 +162,7 @@ def post_processing(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), b
     print('pre_processing.')
     print('run_datetime : ', run_datetime)
     run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')
-    exec_datetime = (datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')).strftime('%Y-%m-%d %H:%M:%S')
+    exec_datetime = run_datetime
     run_datetime = datetime.strptime(run_datetime.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
     from_date = run_datetime - timedelta(days=back_days)
     ts_start_date = from_date.strftime('%Y-%m-%d')

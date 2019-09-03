@@ -5,7 +5,7 @@ import pandas as pd
 
 def create_control_file_by_rain_file(model_name, rain_filename):
     rf_data_frame = pd.read_csv(rain_filename, sep=',')
-    start_datetime = rf_data_frame.iloc[3][0]
+    start_datetime = rf_data_frame.iloc[2][0]
     end_datetime = rf_data_frame.iloc[-1][0]
     print('start_datetime : ', start_datetime)
     print('end_datetime : ', end_datetime)
