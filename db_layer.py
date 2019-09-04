@@ -155,7 +155,7 @@ class CurwSimAdapter:
                 print('time_step_count : {}'.format(time_step_count))
                 print('len(results) : {}'.format(len(results)))
                 data_error = ((time_step_count - len(results)) / time_step_count) * 100
-                if data_error < 1:
+                if data_error < 0:
                     df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
                     return df
                 else:
@@ -163,7 +163,7 @@ class CurwSimAdapter:
                     print('filling missing data.')
                     formatted_ts = []
                     i = 0
-                    for step in range(time_step_count):
+                    for step in range(time_step_count+1):
                         tms_step = datetime.strptime(timeseries_start, '%Y-%m-%d %H:%M:%S') + timedelta(
                             minutes=step * time_step_size)
                         if step < len(results):
