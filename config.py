@@ -18,6 +18,8 @@ BACK_DAYS = 2
 
 OUTPUT_DIR = '/mnt/disks/curwsl_nfs/hechms/'
 
+FILE_REMOVE_CMD = 'rm -f {FILE_NAME}'
+
 RAIN_FALL_FILE_NAME = '/home/curw/distributed_hec/OUTPUT/DailyRain-{}.csv'
 DISCHARGE_FILE_NAME = '/home/curw/distributed_hec/OUTPUT/DailyDischarge-{}.csv'
 

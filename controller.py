@@ -7,7 +7,8 @@ from os import path
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from config import UPLOADS_DEFAULT_DEST, INIT_DATE_TIME_FORMAT, RAIN_FALL_FILE_NAME, HEC_HMS_MODEL_DIR, OUTPUT_DIR
+from config import UPLOADS_DEFAULT_DEST, INIT_DATE_TIME_FORMAT, RAIN_FALL_FILE_NAME, \
+    HEC_HMS_MODEL_DIR, OUTPUT_DIR, HEC_INPUT_DSS, HEC_OUTPUT_DSS, FILE_REMOVE_CMD
 from input.shape_util.polygon_util import get_rain_files
 from input.gage.model_gage import create_gage_file_by_rain_file
 from input.control.model_control import create_control_file, create_control_file_by_rain_file
@@ -121,8 +122,16 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'
             create_gage_file_by_rain_file('distributed_model', output_file)
             create_control_file_by_rain_file('distributed_model', output_file)
             create_run_file('distributed_model', initial_wl, run_datetime.strftime('%Y-%m-%d %H:%M:%S'), from_date)
+            hechms_input = os.path.join(HEC_HMS_MODEL_DIR, HEC_INPUT_DSS.replace('{MODEL_NAME}', 'distributed_model'))
+            hechms_output = os.path.join(HEC_HMS_MODEL_DIR, HEC_OUTPUT_DSS.replace('{MODEL_NAME}', 'distributed_model'))
+            try:
+                os.subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_input), shell=True)
+                os.subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_output), shell=True)
+            except Exception as e:
+                print('Remove hechms input/output files|Exception: ', e)
+                logging.debug("Remove hechms input/output files|Exception|{}".format(e))
             return jsonify({'Result': 'Success'})
-        else :
+        else:
             return jsonify({'Result': 'Fail'})
     except Exception as e:
         print('prepare_input_files|Exception: ', e)
