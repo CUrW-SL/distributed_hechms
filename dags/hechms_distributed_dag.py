@@ -11,7 +11,7 @@ dag_pool = 'curw_prod_runs'
 default_args = {
     'owner': 'curwsl admin',
     'depends_on_past': False,
-    'start_date': airflow.utils.dates.days_ago(0, hour=2),
+    'start_date': datetime.strptime('2019-09-04 12:00:00', '%Y-%m-%d %H:%M:%S'),
     'email': ['hasithadkr7.com'],
     'email_on_failure': True,
     'retries': 1,
@@ -20,13 +20,14 @@ default_args = {
     'catchup': False,
 }
 
-create_input_cmd = 'curl -X GET "http://10.138.0.3:5000/HECHMS/distributed/init/{{ (execution_date).strftime(\"%Y-%m-%d %H:00:00\") }}/3/2/1'
 
-run_hechms_preprocess_cmd = 'curl -X GET "http://10.138.0.3:5000/HECHMS/distributed/pre-process/{{ (execution_date).strftime(\"%Y-%m-%d %H:00:00\") }}/3/2'
+create_input_cmd = 'curl -X GET "http://10.138.0.3:5000/HECHMS/distributed/init/{{ (execution_date).strftime(\"%Y-%m-%d_%H:00:00\") }}/3/2/1"'
 
-run_hechms_cmd = 'curl -X GET "10.138.0.3:5000/HECHMS/distributed/run"'
+run_hechms_preprocess_cmd = 'curl -X GET "http://10.138.0.3:5000/HECHMS/distributed/pre-process/{{ (execution_date).strftime(\"%Y-%m-%d_%H:00:00\") }}/3/2"'
 
-run_hechms_postprocess_cmd = '10.138.0.3:5000/HECHMS/distributed/post-process/{{ (execution_date).strftime(\"%Y-%m-%d %H:00:00\") }}/3/2'
+run_hechms_cmd = 'curl -X GET "http://10.138.0.3:5000/HECHMS/distributed/run"'
+
+run_hechms_postprocess_cmd = 'curl -X GET "http://10.138.0.3:5000/HECHMS/distributed/post-process/{{ (execution_date).strftime(\"%Y-%m-%d_%H:00:00\") }}/3/2"'
 
 upload_discharge_cmd = "echo 'upload discharge data'"
 
