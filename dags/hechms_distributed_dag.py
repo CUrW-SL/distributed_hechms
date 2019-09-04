@@ -67,4 +67,5 @@ with DAG(dag_id=prod_dag_name, default_args=default_args, schedule_interval=sche
         pool=dag_pool,
     )
 
-    create_input >> run_hechms >> upload_discharge >> upload_discharge
+    create_input >> run_hechms_preprocess >> run_hechms >> run_hechms_postprocess >> upload_discharge
+
