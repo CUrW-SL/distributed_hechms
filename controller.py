@@ -92,18 +92,18 @@ def init_run():
 @app.route('/HECHMS/distributed/init', methods=['GET', 'POST'])
 @app.route('/HECHMS/distributed/init/<string:run_datetime>',  methods=['GET', 'POST'])
 @app.route('/HECHMS/distributed/init/<string:run_datetime>/<int:back_days>/<int:forward_days>/<int:initial_wl>',  methods=['GET', 'POST'])
-def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), back_days=2, forward_days=3,
+def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), back_days=2, forward_days=3,
                         initial_wl=0):
     print('prepare_input_files.')
     print('run_datetime : ', run_datetime)
     print('back_days : ', back_days)
     print('forward_days : ', forward_days)
     print('initial_wl : ', initial_wl)
-    file_date = (datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')).strftime('%Y-%m-%d')
+    file_date = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%Y-%m-%d')
     print('file_date : ', file_date)
-    file_time = (datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')).strftime('%H:%M:%S')
+    file_time = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%H:%M:%S')
     print('file_time : ', file_time)
-    run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')
+    run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')
     run_datetime = datetime.strptime(run_datetime.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
     print('run_datetime : ', run_datetime)
     to_date = run_datetime + timedelta(days=forward_days)
@@ -142,10 +142,10 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'
 
 
 @app.route('/HECHMS/distributed/pre-process/<string:run_datetime>/<int:back_days>/<int:forward_days>',  methods=['GET', 'POST'])
-def pre_processing(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), back_days=3, forward_days=2):
+def pre_processing(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), back_days=3, forward_days=2):
     print('pre_processing.')
     print('run_datetime : ', run_datetime)
-    run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')
+    run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')
     exec_datetime = run_datetime
     run_datetime = datetime.strptime(run_datetime.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
     from_date = run_datetime - timedelta(days=back_days)
@@ -171,10 +171,10 @@ def run_hec_hms_model():
 
 
 @app.route('/HECHMS/distributed/post-process/<string:run_datetime>/<int:back_days>/<int:forward_days>',  methods=['GET', 'POST'])
-def post_processing(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), back_days=3, forward_days=2):
+def post_processing(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), back_days=3, forward_days=2):
     print('pre_processing.')
     print('run_datetime : ', run_datetime)
-    run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')
+    run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')
     exec_datetime = run_datetime
     run_datetime = datetime.strptime(run_datetime.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
     from_date = run_datetime - timedelta(days=back_days)
