@@ -1,0 +1,15 @@
+[Unit]
+Description=HEC-HMS distributed Service
+After=multi-user.target
+
+[Service]
+Type=simple
+User=uwcc-admin
+WorkingDirectory=/home/uwcc-admin/distributed_hec/distributed_hechms/
+ExecStart=/bin/bash -c "source /home/uwcc-admin/distributed_hec/distributed_hechms/venv/bin/activate ; python3 /home/uwcc-admin/distributed_hec/distributed_hechms/controller.py"
+Restart=on-failure
+RestartSec=42s
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
