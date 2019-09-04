@@ -1,5 +1,5 @@
 import os
-
+import subprocess
 from flask import Flask, request, jsonify
 from flask_json import FlaskJSON, JsonError, json_response
 from flask_uploads import UploadSet, configure_uploads
@@ -125,8 +125,10 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'
             hechms_input = os.path.join(HEC_HMS_MODEL_DIR, HEC_INPUT_DSS.replace('{MODEL_NAME}', 'distributed_model'))
             hechms_output = os.path.join(HEC_HMS_MODEL_DIR, HEC_OUTPUT_DSS.replace('{MODEL_NAME}', 'distributed_model'))
             try:
-                os.subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_input), shell=True)
-                os.subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_output), shell=True)
+                print('hechms_input : ', hechms_input)
+                subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_input), shell=True)
+                print('hechms_output : ', hechms_output)
+                subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_output), shell=True)
             except Exception as e:
                 print('Remove hechms input/output files|Exception: ', e)
                 logging.debug("Remove hechms input/output files|Exception|{}".format(e))
