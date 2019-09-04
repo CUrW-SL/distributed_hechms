@@ -13,7 +13,3 @@ echo "Activating venv python3 virtual environment."
 source venv/bin/activate
 
 python3 controller.py >> distributed_hechms.log 2>&1
-
-# Deactivating virtual environment
-echo "Deactivating virtual environment"
-deactivate
