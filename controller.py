@@ -195,7 +195,6 @@ def post_processing(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), b
 def upload_discharge(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S')):
     print('upload_discharge..')
     print('run_datetime : ', run_datetime)
-    run_datetime = datetime.strptime(run_datetime.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
     file_date = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%Y-%m-%d')
     print('file_date : ', file_date)
     file_time = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%H:%M:%S')

@@ -47,7 +47,6 @@ def read_attribute_from_config_file(attribute, config, compulsory):
         logger.error("{} not specified in config file.".format(attribute))
         exit(1)
     else:
-        logger.error("{} not specified in config file.".format(attribute))
         return None
 
 
