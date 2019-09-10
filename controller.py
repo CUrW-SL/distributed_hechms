@@ -14,11 +14,12 @@ from input.gage.model_gage import create_gage_file_by_rain_file
 from input.control.model_control import create_control_file, create_control_file_by_rain_file
 from input.run.model_run import create_run_file
 from model.model_execute import execute_pre_dssvue, execute_post_dssvue, execute_hechms
+from uploads.upload_discharge import extract_distrubuted_hechms_outputs
 
 from input.rainfall.mean_rain import get_mean_rain
 
 import logging
-logging.basicConfig(filename="/home/curw/distributed_hec/HecHmsDistributed/hechms.log", level=logging.DEBUG)
+logging.basicConfig(filename="/home/uwcc-admin/distributed_hec/distributed_hechms/hechms.log", level=logging.DEBUG)
 
 COPY_BASIN_CMD = 'cp -R /home/uwcc-admin/distributed_hec/distributed_model.basin /home/uwcc-admin/distributed_hec/distributed_model'
 
@@ -190,6 +191,26 @@ def post_processing(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), b
         return jsonify({'Result': 'Fail'})
 
 
+@app.route('/HECHMS/distributed/upload-discharge/<string:run_datetime>', methods=['GET', 'POST'])
+def upload_discharge(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S')):
+    print('upload_discharge..')
+    print('run_datetime : ', run_datetime)
+    run_datetime = datetime.strptime(run_datetime.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
+    file_date = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%Y-%m-%d')
+    print('file_date : ', file_date)
+    file_time = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%H:%M:%S')
+    print('file_time : ', file_time)
+    output_dir = os.path.join(OUTPUT_DIR, file_date, file_time)
+    print('output_dir : ', output_dir)
+    output_file = os.path.join(output_dir, 'DailyDischarge.csv')
+    try:
+        print('extract_distrubuted_hechms_outputs|[output_file, file_date] : ', [output_file, file_date])
+        extract_distrubuted_hechms_outputs(output_file, file_date, '00:00:00')
+        return jsonify({'Result': 'Success'})
+    except Exception as e:
+        return jsonify({'Result': 'Fail'})
+
+
 @app.route('/HECHMS/distributed/rain-fall', methods=['GET', 'POST'])
 @app.route('/HECHMS/distributed/rain-fall/<string:run_datetime>',  methods=['GET', 'POST'])
 @app.route('/HECHMS/distributed/rain-fall/<string:run_datetime>/<int:back_days>/<int:forward_days>',  methods=['GET', 'POST'])
@@ -289,7 +310,7 @@ def is_valid_init_dt(date_time):
 
 
 if __name__ == '__main__':
-    app.run(host='192.168.1.42', port=5000)
+    app.run(host='10.138.0.3', port=5000)
     #app.run(port=5000)
 
 # /home/curw/distributed_hec/hechms-distributed
