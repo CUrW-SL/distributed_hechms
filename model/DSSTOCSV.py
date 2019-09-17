@@ -108,7 +108,7 @@ try :
         print 'Open Discharge CSV ::', DISCHARGE_CSV_FILE_PATH
         csvWriter = csv.writer(open(DISCHARGE_CSV_FILE_PATH, 'w'), delimiter=',', quotechar='|')
 
-        flow = myDss.get('//JUNCTION-2/FLOW//1HOUR/RUN:RUN 1/', 1)
+        flow = myDss.get('//JUNCTION-2/FLOW//5MIN/RUN:RUN 1/', 1)
 
         if flow.numberValues == 0 :
             MessageBox.showError('No Data', 'Error')
