@@ -30,7 +30,7 @@ GAGE_TEMPLATE = 'Gage: {GAGE_NAME}\n     Last Modified Date: 26 May 2018\n     L
                 '     Precipitation Type: Incremental\n     Units: MM\n     Data Type: PER-CUM\n     Data Source Type: Modifiable DSS\n' \
                 '     Variant: Variant-1\n       Last Variant Modified Date: 21 May 2018\n       Last Variant Modified Time: 13:26:44\n' \
                 '       Default Variant: Yes\n       DSS File Name: {MODEL_NAME}_input.dss\n' \
-                '       DSS Pathname: //{GAGE_NAME}/PRECIP-INC//1HOUR/GAGE/\n       Start Time: {START_DATE}\n' \
+                '       DSS Pathname: //{GAGE_NAME}/PRECIP-INC//5MIN/GAGE/\n       Start Time: {START_DATE}\n' \
                 '       End Time: {END_DATE}\n     End Variant: Variant-1\nEnd:'
 
 GAGE_FILE_NAME = '/home/curw/distributed_hec/distributed_model/{MODEL_NAME}.gage'
@@ -39,8 +39,8 @@ HEC_HMS_VERSION = '4.2.1'
 
 CONTROL_TEMPLATE = 'Control: {MODEL_NAME}\n     Description: Distributed HecHms\n     Last Modified Date: {LAST_MODIFIED_DATE}\n' \
                    '     Last Modified Time: {LAST_MODIFIED_TIME}\n     Version: {HEC_HMS_VERSION}\n     Start Date: {START_DATE}\n ' \
-                   '    Start Time: {START_TIME}\n     End Date: {END_DATE}\n     End Time: {END_TIME}\n     Time Interval: 60\n' \
-                   '     Grid Write Interval: 60\n     Grid Write Time Shift: 0\nEnd:'
+                   '    Start Time: {START_TIME}\n     End Date: {END_DATE}\n     End Time: {END_TIME}\n     Time Interval: 5\n' \
+                   '     Grid Write Interval: 1440\n     Grid Write Time Shift: 0\nEnd:'
 
 CONTROL_FILE_NAME = '/home/curw/distributed_hec/distributed_model/{MODEL_NAME}.control'
 
