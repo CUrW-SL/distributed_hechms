@@ -131,7 +131,7 @@ try :
             tsc = TimeSeriesContainer()
             # tsc.fullName = "/BASIN/LOC/FLOW//1HOUR/OBS/"
             # tsc.fullName = '//' + locationIds[i].upper() + '/PRECIP-INC//1DAY/GAGE/'
-            tsc.fullName = '//' + locationIds[i].upper() + '/PRECIP-INC//1HOUR/GAGE/'
+            tsc.fullName = '//' + locationIds[i].upper() + '/PRECIP-INC//5MIN/GAGE/'
 
             print 'Start time : ', csvList[NUM_METADATA_LINES][0]
             start = HecTime(csvList[NUM_METADATA_LINES][0])
