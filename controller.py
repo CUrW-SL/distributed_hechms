@@ -23,6 +23,7 @@ logging.basicConfig(filename="/home/uwcc-admin/distributed_hec/distributed_hechm
 
 COPY_BASIN_CMD = 'cp -R /home/uwcc-admin/distributed_hec/distributed_model.basin /home/uwcc-admin/distributed_hec/distributed_model'
 COPY_MET_CMD = 'cp -R /home/uwcc-admin/distributed_hec/distributed_model.met /home/uwcc-admin/distributed_hec/distributed_model'
+COPY_MODEL_TEMPLATE_CMD = 'cp -r /home/uwcc-admin/distributed_hec/distributed_model_template /home/uwcc-admin/distributed_hec/distributed_model'
 
 app = Flask(__name__)
 flask_json = FlaskJSON()
@@ -123,6 +124,7 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
         get_mean_rain(from_date, to_date, output_dir)
         rain_fall_file = Path(output_file)
         if rain_fall_file.is_file():
+            subprocess.call(COPY_MODEL_TEMPLATE_CMD, shell=True)
             create_gage_file_by_rain_file('distributed_model', output_file)
             create_control_file_by_rain_file('distributed_model', output_file)
             create_run_file('distributed_model', initial_wl, run_datetime.strftime('%Y-%m-%d %H:%M:%S'), from_date)
@@ -133,8 +135,8 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
                 subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_input), shell=True)
                 print('hechms_output : ', hechms_output)
                 subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_output), shell=True)
-                subprocess.call(COPY_BASIN_CMD, shell=True)
-                subprocess.call(COPY_MET_CMD, shell=True)
+                #subprocess.call(COPY_BASIN_CMD, shell=True)
+                #subprocess.call(COPY_MET_CMD, shell=True)
             except Exception as e:
                 print('Remove hechms input/output files|Exception: ', e)
                 logging.debug("Remove hechms input/output files|Exception|{}".format(e))
