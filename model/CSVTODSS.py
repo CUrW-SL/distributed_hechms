@@ -135,7 +135,7 @@ try :
 
             print 'Start time : ', csvList[NUM_METADATA_LINES][0]
             start = HecTime(csvList[NUM_METADATA_LINES][0])
-            tsc.interval = 60 # in minutes
+            tsc.interval = 5 # in minutes
             times = []
             for value in precipitations :
               times.append(start.value())
