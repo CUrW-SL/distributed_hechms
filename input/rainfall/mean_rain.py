@@ -12,6 +12,7 @@ from functools import reduce
 
 THESSIAN_DECIMAL_POINTS = 4
 
+
 def _voronoi_finite_polygons_2d(vor, radius=None):
     """
     Reconstruct infinite voronoi regions in a 2D diagram to finite
@@ -137,7 +138,7 @@ def get_thessian_polygon_from_gage_points(output_dir, shape_file, gage_points):
     create_dir_if_not_exists(output_shape_path)
     output_shape_file = os.path.join(output_shape_path, 'output.shp')
     voronoi_polygon = get_voronoi_polygons(gage_points, shape_file, ['OBJECTID', 1],
-                                       output_shape_file=output_shape_file)
+                                           output_shape_file=output_shape_file)
     print('voronoi_polygon : ', voronoi_polygon)
     return voronoi_polygon
 
@@ -192,9 +193,10 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
                 gauge_name = ratio['gage_name']
                 ratio = ratio['ratio']
                 gauge_ts = available_stations[gauge_name]['timeseries']
-                gauge_ts.to_csv(os.path.join(output_dir, '{}_rain.csv'.format(gauge_name)))
+                gauge_ts.to_csv(os.path.join(output_dir, '{}_{}_rain.csv'.format(catchment_name, gauge_name)))
                 modified_gauge_ts = gauge_ts.multiply(Decimal(ratio), axis='value')
-                modified_gauge_ts.to_csv(os.path.join(output_dir, '{}_ratio_rain.csv'.format(gauge_name)))
+                modified_gauge_ts.to_csv(os.path.join(output_dir,
+                                                      '{}_{}_ratio_rain.csv'.format(catchment_name, gauge_name)))
                 catchment_ts_list.append(modified_gauge_ts)
             total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
             total_rain.rename(columns={'value': catchment_name}, inplace=True)
@@ -203,7 +205,7 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
         if len(catchment_rain) >= 1:
             mean_rain = catchment_rain[0].join(catchment_rain[1:])
             output_file = os.path.join(output_dir, 'DailyRain.csv')
-            #mean_rain.to_csv(output_file, header=False)
+            # mean_rain.to_csv(output_file, header=False)
             file_handler = open(output_file, 'w')
             csvWriter = csv.writer(file_handler, delimiter=',', quotechar='|')
             # Write Metadata https://publicwiki.deltares.nl/display/FEWSDOC/CSV
@@ -222,4 +224,3 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
         sim_adapter.close_connection()
     except Exception as e:
         print("get_mean_rain|Exception|e : ", e)
-
