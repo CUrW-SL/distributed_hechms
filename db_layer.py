@@ -158,7 +158,7 @@ class CurwSimAdapter:
                 if data_error < 0:
                     df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
                     return df
-                else:
+                elif data_error < 30:
                     print('data_error : {}'.format(data_error))
                     print('filling missing data.')
                     formatted_ts = []
@@ -177,6 +177,10 @@ class CurwSimAdapter:
                     df = pd.DataFrame(data=formatted_ts, columns=['time', 'value']).set_index(keys='time')
                     print('get_station_timeseries|df: ', df)
                     return df
+                else:
+                    print('data_error : {}'.format(data_error))
+                    print('Data error is too large')
+                    return None
             else:
                 print('No data.')
                 return None
