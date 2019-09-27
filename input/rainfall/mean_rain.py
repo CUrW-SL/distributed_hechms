@@ -192,16 +192,16 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
                 gauge_name = ratio['gage_name']
                 ratio = ratio['ratio']
                 gauge_ts = available_stations[gauge_name]['timeseries']
+                gauge_ts.to_csv(os.path.join(output_dir, '{}_rain.csv'.format(gauge_name)))
                 modified_gauge_ts = gauge_ts.multiply(Decimal(ratio), axis='value')
+                modified_gauge_ts.to_csv(os.path.join(output_dir, '{}_ratio_rain.csv'.format(gauge_name)))
                 catchment_ts_list.append(modified_gauge_ts)
             total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
             total_rain.rename(columns={'value': catchment_name}, inplace=True)
             catchment_name_list.append(catchment_name)
             catchment_rain.append(total_rain)
-        print('catchment_rain : ', catchment_rain)
         if len(catchment_rain) >= 1:
             mean_rain = catchment_rain[0].join(catchment_rain[1:])
-            print('mean_rain : ', mean_rain)
             output_file = os.path.join(output_dir, 'DailyRain.csv')
             #mean_rain.to_csv(output_file, header=False)
             file_handler = open(output_file, 'w')
