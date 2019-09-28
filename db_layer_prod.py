@@ -6,12 +6,6 @@ from shapely.geometry import Polygon, Point
 import geopandas as gpd
 
 
-def remove_key(d, key):
-    r = dict(d)
-    del r[key]
-    return r
-
-
 class CurwSimAdapter:
     def __init__(self, mysql_user, mysql_password, mysql_host, mysql_db):
         print('[mysql_user, mysql_password, mysql_host, mysql_db] : ',
@@ -155,7 +149,8 @@ class CurwSimAdapter:
             if len(results) > 0:
                 time_step_count = int((datetime.strptime(timeseries_end, '%Y-%m-%d %H:%M:%S')
                                        - datetime.strptime(timeseries_start,
-                                                           '%Y-%m-%d %H:%M:%S')).total_seconds() / (60 * time_step_size))
+                                                           '%Y-%m-%d %H:%M:%S')).total_seconds() / (
+                                                  60 * time_step_size))
                 print('timeseries_start : {}'.format(timeseries_start))
                 print('timeseries_end : {}'.format(timeseries_end))
                 print('time_step_count : {}'.format(time_step_count))
@@ -169,9 +164,10 @@ class CurwSimAdapter:
                     print('filling missing data.')
                     formatted_ts = []
                     i = 0
-                    for step in range(time_step_count+1):
+                    for step in range(time_step_count + 1):
                         tms_step = datetime.strptime(timeseries_start, '%Y-%m-%d %H:%M:%S') + timedelta(
                             minutes=step * time_step_size)
+                        # print('tms_step : ', tms_step)
                         if step < len(results):
                             if tms_step == results[i][0]:
                                 formatted_ts.append(results[i])
@@ -279,24 +275,15 @@ class CurwSimAdapter:
         """
         basin_available_stations = self.get_available_stations_in_sub_basin(shape_file, start_time)
         print('get_basin_available_stations_timeseries|basin_available_stations: ', basin_available_stations)
-        no_time_series = []
         for station, info in basin_available_stations.items():
             hash_id = info['hash_id']
             station_df = self.get_timeseries_by_id(hash_id, start_time, end_time)
             if station_df is not None:
                 if not station_df.empty:
                     basin_available_stations[station]['timeseries'] = station_df
-                else:
-                    no_time_series.append(station)
             else:
-                no_time_series.append(station)
                 print('No times series data avaialble for the station ', station)
-        if len(no_time_series) > 0:
-            for station in no_time_series:
-                basin_available_stations = remove_key(basin_available_stations, station)
-            return basin_available_stations
-        else:
-            return basin_available_stations
+        return basin_available_stations
 
 
 class CurwFcstAdapter:
@@ -350,4 +337,3 @@ class CurwFcstAdapter:
         except Exception as e:
             print('save_init_state|Exception:', e)
             return None
-
