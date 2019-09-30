@@ -160,7 +160,7 @@ def calculate_intersection(thessian_df, catchment_df):
     return sub_ratios
 
 
-def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
+def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub', allowed_error=0.5):
     try:
         print('[ts_start, ts_end, output_dir, catchment] : ', [ts_start, ts_end, output_dir, catchment])
         sim_adapter = CurwSimAdapter(MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DB)
@@ -169,7 +169,8 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
         else:
             shape_file = res_mgr.get_resource_path('klb-wgs84/klb-wgs84.shp')
         # {station1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1, 'timeseries': timeseries1}}
-        available_stations = sim_adapter.get_basin_available_stations_timeseries(shape_file, ts_start, ts_end)
+        available_stations = sim_adapter.get_basin_available_stations_timeseries(shape_file, ts_start, ts_end,
+                                                                                 allowed_error=0.5)
         # {'id' --> [lon, lat]}
         gauge_points = {}
         for station, info in available_stations.items():
