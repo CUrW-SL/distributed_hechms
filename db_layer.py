@@ -287,8 +287,8 @@ class CurwSimAdapter:
         """
         basin_available_stations = self.get_available_stations_in_sub_basin(shape_file, start_time)
         print('get_basin_available_stations_timeseries|basin_available_stations: ', basin_available_stations)
-        for station, info in basin_available_stations.items():
-            hash_id = info['hash_id']
+        for station in list(basin_available_stations):
+            hash_id = basin_available_stations[station]['hash_id']
             station_df = self.get_timeseries_by_id(hash_id, start_time, end_time)
             if station_df is not None:
                 if not station_df.empty and validate_dataframe(station_df, allowed_error):
