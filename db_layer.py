@@ -6,6 +6,7 @@ from shapely.geometry import Polygon, Point
 import geopandas as gpd
 
 MISSING_VALUE = -99999
+FILL_VALUE = 0
 
 
 def validate_dataframe(df, allowed_error):
@@ -278,7 +279,7 @@ class CurwSimAdapter:
             print('Not available stations..')
             return {}
 
-    def get_basin_available_stations_timeseries(self, shape_file, start_time, end_time, allowed_error=0.5):
+    def get_basin_available_stations_timeseries(self, shape_file, start_time, end_time, allowed_error=0.7):
         """
         Add time series to the given available station list.
         :param shape_file:
@@ -295,7 +296,8 @@ class CurwSimAdapter:
             station_df = self.get_timeseries_by_id(hash_id, start_time, end_time)
             if station_df is not None:
                 if validate_dataframe(station_df, allowed_error):
-                    basin_available_stations[station]['timeseries'] = station_df
+                    basin_available_stations[station]['timeseries'] = station_df['value'].replace(MISSING_VALUE,
+                                                                                                  FILL_VALUE)
                 else:
                     print('Invalid dataframe station : ', station)
                     basin_available_stations.pop(station, None)
