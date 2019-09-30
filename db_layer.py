@@ -12,10 +12,13 @@ def validate_dataframe(df, allowed_error):
     row_count = len(df.index)
     missing_count = df['value'][df['value'] == MISSING_VALUE].count()
     df_error = missing_count/row_count
+    print('validate_dataframe|[row_count, missing_count, df_error]:', [row_count, missing_count, df_error, allowed_error])
     if df_error > allowed_error:
-        False
+        print('Invalid')
+        return False
     else:
-        True
+        print('Valid')
+        return True
 
 
 class CurwSimAdapter:
@@ -291,7 +294,7 @@ class CurwSimAdapter:
             hash_id = basin_available_stations[station]['hash_id']
             station_df = self.get_timeseries_by_id(hash_id, start_time, end_time)
             if station_df is not None:
-                if not station_df.empty and validate_dataframe(station_df, allowed_error):
+                if validate_dataframe(station_df, allowed_error):
                     basin_available_stations[station]['timeseries'] = station_df
                 else:
                     print('Invalid dataframe station : ', station)
