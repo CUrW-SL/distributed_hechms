@@ -295,6 +295,7 @@ class CurwSimAdapter:
                     basin_available_stations[station]['timeseries'] = station_df
                 else:
                     print('Invalid dataframe station : ', station)
+                    basin_available_stations.pop(station, None)
             else:
                 print('No times series data avaialble for the station ', station)
         return basin_available_stations
