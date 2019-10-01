@@ -5,8 +5,8 @@ from decimal import Decimal
 from shapely.geometry import Polygon, Point
 import geopandas as gpd
 
-MISSING_VALUE = -99999.00
-FILL_VALUE = 0.00
+MISSING_VALUE = -99999
+FILL_VALUE = 0
 
 
 def validate_dataframe(df, allowed_error):

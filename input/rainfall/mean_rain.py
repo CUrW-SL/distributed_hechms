@@ -1,6 +1,6 @@
 import csv
 import os
-from _decimal import Decimal
+from decimal import Decimal
 import geopandas as gpd
 import numpy as np
 from scipy.spatial import Voronoi
@@ -193,11 +193,10 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
             for ratio in ratios:
                 # {'gage_name': 'Dickoya', 'ratio': 0.9878}
                 gauge_name = ratio['gage_name']
-                ratio = ratio['ratio']
+                ratio = Decimal(ratio['ratio'])
                 gauge_ts = available_stations[gauge_name]['timeseries']
-                gauge_ts.to_csv(os.path.join(output_dir, '{}_{}_rain.csv'.format(catchment_name, gauge_name)),
-                                header=False)
-                modified_gauge_ts = gauge_ts.multiply(Decimal(ratio), axis='value')
+                gauge_ts.to_csv(os.path.join(output_dir, '{}_{}_rain.csv'.format(catchment_name, gauge_name)))
+                modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
                 modified_gauge_ts.to_csv(os.path.join(output_dir,
                                                       '{}_{}_ratio_rain.csv'.format(catchment_name, gauge_name)))
                 catchment_ts_list.append(modified_gauge_ts)
