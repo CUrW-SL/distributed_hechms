@@ -23,7 +23,7 @@ logging.basicConfig(filename="/home/uwcc-admin/distributed_hec/distributed_hechm
 
 COPY_BASIN_CMD = 'cp -R /home/uwcc-admin/distributed_hec/distributed_model.basin /home/uwcc-admin/distributed_hec/distributed_model'
 COPY_MET_CMD = 'cp -R /home/uwcc-admin/distributed_hec/distributed_model.met /home/uwcc-admin/distributed_hec/distributed_model'
-COPY_MODEL_TEMPLATE_CMD = 'cp -r /home/uwcc-admin/distributed_hec/distributed_model_template /home/uwcc-admin/distributed_hec/distributed_model'
+COPY_MODEL_TEMPLATE_CMD = 'cp -R /home/uwcc-admin/distributed_hec/distributed_model_template/* /home/uwcc-admin/distributed_hec/distributed_model'
 
 app = Flask(__name__)
 flask_json = FlaskJSON()
