@@ -9,7 +9,7 @@ Meteorology: Met_24Sep2019
      Long-Wave Radiation Method: None
      Snowmelt Method: None
      Evapotranspiration Method: Monthly Evaporation
-     Use Basin Model: Kelani
+     Use Basin Model: distributed_model
 End:
 
 Precip Method Parameters: Specified Average
