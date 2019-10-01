@@ -1,42 +1,20 @@
-Meteorology: Met 1
-     Last Modified Date: 29 March 2018
-     Last Modified Time: 04:08:34
+Meteorology: Met_24Sep2019
+     Last Modified Date: 24 September 2019
+     Last Modified Time: 05:29:29
      Version: 4.2.1
      Unit System: Metric
      Set Missing Data to Default: Yes
-     Precipitation Method: Weighted Gages
+     Precipitation Method: Specified Average
      Short-Wave Radiation Method: None
      Long-Wave Radiation Method: None
      Snowmelt Method: None
      Evapotranspiration Method: Monthly Evaporation
-     Use Basin Model: Basin 1
+     Use Basin Model: Kelani
 End:
 
-Gage: SB-1
-     Type: Recording
-End:
-
-Gage: SB-2
-     Type: Recording
-End:
-
-Gage: SB-3
-     Type: Recording
-End:
-
-Gage: SB-4
-     Type: Recording
-End:
-
-Gage: SB-5
-     Type: Recording
-End:
-
-Precip Method Parameters: Weighted Gages
-     Last Modified Date: 3 March 2018
-     Last Modified Time: 03:23:45
-     Use HEC1 Weighting Scheme: Yes
-     Use Indexing: No
+Precip Method Parameters: Specified Average
+     Last Modified Date: 16 September 2019
+     Last Modified Time: 14:37:48
      Allow Depth Override: No
 End:
 
@@ -46,13 +24,11 @@ Evapotranspiration Method Parameters: Monthly Evaporation
 End:
 
 Subbasin: Sub1
-     Last Modified Date: 22 March 2018
-     Last Modified Time: 09:38:50
+     Last Modified Date: 24 September 2019
+     Last Modified Time: 06:51:46
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
      Gage: SB-1
-     Volume Weight: 1.000
-     Temporal Distribution Weight: 1.000
 
      Begin Et:
      Pan Evaporation: 114.7
@@ -83,13 +59,11 @@ Subbasin: Sub1
 End:
 
 Subbasin: Sub3
-     Last Modified Date: 21 May 2018
-     Last Modified Time: 12:54:30
+     Last Modified Date: 24 September 2019
+     Last Modified Time: 06:51:46
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
      Gage: SB-3
-     Volume Weight: 1.000
-     Temporal Distribution Weight: 1.000
 
      Begin Et:
      Pan Evaporation: 114.7
@@ -120,13 +94,11 @@ Subbasin: Sub3
 End:
 
 Subbasin: Sub2
-     Last Modified Date: 21 May 2018
-     Last Modified Time: 12:54:30
+     Last Modified Date: 24 September 2019
+     Last Modified Time: 06:51:46
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
      Gage: SB-2
-     Volume Weight: 1.000
-     Temporal Distribution Weight: 1.000
 
      Begin Et:
      Pan Evaporation: 114.7
@@ -157,13 +129,11 @@ Subbasin: Sub2
 End:
 
 Subbasin: Sub4
-     Last Modified Date: 21 May 2018
-     Last Modified Time: 12:54:30
+     Last Modified Date: 24 September 2019
+     Last Modified Time: 06:51:46
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
      Gage: SB-4
-     Volume Weight: 1.000
-     Temporal Distribution Weight: 1.000
 
      Begin Et:
      Pan Evaporation: 114.7
@@ -194,13 +164,11 @@ Subbasin: Sub4
 End:
 
 Subbasin: Sub5
-     Last Modified Date: 21 May 2018
-     Last Modified Time: 12:54:30
+     Last Modified Date: 24 September 2019
+     Last Modified Time: 06:51:46
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
      Gage: SB-5
-     Volume Weight: 1.000
-     Temporal Distribution Weight: 1.000
 
      Begin Et:
      Pan Evaporation: 114.7

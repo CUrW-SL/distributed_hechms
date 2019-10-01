@@ -1,0 +1,7 @@
+NOTE 15301:  Began computing simulation run "distributed_model" at time 20Feb2019, 08:15:45.
+NOTE 10181:  Opened control specifications "distributed_model" at time 20Feb2019, 08:15:45.
+NOTE 20364:  Found no parameter problems in meteorologic model "distributed_model".
+NOTE 40049:  Found no parameter problems in basin model "distributed_model".
+WARNING 41167:  Total inflow to reach "Reach-1" is zero.
+WARNING 41169:  Muskingum routing is unstable with the given parameters for reach "Reach-1".
+NOTE 15302:  Finished computing simulation run "distributed_model" at time 20Feb2019, 08:15:58.

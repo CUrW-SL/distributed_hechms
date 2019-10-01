@@ -1,0 +1,17 @@
+Version: 4.2.1
+Build: 28
+Time Stamp: 11 September 2019, 07:41:40
+Java: 1.8.0_101
+
+Available Message
+null
+
+Available Stack Trace
+java.lang.NullPointerException
+	at hms.model.project.w.c(Unknown Source)
+	at hms.util.a.ak.a(Unknown Source)
+	at hms.util.a.ak.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)

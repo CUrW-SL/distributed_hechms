@@ -1,12 +1,102 @@
-Snapshot: State_2018_10_19_To_2018_10_20
-     Snapshot Date: 19 October 2018
+Snapshot: State_2019_08_29_To_2019_08_30
+     Snapshot Date: 29 August 2019
      Snapshot Time: 24:00
-     Basin Name: Basin 1
+     Basin Name: distributed_model
 End:
 
-Snapshot: State_2018_12_19_To_2018_12_20
-     Snapshot Date: 19 December 2018
-     Snapshot Time: 10:30
-     Basin Name: Basin 1
+Snapshot: State_2019_08_30_To_2019_08_31
+     Snapshot Date: 30 August 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_08_31_To_2019_09_01
+     Snapshot Date: 31 August 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_01_To_2019_09_02
+     Snapshot Date: 1 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_02_To_2019_09_03
+     Snapshot Date: 2 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_03_To_2019_09_04
+     Snapshot Date: 3 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_06_To_2019_09_07
+     Snapshot Date: 6 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_04_To_2019_09_05
+     Snapshot Date: 4 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_05_To_2019_09_06
+     Snapshot Date: 5 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_07_To_2019_09_08
+     Snapshot Date: 7 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_08_To_2019_09_09
+     Snapshot Date: 8 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_09_To_2019_09_10
+     Snapshot Date: 9 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_10_To_2019_09_11
+     Snapshot Date: 10 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_11_To_2019_09_12
+     Snapshot Date: 11 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_12_To_2019_09_13
+     Snapshot Date: 12 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_13_To_2019_09_14
+     Snapshot Date: 13 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
+End:
+
+Snapshot: State_2019_09_14_To_2019_09_15
+     Snapshot Date: 14 September 2019
+     Snapshot Time: 24:00
+     Basin Name: distributed_model
 End:
 

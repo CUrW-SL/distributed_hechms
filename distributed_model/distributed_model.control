@@ -1,0 +1,14 @@
+Control: distributed_model
+     Description: Distributed HecHms
+     Last Modified Date: 01 October 2019
+     Last Modified Time: 04:16
+     Version: 4.2.1
+     Start Date: 28 September 2019
+     Start Time: 00:00
+     End Date: 03 October 2019
+     End Time: 00:00
+     Time Interval: 5
+     Grid Write Interval: 1440
+     Grid Write Time Shift: 0
+End:
+

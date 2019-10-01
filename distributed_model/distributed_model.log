@@ -1,0 +1,4 @@
+NOTE 15301:  Began computing simulation run "distributed_model" at time 01Oct2019, 04:17:05.
+NOTE 10181:  Opened control specifications "distributed_model" at time 01Oct2019, 04:17:05.
+ERROR 15254:  Could not locate the specified start state "State_2019_09_27_To_2019_09_28".
+WARNING 15303:  Aborted run "distributed_model" at time 01Oct2019, 04:17:05.
