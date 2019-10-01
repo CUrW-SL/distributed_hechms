@@ -160,7 +160,7 @@ def calculate_intersection(thessian_df, catchment_df):
     return sub_ratios
 
 
-def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub', allowed_error=0.5):
+def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
     try:
         print('[ts_start, ts_end, output_dir, catchment] : ', [ts_start, ts_end, output_dir, catchment])
         sim_adapter = CurwSimAdapter(MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DB)
@@ -174,6 +174,7 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub', allowed_error=0
         # {'id' --> [lon, lat]}
         gauge_points = {}
         for station, info in available_stations.items():
+            print('Final available station : ', station)
             gauge_points[station] = ['%.6f' % info['longitude'], '%.6f' % info['latitude']]
         print('gauge_points : ', gauge_points)
         print('output_dir : ', output_dir)
@@ -194,7 +195,8 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub', allowed_error=0
                 gauge_name = ratio['gage_name']
                 ratio = ratio['ratio']
                 gauge_ts = available_stations[gauge_name]['timeseries']
-                gauge_ts.to_csv(os.path.join(output_dir, '{}_{}_rain.csv'.format(catchment_name, gauge_name)))
+                gauge_ts.to_csv(os.path.join(output_dir, '{}_{}_rain.csv'.format(catchment_name, gauge_name)),
+                                header=False)
                 modified_gauge_ts = gauge_ts.multiply(Decimal(ratio), axis='value')
                 modified_gauge_ts.to_csv(os.path.join(output_dir,
                                                       '{}_{}_ratio_rain.csv'.format(catchment_name, gauge_name)))
