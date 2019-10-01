@@ -5,8 +5,8 @@ from decimal import Decimal
 from shapely.geometry import Polygon, Point
 import geopandas as gpd
 
-MISSING_VALUE = -99999
-FILL_VALUE = 0
+MISSING_VALUE = -99999.00
+FILL_VALUE = 0.00
 
 
 def validate_dataframe(df, allowed_error):
@@ -296,7 +296,7 @@ class CurwSimAdapter:
             station_df = self.get_timeseries_by_id(hash_id, start_time, end_time)
             if station_df is not None:
                 if validate_dataframe(station_df, allowed_error):
-                    basin_available_stations[station]['timeseries'] = station_df['value'].replace(MISSING_VALUE,
+                    basin_available_stations[station]['timeseries'] = station_df.replace(MISSING_VALUE,
                                                                                                   FILL_VALUE)
                 else:
                     print('Invalid dataframe station : ', station)
