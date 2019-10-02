@@ -303,6 +303,7 @@ class CurwSimAdapter:
                     basin_available_stations.pop(station, None)
             else:
                 print('No times series data avaialble for the station ', station)
+                basin_available_stations.pop(station, None)
         return basin_available_stations
 
 
