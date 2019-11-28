@@ -17,6 +17,8 @@ import csv
 
 TIME_GAP_MINUTES = 5
 MISSING_ERROR_PERCENTAGE = 0.3
+MISSING_VALUE = -99999
+FILL_VALUE = 0
 
 
 def validate_gage_points(sim_adapter, ts_start, ts_end, station_metadata=meta_data):
@@ -24,6 +26,7 @@ def validate_gage_points(sim_adapter, ts_start, ts_end, station_metadata=meta_da
     for key, value in station_metadata.items():
         try:
             time_series_df = sim_adapter.get_station_timeseries(ts_start, ts_end, key, value['run_name'])
+            time_series_df = time_series_df.replace(MISSING_VALUE, FILL_VALUE)
             if time_series_df.size > 0:
                 filled_ts = fill_timeseries(ts_start, ts_end, time_series_df)
                 filled_ts = filled_ts.set_index('time')

@@ -175,7 +175,7 @@ class CurwSimAdapter:
                 if data_error < 0:
                     df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
                     return df
-                elif data_error < 30:
+                elif data_error < 40:
                     print('data_error : {}'.format(data_error))
                     print('filling missing data.')
                     formatted_ts = []
