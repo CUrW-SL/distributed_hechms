@@ -185,7 +185,7 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
         gauge_points_thessian = get_thessian_polygon_from_gage_points(output_dir, shape_file, gauge_points)
         print('gauge_points_thessian : ', gauge_points_thessian)
         #shape_file = res_mgr.get_resource_path(os.path.join(RESOURCE_PATH, 'sub_catchments/sub_catchments.shp'))
-        shape_file = os.path.join(RESOURCE_PATH, 'sub_catchments/sub_catchments.shp')
+        shape_file = os.path.join(RESOURCE_PATH, 'sub_catchments/sub_subcatchments.shp')
         catchment_df = gpd.GeoDataFrame.from_file(shape_file)
         sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
         print('sub_ratios : ', sub_ratios)
