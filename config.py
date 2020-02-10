@@ -73,14 +73,14 @@ RUN_FILE_TEMPLATE1 = 'Run: {MODEL_NAME}\n     Default Description: Yes\n     Log
 
 RUN_FILE_NAME = '/home/curw/git/distributed_hechms/output/distributed_model/{MODEL_NAME}.run'
 
-HEC_HMS_HOME = '/home/curw/git/distributed_hechms/hec-hms-421'
+HEC_HMS_HOME = '/home/curw/distributed_hec/hec-hms-421'
 HEC_HMS_SH = 'hec-hms.sh'
-HEC_DSSVUE_HOME = '/home/curw/git/distributed_hechms/hec-dssvue201'
+HEC_DSSVUE_HOME = '/home/curw/distributed_hec/hec-dssvue201'
 HEC_DSSVUE_SH = 'hec-dssvue.sh'
 BASIN_STATES_DIR = 'basinStates'
 HEC_EVENT = 'hec_event'
-PRE_PROCESSING_SCRIPT = '/home/curw/git/distributed_hechms/CSVTODSS.py'
-POST_PROCESSING_SCRIPT = '/home/curw/git/distributed_hechms/DSSTOCSV.py'
+PRE_PROCESSING_SCRIPT = '/home/curw/git/distributed_hechms/model/CSVTODSS.py'
+POST_PROCESSING_SCRIPT = '/home/curw/git/distributed_hechms/model/DSSTOCSV.py'
 HEC_INPUT_DSS = '{MODEL_NAME}_input.dss'
 HEC_OUTPUT_DSS = '{MODEL_NAME}_run.dss'
 # CONTROL_FILE_NAME = '{MODEL_NAME}.control'
