@@ -1,7 +1,17 @@
-NOTE 15301:  Began computing simulation run "distributed_model" at time 20Feb2019, 08:15:45.
-NOTE 10181:  Opened control specifications "distributed_model" at time 20Feb2019, 08:15:45.
-NOTE 20364:  Found no parameter problems in meteorologic model "distributed_model".
+NOTE 15301:  Began computing simulation run "distributed_model" at time 10Feb2020, 11:20:55.
+NOTE 10181:  Opened control specifications "distributed_model" at time 10Feb2020, 11:20:55.
+NOTE 20364:  Found no parameter problems in meteorologic model "Met_24Sep2019".
+WARNING 45220:  No plant uptake method selected for subbasin "Sub1".  There will be no transpiration for loss method: Soil Moisture Accounting.
+WARNING 41980:  No canopy method selected for use with Soil Moisture Account loss method in subbasin "Sub1".  No transpiration calculations will be performed.
+WARNING 45220:  No plant uptake method selected for subbasin "Sub3".  There will be no transpiration for loss method: Soil Moisture Accounting.
+WARNING 41980:  No canopy method selected for use with Soil Moisture Account loss method in subbasin "Sub3".  No transpiration calculations will be performed.
+WARNING 45220:  No plant uptake method selected for subbasin "Sub2".  There will be no transpiration for loss method: Soil Moisture Accounting.
+WARNING 41980:  No canopy method selected for use with Soil Moisture Account loss method in subbasin "Sub2".  No transpiration calculations will be performed.
+WARNING 45220:  No plant uptake method selected for subbasin "Sub4".  There will be no transpiration for loss method: Soil Moisture Accounting.
+WARNING 41980:  No canopy method selected for use with Soil Moisture Account loss method in subbasin "Sub4".  No transpiration calculations will be performed.
+WARNING 45220:  No plant uptake method selected for subbasin "Sub5".  There will be no transpiration for loss method: Soil Moisture Accounting.
+WARNING 41980:  No canopy method selected for use with Soil Moisture Account loss method in subbasin "Sub5".  No transpiration calculations will be performed.
 NOTE 40049:  Found no parameter problems in basin model "distributed_model".
-WARNING 41167:  Total inflow to reach "Reach-1" is zero.
 WARNING 41169:  Muskingum routing is unstable with the given parameters for reach "Reach-1".
-NOTE 15302:  Finished computing simulation run "distributed_model" at time 20Feb2019, 08:15:58.
+WARNING 41169:  Muskingum routing is unstable with the given parameters for reach "Reach-1".
+NOTE 15302:  Finished computing simulation run "distributed_model" at time 10Feb2020, 11:20:58.

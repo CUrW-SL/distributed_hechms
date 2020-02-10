@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RunResults>
   <RunName>distributed_model</RunName>
-  <ExecutionTime>17Sep2019, 10:01:03</ExecutionTime>
-  <StartTime>12Sep2019, 24:00</StartTime>
-  <EndTime>17Sep2019, 24:00</EndTime>
+  <ExecutionTime>10Feb2020, 11:20:52</ExecutionTime>
+  <StartTime>06Feb2020, 24:00</StartTime>
+  <EndTime>11Feb2020, 24:00</EndTime>
   <BasinElement name="Sub1" type="Subbasin">
-    <ExecutionTime>17Sep2019, 10:01:03</ExecutionTime>
+    <ExecutionTime>10Feb2020, 11:20:52</ExecutionTime>
     <SubbasinArea area="418.495741" units="KM2" />
     <UnitSystem>SI</UnitSystem>
     <IsComputationPoint>No</IsComputationPoint>
@@ -25,36 +25,6 @@
         <TimeSeriesType type="Cumulative Precip" displayString="Cumulative Precipitation" />
         <DssFileName>distributed_model_run.dss</DssFileName>
         <DssPathname>//Sub1/PRECIP-CUM//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy Excess" displayString="Canopy Overflow" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub1/EXCESS-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Potential ET" displayString="Potential Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub1/ET-POTENTIAL//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy ET" displayString="Canopy Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub1/ET-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy Storage" displayString="Canopy Storage" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub1/STORAGE-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Surface ET" displayString="Surface Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub1/ET-SURFACE//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Surface Storage" displayString="Surface Storage" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub1/STORAGE-SURFACE//5MIN/RUN:distributed_model/</DssPathname>
       </TimeSeries>
       <TimeSeries>
         <TimeSeriesType type="Infiltration" displayString="Soil Infiltration" />
@@ -140,40 +110,40 @@
     <Sediment />
     <WaterQuality />
     <Statistics>
-      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="86.1896918" units="M3/S" />
-      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="16Sep2019, 08:15" />
-      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="11813799.2322214" units="M3" />
-      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="28.2291982" units="MM" />
+      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="16.7948305" units="M3/S" />
+      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="50.0000000" units="M3/S" />
+      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="13153510.5473222" units="M3" />
+      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="31.4304526" units="MM" />
       <StatisticMeasure type="Direct Flow Minimum" displayString="Minimum Direct Flow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Direct Flow Minimum Time" displayString="Time of Minimum Direct Flow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Direct Flow Maximum" displayString="Maximum Direct Flow" value="86.1896918" units="M3/S" />
-      <StatisticMeasure type="Direct Flow Maximum Time" displayString="Time of Maximum Direct Flow" value="16Sep2019, 08:15" />
-      <StatisticMeasure type="Direct Flow Volume" displayString="Direct Flow Volume" value="11813799.2322214" units="M3" />
-      <StatisticMeasure type="Direct Flow Depth" displayString="Direct Flow Depth" value="28.2291982" units="MM" />
-      <StatisticMeasure type="Baseflow Minimum" displayString="Minimum Baseflow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Baseflow Minimum Time" displayString="Time of Minimum Baseflow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Baseflow Maximum" displayString="Maximum Baseflow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Baseflow Maximum Time" displayString="Time of Maximum Baseflow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Baseflow Volume" displayString="Baseflow Volume" value="0.0000000" units="M3" />
-      <StatisticMeasure type="Baseflow Depth" displayString="Baseflow Depth" value="0.0000000" units="MM" />
-      <StatisticMeasure type="Precipitation Maximum" displayString="Maximum Precipitation" value="2.5380001" units="MM" />
-      <StatisticMeasure type="Precipitation Maximum Time" displayString="Time of Maximum Precipitation" value="16Sep2019, 01:10" />
-      <StatisticMeasure type="Precipitation Total" displayString="Precipitation Total" value="95.9664975" units="MM" />
-      <StatisticMeasure type="Precipitation Volume" displayString="Precipitation Volume" value="40161570.4694190" units="M3" />
-      <StatisticMeasure type="Loss Maximum" displayString="Maximum Loss" value="1.5539600" units="MM" />
-      <StatisticMeasure type="Loss Maximum Time" displayString="Time of Maximum Loss" value="15Sep2019, 13:50" />
-      <StatisticMeasure type="Loss Total" displayString="Loss Total" value="49.1714844" units="MM" />
-      <StatisticMeasure type="Loss Volume" displayString="Could not find requested resource: STAT_LossVolume_Label" value="20578056.7990240" units="M3" />
-      <StatisticMeasure type="Excess Maximum" displayString="Maximum Excess" value="2.3570082" units="MM" />
-      <StatisticMeasure type="Excess Maximum Time" displayString="Time of Maximum Excess" value="16Sep2019, 01:10" />
-      <StatisticMeasure type="Excess Total" displayString="Excess Total" value="46.7950131" units="MM" />
-      <StatisticMeasure type="Excess Volume" displayString="Could not find requested resource: STAT_ExcessVolume_Label" value="19583513.6703950" units="M3" />
+      <StatisticMeasure type="Direct Flow Minimum Time" displayString="Time of Minimum Direct Flow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Direct Flow Maximum" displayString="Maximum Direct Flow" value="0.0353023" units="M3/S" />
+      <StatisticMeasure type="Direct Flow Maximum Time" displayString="Time of Maximum Direct Flow" value="11Feb2020, 20:25" />
+      <StatisticMeasure type="Direct Flow Volume" displayString="Direct Flow Volume" value="862.7254967" units="M3" />
+      <StatisticMeasure type="Direct Flow Depth" displayString="Direct Flow Depth" value="0.0020615" units="MM" />
+      <StatisticMeasure type="Baseflow Minimum" displayString="Minimum Baseflow" value="16.7695303" units="M3/S" />
+      <StatisticMeasure type="Baseflow Minimum Time" displayString="Time of Minimum Baseflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Baseflow Maximum" displayString="Maximum Baseflow" value="50.0000000" units="M3/S" />
+      <StatisticMeasure type="Baseflow Maximum Time" displayString="Time of Maximum Baseflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Baseflow Volume" displayString="Baseflow Volume" value="13152647.8218255" units="M3" />
+      <StatisticMeasure type="Baseflow Depth" displayString="Baseflow Depth" value="31.4283911" units="MM" />
+      <StatisticMeasure type="Precipitation Maximum" displayString="Maximum Precipitation" value="0.0049232" units="MM" />
+      <StatisticMeasure type="Precipitation Maximum Time" displayString="Time of Maximum Precipitation" value="11Feb2020, 16:05" />
+      <StatisticMeasure type="Precipitation Total" displayString="Precipitation Total" value="0.0428450" units="MM" />
+      <StatisticMeasure type="Precipitation Volume" displayString="Precipitation Volume" value="17930.4498237" units="M3" />
+      <StatisticMeasure type="Loss Maximum" displayString="Maximum Loss" value="0.0044309" units="MM" />
+      <StatisticMeasure type="Loss Maximum Time" displayString="Time of Maximum Loss" value="11Feb2020, 16:05" />
+      <StatisticMeasure type="Loss Total" displayString="Loss Total" value="0.0385605" units="MM" />
+      <StatisticMeasure type="Loss Volume" displayString="Could not find requested resource: STAT_LossVolume_Label" value="16137.4048413" units="M3" />
+      <StatisticMeasure type="Excess Maximum" displayString="Maximum Excess" value="0.0004923" units="MM" />
+      <StatisticMeasure type="Excess Maximum Time" displayString="Time of Maximum Excess" value="11Feb2020, 16:05" />
+      <StatisticMeasure type="Excess Total" displayString="Excess Total" value="0.0042845" units="MM" />
+      <StatisticMeasure type="Excess Volume" displayString="Could not find requested resource: STAT_ExcessVolume_Label" value="1793.0449824" units="M3" />
     </Statistics>
   </BasinElement>
   <BasinElement name="Reach-1" type="Reach">
-    <ExecutionTime>17Sep2019, 10:01:03</ExecutionTime>
+    <ExecutionTime>10Feb2020, 11:20:52</ExecutionTime>
     <UnitSystem>SI</UnitSystem>
     <IsComputationPoint>No</IsComputationPoint>
     <DrainageArea area="418.495741" units="KM2" />
@@ -193,22 +163,22 @@
     <Sediment />
     <WaterQuality />
     <Statistics>
-      <StatisticMeasure type="Inflow Minimum" displayString="Minimum Inflow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Inflow Minimum Time" displayString="Time of Minimum Inflow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Inflow Maximum" displayString="Maximum Inflow" value="86.1896918" units="M3/S" />
-      <StatisticMeasure type="Inflow Maximum Time" displayString="Time of Maximum Inflow" value="16Sep2019, 08:15" />
-      <StatisticMeasure type="Inflow Volume" displayString="Inflow Volume" value="11813799.2322214" units="M3" />
-      <StatisticMeasure type="Inflow Depth" displayString="Inflow Depth" value="28.2291982" units="MM" />
-      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="74.8250288" units="M3/S" />
-      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="16Sep2019, 15:05" />
-      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="9692365.1766323" units="M3" />
-      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="23.1600091" units="MM" />
+      <StatisticMeasure type="Inflow Minimum" displayString="Minimum Inflow" value="16.7948305" units="M3/S" />
+      <StatisticMeasure type="Inflow Minimum Time" displayString="Time of Minimum Inflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Inflow Maximum" displayString="Maximum Inflow" value="50.0000000" units="M3/S" />
+      <StatisticMeasure type="Inflow Maximum Time" displayString="Time of Maximum Inflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Inflow Volume" displayString="Inflow Volume" value="13153510.5473222" units="M3" />
+      <StatisticMeasure type="Inflow Depth" displayString="Inflow Depth" value="31.4304526" units="MM" />
+      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="17.1874242" units="M3/S" />
+      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="50.0069584" units="M3/S" />
+      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="07Feb2020, 00:45" />
+      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="13450341.6531597" units="M3" />
+      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="32.1397337" units="MM" />
     </Statistics>
   </BasinElement>
   <BasinElement name="Sub2" type="Subbasin">
-    <ExecutionTime>17Sep2019, 10:01:03</ExecutionTime>
+    <ExecutionTime>10Feb2020, 11:20:52</ExecutionTime>
     <SubbasinArea area="261.655098" units="KM2" />
     <UnitSystem>SI</UnitSystem>
     <IsComputationPoint>No</IsComputationPoint>
@@ -228,36 +198,6 @@
         <TimeSeriesType type="Cumulative Precip" displayString="Cumulative Precipitation" />
         <DssFileName>distributed_model_run.dss</DssFileName>
         <DssPathname>//Sub2/PRECIP-CUM//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy Excess" displayString="Canopy Overflow" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub2/EXCESS-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Potential ET" displayString="Potential Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub2/ET-POTENTIAL//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy ET" displayString="Canopy Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub2/ET-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy Storage" displayString="Canopy Storage" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub2/STORAGE-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Surface ET" displayString="Surface Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub2/ET-SURFACE//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Surface Storage" displayString="Surface Storage" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub2/STORAGE-SURFACE//5MIN/RUN:distributed_model/</DssPathname>
       </TimeSeries>
       <TimeSeries>
         <TimeSeriesType type="Infiltration" displayString="Soil Infiltration" />
@@ -343,44 +283,44 @@
     <Sediment />
     <WaterQuality />
     <Statistics>
-      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="78.8017019" units="M3/S" />
-      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="16Sep2019, 12:50" />
-      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="12706702.8818489" units="M3" />
-      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="48.5627950" units="MM" />
+      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="8.4509184" units="M3/S" />
+      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="25.0000000" units="M3/S" />
+      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="6578172.4358561" units="M3" />
+      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="25.1406240" units="MM" />
       <StatisticMeasure type="Direct Flow Minimum" displayString="Minimum Direct Flow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Direct Flow Minimum Time" displayString="Time of Minimum Direct Flow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Direct Flow Maximum" displayString="Maximum Direct Flow" value="78.8017019" units="M3/S" />
-      <StatisticMeasure type="Direct Flow Maximum Time" displayString="Time of Maximum Direct Flow" value="16Sep2019, 12:50" />
-      <StatisticMeasure type="Direct Flow Volume" displayString="Direct Flow Volume" value="12706702.8818489" units="M3" />
-      <StatisticMeasure type="Direct Flow Depth" displayString="Direct Flow Depth" value="48.5627950" units="MM" />
-      <StatisticMeasure type="Baseflow Minimum" displayString="Minimum Baseflow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Baseflow Minimum Time" displayString="Time of Minimum Baseflow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Baseflow Maximum" displayString="Maximum Baseflow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Baseflow Maximum Time" displayString="Time of Maximum Baseflow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Baseflow Volume" displayString="Baseflow Volume" value="0.0000000" units="M3" />
-      <StatisticMeasure type="Baseflow Depth" displayString="Baseflow Depth" value="0.0000000" units="MM" />
-      <StatisticMeasure type="Precipitation Maximum" displayString="Maximum Precipitation" value="4.6821799" units="MM" />
-      <StatisticMeasure type="Precipitation Maximum Time" displayString="Time of Maximum Precipitation" value="16Sep2019, 09:40" />
-      <StatisticMeasure type="Precipitation Total" displayString="Precipitation Total" value="124.9411565" units="MM" />
-      <StatisticMeasure type="Precipitation Volume" displayString="Precipitation Volume" value="32691490.5473320" units="M3" />
-      <StatisticMeasure type="Loss Maximum" displayString="Maximum Loss" value="1.8594600" units="MM" />
-      <StatisticMeasure type="Loss Maximum Time" displayString="Time of Maximum Loss" value="14Sep2019, 14:00" />
-      <StatisticMeasure type="Loss Total" displayString="Loss Total" value="49.3614451" units="MM" />
-      <StatisticMeasure type="Loss Volume" displayString="Could not find requested resource: STAT_LossVolume_Label" value="12915673.7580906" units="M3" />
-      <StatisticMeasure type="Excess Maximum" displayString="Maximum Excess" value="4.3520254" units="MM" />
-      <StatisticMeasure type="Excess Maximum Time" displayString="Time of Maximum Excess" value="16Sep2019, 09:40" />
-      <StatisticMeasure type="Excess Total" displayString="Excess Total" value="75.5797114" units="MM" />
-      <StatisticMeasure type="Excess Volume" displayString="Could not find requested resource: STAT_ExcessVolume_Label" value="19775816.7892414" units="M3" />
+      <StatisticMeasure type="Direct Flow Minimum Time" displayString="Time of Minimum Direct Flow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Direct Flow Maximum" displayString="Maximum Direct Flow" value="0.0814275" units="M3/S" />
+      <StatisticMeasure type="Direct Flow Maximum Time" displayString="Time of Maximum Direct Flow" value="11Feb2020, 21:25" />
+      <StatisticMeasure type="Direct Flow Volume" displayString="Direct Flow Volume" value="1848.5249434" units="M3" />
+      <StatisticMeasure type="Direct Flow Depth" displayString="Direct Flow Depth" value="0.0070647" units="MM" />
+      <StatisticMeasure type="Baseflow Minimum" displayString="Minimum Baseflow" value="8.3847652" units="M3/S" />
+      <StatisticMeasure type="Baseflow Minimum Time" displayString="Time of Minimum Baseflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Baseflow Maximum" displayString="Maximum Baseflow" value="25.0000000" units="M3/S" />
+      <StatisticMeasure type="Baseflow Maximum Time" displayString="Time of Maximum Baseflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Baseflow Volume" displayString="Baseflow Volume" value="6576323.9109127" units="M3" />
+      <StatisticMeasure type="Baseflow Depth" displayString="Baseflow Depth" value="25.1335593" units="MM" />
+      <StatisticMeasure type="Precipitation Maximum" displayString="Maximum Precipitation" value="0.0348092" units="MM" />
+      <StatisticMeasure type="Precipitation Maximum Time" displayString="Time of Maximum Precipitation" value="11Feb2020, 16:05" />
+      <StatisticMeasure type="Precipitation Total" displayString="Precipitation Total" value="0.1786386" units="MM" />
+      <StatisticMeasure type="Precipitation Volume" displayString="Precipitation Volume" value="46741.6993773" units="M3" />
+      <StatisticMeasure type="Loss Maximum" displayString="Maximum Loss" value="0.0313283" units="MM" />
+      <StatisticMeasure type="Loss Maximum Time" displayString="Time of Maximum Loss" value="11Feb2020, 16:05" />
+      <StatisticMeasure type="Loss Total" displayString="Loss Total" value="0.1607747" units="MM" />
+      <StatisticMeasure type="Loss Volume" displayString="Could not find requested resource: STAT_LossVolume_Label" value="42067.5294396" units="M3" />
+      <StatisticMeasure type="Excess Maximum" displayString="Maximum Excess" value="0.0034809" units="MM" />
+      <StatisticMeasure type="Excess Maximum Time" displayString="Time of Maximum Excess" value="11Feb2020, 16:05" />
+      <StatisticMeasure type="Excess Total" displayString="Excess Total" value="0.0178639" units="MM" />
+      <StatisticMeasure type="Excess Volume" displayString="Could not find requested resource: STAT_ExcessVolume_Label" value="4674.1699377" units="M3" />
     </Statistics>
   </BasinElement>
   <BasinElement name="Sub3" type="Subbasin">
-    <ExecutionTime>17Sep2019, 10:01:03</ExecutionTime>
-    <SubbasinArea area="373.675879" units="KM2" />
+    <ExecutionTime>10Feb2020, 11:20:52</ExecutionTime>
+    <SubbasinArea area="349.675879" units="KM2" />
     <UnitSystem>SI</UnitSystem>
     <IsComputationPoint>No</IsComputationPoint>
-    <DrainageArea area="373.675879" units="KM2" />
+    <DrainageArea area="349.675879" units="KM2" />
     <Hydrology>
       <TimeSeries>
         <TimeSeriesType type="Outflow" displayString="Outflow" />
@@ -396,36 +336,6 @@
         <TimeSeriesType type="Cumulative Precip" displayString="Cumulative Precipitation" />
         <DssFileName>distributed_model_run.dss</DssFileName>
         <DssPathname>//Sub3/PRECIP-CUM//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy Excess" displayString="Canopy Overflow" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub3/EXCESS-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Potential ET" displayString="Potential Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub3/ET-POTENTIAL//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy ET" displayString="Canopy Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub3/ET-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy Storage" displayString="Canopy Storage" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub3/STORAGE-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Surface ET" displayString="Surface Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub3/ET-SURFACE//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Surface Storage" displayString="Surface Storage" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub3/STORAGE-SURFACE//5MIN/RUN:distributed_model/</DssPathname>
       </TimeSeries>
       <TimeSeries>
         <TimeSeriesType type="Infiltration" displayString="Soil Infiltration" />
@@ -511,46 +421,46 @@
     <Sediment />
     <WaterQuality />
     <Statistics>
-      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="1.5627493" units="M3/S" />
-      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="14Sep2019, 15:40" />
-      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="100.4929172" units="M3/S" />
-      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="16Sep2019, 14:30" />
-      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="16536791.4304234" units="M3" />
-      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="44.2543722" units="MM" />
+      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="30.0000000" units="M3/S" />
+      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="30.0107152" units="M3/S" />
+      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="11Feb2020, 07:50" />
+      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="12969691.8924419" units="M3" />
+      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="37.0906107" units="MM" />
       <StatisticMeasure type="Direct Flow Minimum" displayString="Minimum Direct Flow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Direct Flow Minimum Time" displayString="Time of Minimum Direct Flow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Direct Flow Maximum" displayString="Maximum Direct Flow" value="100.3920460" units="M3/S" />
-      <StatisticMeasure type="Direct Flow Maximum Time" displayString="Time of Maximum Direct Flow" value="16Sep2019, 14:30" />
-      <StatisticMeasure type="Direct Flow Volume" displayString="Direct Flow Volume" value="15563314.8251705" units="M3" />
-      <StatisticMeasure type="Direct Flow Depth" displayString="Direct Flow Depth" value="41.6492359" units="MM" />
-      <StatisticMeasure type="Baseflow Minimum" displayString="Minimum Baseflow" value="0.0141468" units="M3/S" />
-      <StatisticMeasure type="Baseflow Minimum Time" displayString="Time of Minimum Baseflow" value="18Sep2019, 00:05" />
-      <StatisticMeasure type="Baseflow Maximum" displayString="Maximum Baseflow" value="15.8120000" units="M3/S" />
-      <StatisticMeasure type="Baseflow Maximum Time" displayString="Time of Maximum Baseflow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Baseflow Volume" displayString="Baseflow Volume" value="973476.6052529" units="M3" />
-      <StatisticMeasure type="Baseflow Depth" displayString="Baseflow Depth" value="2.6051363" units="MM" />
-      <StatisticMeasure type="Precipitation Maximum" displayString="Maximum Precipitation" value="15.4013996" units="MM" />
-      <StatisticMeasure type="Precipitation Maximum Time" displayString="Time of Maximum Precipitation" value="15Sep2019, 18:00" />
-      <StatisticMeasure type="Precipitation Total" displayString="Precipitation Total" value="93.9614137" units="MM" />
-      <StatisticMeasure type="Precipitation Volume" displayString="Precipitation Volume" value="35111113.8568797" units="M3" />
-      <StatisticMeasure type="Loss Maximum" displayString="Maximum Loss" value="1.9044214" units="MM" />
-      <StatisticMeasure type="Loss Maximum Time" displayString="Time of Maximum Loss" value="15Sep2019, 08:55" />
-      <StatisticMeasure type="Loss Total" displayString="Loss Total" value="32.3902569" units="MM" />
-      <StatisticMeasure type="Loss Volume" displayString="Could not find requested resource: STAT_LossVolume_Label" value="12103457.6999680" units="M3" />
-      <StatisticMeasure type="Excess Maximum" displayString="Maximum Excess" value="15.2095600" units="MM" />
-      <StatisticMeasure type="Excess Maximum Time" displayString="Time of Maximum Excess" value="15Sep2019, 18:00" />
-      <StatisticMeasure type="Excess Total" displayString="Excess Total" value="61.5711568" units="MM" />
-      <StatisticMeasure type="Excess Volume" displayString="Could not find requested resource: STAT_ExcessVolume_Label" value="23007656.1569117" units="M3" />
+      <StatisticMeasure type="Direct Flow Minimum Time" displayString="Time of Minimum Direct Flow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Direct Flow Maximum" displayString="Maximum Direct Flow" value="0.0107152" units="M3/S" />
+      <StatisticMeasure type="Direct Flow Maximum Time" displayString="Time of Maximum Direct Flow" value="11Feb2020, 07:50" />
+      <StatisticMeasure type="Direct Flow Volume" displayString="Direct Flow Volume" value="691.8924419" units="M3" />
+      <StatisticMeasure type="Direct Flow Depth" displayString="Direct Flow Depth" value="0.0019787" units="MM" />
+      <StatisticMeasure type="Baseflow Minimum" displayString="Minimum Baseflow" value="30.0000000" units="M3/S" />
+      <StatisticMeasure type="Baseflow Minimum Time" displayString="Time of Minimum Baseflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Baseflow Maximum" displayString="Maximum Baseflow" value="30.0000000" units="M3/S" />
+      <StatisticMeasure type="Baseflow Maximum Time" displayString="Time of Maximum Baseflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Baseflow Volume" displayString="Baseflow Volume" value="12969000.0000000" units="M3" />
+      <StatisticMeasure type="Baseflow Depth" displayString="Baseflow Depth" value="37.0886320" units="MM" />
+      <StatisticMeasure type="Precipitation Maximum" displayString="Maximum Precipitation" value="0.0039040" units="MM" />
+      <StatisticMeasure type="Precipitation Maximum Time" displayString="Time of Maximum Precipitation" value="10Feb2020, 20:35" />
+      <StatisticMeasure type="Precipitation Total" displayString="Precipitation Total" value="0.0225990" units="MM" />
+      <StatisticMeasure type="Precipitation Volume" displayString="Precipitation Volume" value="7902.3250845" units="M3" />
+      <StatisticMeasure type="Loss Maximum" displayString="Maximum Loss" value="0.0033184" units="MM" />
+      <StatisticMeasure type="Loss Maximum Time" displayString="Time of Maximum Loss" value="10Feb2020, 20:35" />
+      <StatisticMeasure type="Loss Total" displayString="Loss Total" value="0.0192091" units="MM" />
+      <StatisticMeasure type="Loss Volume" displayString="Could not find requested resource: STAT_LossVolume_Label" value="6716.9763219" units="M3" />
+      <StatisticMeasure type="Excess Maximum" displayString="Maximum Excess" value="0.0005856" units="MM" />
+      <StatisticMeasure type="Excess Maximum Time" displayString="Time of Maximum Excess" value="10Feb2020, 20:35" />
+      <StatisticMeasure type="Excess Total" displayString="Excess Total" value="0.0033898" units="MM" />
+      <StatisticMeasure type="Excess Volume" displayString="Could not find requested resource: STAT_ExcessVolume_Label" value="1185.3487627" units="M3" />
     </Statistics>
   </BasinElement>
   <BasinElement name="Junction-1" type="Junction">
-    <ExecutionTime>17Sep2019, 10:01:03</ExecutionTime>
+    <ExecutionTime>10Feb2020, 11:20:52</ExecutionTime>
     <UnitSystem>SI</UnitSystem>
     <IsComputationPoint>No</IsComputationPoint>
-    <DrainageArea area="1053.826718" units="KM2" />
+    <DrainageArea area="1029.826718" units="KM2" />
     <FlowLink upstreamName="Reach-1" />
-    <FlowLink upstreamName="Sub2" />
     <FlowLink upstreamName="Sub3" />
+    <FlowLink upstreamName="Sub2" />
     <Hydrology>
       <TimeSeries>
         <TimeSeriesType type="Outflow" displayString="Outflow" />
@@ -566,25 +476,25 @@
     <Sediment />
     <WaterQuality />
     <Statistics>
-      <StatisticMeasure type="Inflow Minimum" displayString="Minimum Inflow" value="1.6103058" units="M3/S" />
-      <StatisticMeasure type="Inflow Minimum Time" displayString="Time of Minimum Inflow" value="14Sep2019, 15:15" />
-      <StatisticMeasure type="Inflow Maximum" displayString="Maximum Inflow" value="242.3081927" units="M3/S" />
-      <StatisticMeasure type="Inflow Maximum Time" displayString="Time of Maximum Inflow" value="16Sep2019, 17:45" />
-      <StatisticMeasure type="Inflow Volume" displayString="Inflow Volume" value="38935859.4889046" units="M3" />
-      <StatisticMeasure type="Inflow Depth" displayString="Inflow Depth" value="36.9471174" units="MM" />
-      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="1.6103058" units="M3/S" />
-      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="14Sep2019, 15:15" />
-      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="242.3081927" units="M3/S" />
-      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="16Sep2019, 17:45" />
-      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="38935859.4889046" units="M3" />
-      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="36.9471174" units="MM" />
+      <StatisticMeasure type="Inflow Minimum" displayString="Minimum Inflow" value="55.6443438" units="M3/S" />
+      <StatisticMeasure type="Inflow Minimum Time" displayString="Time of Minimum Inflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Inflow Maximum" displayString="Maximum Inflow" value="105.0000000" units="M3/S" />
+      <StatisticMeasure type="Inflow Maximum Time" displayString="Time of Maximum Inflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Inflow Volume" displayString="Inflow Volume" value="32998205.9814577" units="M3" />
+      <StatisticMeasure type="Inflow Depth" displayString="Inflow Depth" value="32.0424839" units="MM" />
+      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="55.6443438" units="M3/S" />
+      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="105.0000000" units="M3/S" />
+      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="32998205.9814577" units="M3" />
+      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="32.0424839" units="MM" />
     </Statistics>
   </BasinElement>
   <BasinElement name="Reach-2" type="Reach">
-    <ExecutionTime>17Sep2019, 10:01:03</ExecutionTime>
+    <ExecutionTime>10Feb2020, 11:20:52</ExecutionTime>
     <UnitSystem>SI</UnitSystem>
     <IsComputationPoint>No</IsComputationPoint>
-    <DrainageArea area="1053.826718" units="KM2" />
+    <DrainageArea area="1029.826718" units="KM2" />
     <FlowLink upstreamName="Junction-1" />
     <Hydrology>
       <TimeSeries>
@@ -601,22 +511,22 @@
     <Sediment />
     <WaterQuality />
     <Statistics>
-      <StatisticMeasure type="Inflow Minimum" displayString="Minimum Inflow" value="1.6103058" units="M3/S" />
-      <StatisticMeasure type="Inflow Minimum Time" displayString="Time of Minimum Inflow" value="14Sep2019, 15:15" />
-      <StatisticMeasure type="Inflow Maximum" displayString="Maximum Inflow" value="242.3081927" units="M3/S" />
-      <StatisticMeasure type="Inflow Maximum Time" displayString="Time of Maximum Inflow" value="16Sep2019, 17:45" />
-      <StatisticMeasure type="Inflow Volume" displayString="Inflow Volume" value="38935859.4889046" units="M3" />
-      <StatisticMeasure type="Inflow Depth" displayString="Inflow Depth" value="36.9471174" units="MM" />
-      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="1.6622081" units="M3/S" />
-      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="14Sep2019, 15:45" />
-      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="242.0140717" units="M3/S" />
-      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="16Sep2019, 18:30" />
-      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="38391690.5054742" units="M3" />
-      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="36.4307432" units="MM" />
+      <StatisticMeasure type="Inflow Minimum" displayString="Minimum Inflow" value="55.6443438" units="M3/S" />
+      <StatisticMeasure type="Inflow Minimum Time" displayString="Time of Minimum Inflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Inflow Maximum" displayString="Maximum Inflow" value="105.0000000" units="M3/S" />
+      <StatisticMeasure type="Inflow Maximum Time" displayString="Time of Maximum Inflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Inflow Volume" displayString="Inflow Volume" value="32998205.9814577" units="M3" />
+      <StatisticMeasure type="Inflow Depth" displayString="Inflow Depth" value="32.0424839" units="MM" />
+      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="55.8844163" units="M3/S" />
+      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="105.0000000" units="M3/S" />
+      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="33175410.7056720" units="M3" />
+      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="32.2145562" units="MM" />
     </Statistics>
   </BasinElement>
   <BasinElement name="Sub4" type="Subbasin">
-    <ExecutionTime>17Sep2019, 10:01:03</ExecutionTime>
+    <ExecutionTime>10Feb2020, 11:20:52</ExecutionTime>
     <SubbasinArea area="406.443215" units="KM2" />
     <UnitSystem>SI</UnitSystem>
     <IsComputationPoint>No</IsComputationPoint>
@@ -636,36 +546,6 @@
         <TimeSeriesType type="Cumulative Precip" displayString="Cumulative Precipitation" />
         <DssFileName>distributed_model_run.dss</DssFileName>
         <DssPathname>//Sub4/PRECIP-CUM//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy Excess" displayString="Canopy Overflow" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub4/EXCESS-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Potential ET" displayString="Potential Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub4/ET-POTENTIAL//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy ET" displayString="Canopy Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub4/ET-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy Storage" displayString="Canopy Storage" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub4/STORAGE-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Surface ET" displayString="Surface Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub4/ET-SURFACE//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Surface Storage" displayString="Surface Storage" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub4/STORAGE-SURFACE//5MIN/RUN:distributed_model/</DssPathname>
       </TimeSeries>
       <TimeSeries>
         <TimeSeriesType type="Infiltration" displayString="Soil Infiltration" />
@@ -751,44 +631,44 @@
     <Sediment />
     <WaterQuality />
     <Statistics>
-      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="2.1462244" units="M3/S" />
-      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="15Sep2019, 06:35" />
-      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="61.1136338" units="M3/S" />
-      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="17Sep2019, 18:35" />
-      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="9819603.3559454" units="M3" />
-      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="24.1598408" units="MM" />
+      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="14.8229312" units="M3/S" />
+      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="50.0000000" units="M3/S" />
+      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="12507130.0352538" units="M3" />
+      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="30.7721462" units="MM" />
       <StatisticMeasure type="Direct Flow Minimum" displayString="Minimum Direct Flow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Direct Flow Minimum Time" displayString="Time of Minimum Direct Flow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Direct Flow Maximum" displayString="Maximum Direct Flow" value="60.7473346" units="M3/S" />
-      <StatisticMeasure type="Direct Flow Maximum Time" displayString="Time of Maximum Direct Flow" value="17Sep2019, 18:35" />
-      <StatisticMeasure type="Direct Flow Volume" displayString="Direct Flow Volume" value="8610567.0238339" units="M3" />
-      <StatisticMeasure type="Direct Flow Depth" displayString="Direct Flow Depth" value="21.1851661" units="MM" />
-      <StatisticMeasure type="Baseflow Minimum" displayString="Minimum Baseflow" value="0.3125000" units="M3/S" />
-      <StatisticMeasure type="Baseflow Minimum Time" displayString="Time of Minimum Baseflow" value="18Sep2019, 00:05" />
-      <StatisticMeasure type="Baseflow Maximum" displayString="Maximum Baseflow" value="10.0000000" units="M3/S" />
-      <StatisticMeasure type="Baseflow Maximum Time" displayString="Time of Maximum Baseflow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Baseflow Volume" displayString="Baseflow Volume" value="1209036.3321114" units="M3" />
-      <StatisticMeasure type="Baseflow Depth" displayString="Baseflow Depth" value="2.9746747" units="MM" />
-      <StatisticMeasure type="Precipitation Maximum" displayString="Maximum Precipitation" value="10.2819204" units="MM" />
-      <StatisticMeasure type="Precipitation Maximum Time" displayString="Time of Maximum Precipitation" value="17Sep2019, 14:35" />
-      <StatisticMeasure type="Precipitation Total" displayString="Precipitation Total" value="80.9734287" units="MM" />
-      <StatisticMeasure type="Precipitation Volume" displayString="Precipitation Volume" value="32911100.6873150" units="M3" />
-      <StatisticMeasure type="Loss Maximum" displayString="Maximum Loss" value="4.0609350" units="MM" />
-      <StatisticMeasure type="Loss Maximum Time" displayString="Time of Maximum Loss" value="13Sep2019, 12:50" />
-      <StatisticMeasure type="Loss Total" displayString="Loss Total" value="41.1322907" units="MM" />
-      <StatisticMeasure type="Loss Volume" displayString="Could not find requested resource: STAT_LossVolume_Label" value="16717940.4624966" units="M3" />
-      <StatisticMeasure type="Excess Maximum" displayString="Maximum Excess" value="9.9685783" units="MM" />
-      <StatisticMeasure type="Excess Maximum Time" displayString="Time of Maximum Excess" value="17Sep2019, 14:35" />
-      <StatisticMeasure type="Excess Total" displayString="Excess Total" value="39.8411380" units="MM" />
-      <StatisticMeasure type="Excess Volume" displayString="Could not find requested resource: STAT_ExcessVolume_Label" value="16193160.2248185" units="M3" />
+      <StatisticMeasure type="Direct Flow Minimum Time" displayString="Time of Minimum Direct Flow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Direct Flow Maximum" displayString="Maximum Direct Flow" value="0.0130929" units="M3/S" />
+      <StatisticMeasure type="Direct Flow Maximum Time" displayString="Time of Maximum Direct Flow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Direct Flow Volume" displayString="Direct Flow Volume" value="1115.2812962" units="M3" />
+      <StatisticMeasure type="Direct Flow Depth" displayString="Direct Flow Depth" value="0.0027440" units="MM" />
+      <StatisticMeasure type="Baseflow Minimum" displayString="Minimum Baseflow" value="14.8098383" units="M3/S" />
+      <StatisticMeasure type="Baseflow Minimum Time" displayString="Time of Minimum Baseflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Baseflow Maximum" displayString="Maximum Baseflow" value="50.0000000" units="M3/S" />
+      <StatisticMeasure type="Baseflow Maximum Time" displayString="Time of Maximum Baseflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Baseflow Volume" displayString="Baseflow Volume" value="12506014.7539575" units="M3" />
+      <StatisticMeasure type="Baseflow Depth" displayString="Baseflow Depth" value="30.7694022" units="MM" />
+      <StatisticMeasure type="Precipitation Maximum" displayString="Maximum Precipitation" value="0.0064512" units="MM" />
+      <StatisticMeasure type="Precipitation Maximum Time" displayString="Time of Maximum Precipitation" value="08Feb2020, 23:15" />
+      <StatisticMeasure type="Precipitation Total" displayString="Precipitation Total" value="0.0530433" units="MM" />
+      <StatisticMeasure type="Precipitation Volume" displayString="Precipitation Volume" value="21559.0893915" units="M3" />
+      <StatisticMeasure type="Loss Maximum" displayString="Maximum Loss" value="0.0058061" units="MM" />
+      <StatisticMeasure type="Loss Maximum Time" displayString="Time of Maximum Loss" value="08Feb2020, 23:15" />
+      <StatisticMeasure type="Loss Total" displayString="Loss Total" value="0.0477390" units="MM" />
+      <StatisticMeasure type="Loss Volume" displayString="Could not find requested resource: STAT_LossVolume_Label" value="19403.1804524" units="M3" />
+      <StatisticMeasure type="Excess Maximum" displayString="Maximum Excess" value="0.0006451" units="MM" />
+      <StatisticMeasure type="Excess Maximum Time" displayString="Time of Maximum Excess" value="08Feb2020, 23:15" />
+      <StatisticMeasure type="Excess Total" displayString="Excess Total" value="0.0053043" units="MM" />
+      <StatisticMeasure type="Excess Volume" displayString="Could not find requested resource: STAT_ExcessVolume_Label" value="2155.9089392" units="M3" />
     </Statistics>
   </BasinElement>
   <BasinElement name="Sub5" type="Subbasin">
-    <ExecutionTime>17Sep2019, 10:01:03</ExecutionTime>
-    <SubbasinArea area="49" units="KM2" />
+    <ExecutionTime>10Feb2020, 11:20:52</ExecutionTime>
+    <SubbasinArea area="74" units="KM2" />
     <UnitSystem>SI</UnitSystem>
     <IsComputationPoint>No</IsComputationPoint>
-    <DrainageArea area="49" units="KM2" />
+    <DrainageArea area="74" units="KM2" />
     <Hydrology>
       <TimeSeries>
         <TimeSeriesType type="Outflow" displayString="Outflow" />
@@ -804,36 +684,6 @@
         <TimeSeriesType type="Cumulative Precip" displayString="Cumulative Precipitation" />
         <DssFileName>distributed_model_run.dss</DssFileName>
         <DssPathname>//Sub5/PRECIP-CUM//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy Excess" displayString="Canopy Overflow" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub5/EXCESS-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Potential ET" displayString="Potential Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub5/ET-POTENTIAL//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy ET" displayString="Canopy Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub5/ET-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Canopy Storage" displayString="Canopy Storage" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub5/STORAGE-CANOPY//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Surface ET" displayString="Surface Evapotranspiration" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub5/ET-SURFACE//5MIN/RUN:distributed_model/</DssPathname>
-      </TimeSeries>
-      <TimeSeries>
-        <TimeSeriesType type="Surface Storage" displayString="Surface Storage" />
-        <DssFileName>distributed_model_run.dss</DssFileName>
-        <DssPathname>//Sub5/STORAGE-SURFACE//5MIN/RUN:distributed_model/</DssPathname>
       </TimeSeries>
       <TimeSeries>
         <TimeSeriesType type="Infiltration" displayString="Soil Infiltration" />
@@ -919,43 +769,43 @@
     <Sediment />
     <WaterQuality />
     <Statistics>
-      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="2.4340045" units="M3/S" />
-      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="15Sep2019, 06:35" />
-      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="27.1617220" units="M3/S" />
-      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="16Sep2019, 06:35" />
-      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="4261167.2430840" units="M3" />
-      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="86.9625968" units="MM" />
+      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="1.4856302" units="M3/S" />
+      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="5.0000000" units="M3/S" />
+      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="1251262.1812615" units="M3" />
+      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="16.9089484" units="MM" />
       <StatisticMeasure type="Direct Flow Minimum" displayString="Minimum Direct Flow" value="0.0000000" units="M3/S" />
-      <StatisticMeasure type="Direct Flow Minimum Time" displayString="Time of Minimum Direct Flow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Direct Flow Maximum" displayString="Maximum Direct Flow" value="26.1256712" units="M3/S" />
-      <StatisticMeasure type="Direct Flow Maximum Time" displayString="Time of Maximum Direct Flow" value="16Sep2019, 06:35" />
-      <StatisticMeasure type="Direct Flow Volume" displayString="Direct Flow Volume" value="3014673.2459109" units="M3" />
-      <StatisticMeasure type="Direct Flow Depth" displayString="Direct Flow Depth" value="61.5239438" units="MM" />
-      <StatisticMeasure type="Baseflow Minimum" displayString="Minimum Baseflow" value="0.4451442" units="M3/S" />
-      <StatisticMeasure type="Baseflow Minimum Time" displayString="Time of Minimum Baseflow" value="17Sep2019, 11:50" />
-      <StatisticMeasure type="Baseflow Maximum" displayString="Maximum Baseflow" value="10.0000000" units="M3/S" />
-      <StatisticMeasure type="Baseflow Maximum Time" displayString="Time of Maximum Baseflow" value="12Sep2019, 24:00" />
-      <StatisticMeasure type="Baseflow Volume" displayString="Baseflow Volume" value="1246493.9971731" units="M3" />
-      <StatisticMeasure type="Baseflow Depth" displayString="Baseflow Depth" value="25.4386530" units="MM" />
-      <StatisticMeasure type="Precipitation Maximum" displayString="Maximum Precipitation" value="9.7921200" units="MM" />
-      <StatisticMeasure type="Precipitation Maximum Time" displayString="Time of Maximum Precipitation" value="15Sep2019, 18:00" />
-      <StatisticMeasure type="Precipitation Total" displayString="Precipitation Total" value="117.0489540" units="MM" />
-      <StatisticMeasure type="Precipitation Volume" displayString="Precipitation Volume" value="5735398.7475800" units="M3" />
-      <StatisticMeasure type="Loss Maximum" displayString="Maximum Loss" value="1.4851201" units="MM" />
-      <StatisticMeasure type="Loss Maximum Time" displayString="Time of Maximum Loss" value="14Sep2019, 14:25" />
-      <StatisticMeasure type="Loss Total" displayString="Loss Total" value="47.3365879" units="MM" />
-      <StatisticMeasure type="Loss Volume" displayString="Could not find requested resource: STAT_LossVolume_Label" value="2319492.8084816" units="M3" />
-      <StatisticMeasure type="Excess Maximum" displayString="Maximum Excess" value="9.6055141" units="MM" />
-      <StatisticMeasure type="Excess Maximum Time" displayString="Time of Maximum Excess" value="15Sep2019, 18:00" />
-      <StatisticMeasure type="Excess Total" displayString="Excess Total" value="69.7123661" units="MM" />
-      <StatisticMeasure type="Excess Volume" displayString="Could not find requested resource: STAT_ExcessVolume_Label" value="3415905.9390984" units="M3" />
+      <StatisticMeasure type="Direct Flow Minimum Time" displayString="Time of Minimum Direct Flow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Direct Flow Maximum" displayString="Maximum Direct Flow" value="0.0100586" units="M3/S" />
+      <StatisticMeasure type="Direct Flow Maximum Time" displayString="Time of Maximum Direct Flow" value="11Feb2020, 11:05" />
+      <StatisticMeasure type="Direct Flow Volume" displayString="Direct Flow Volume" value="660.7058658" units="M3" />
+      <StatisticMeasure type="Direct Flow Depth" displayString="Direct Flow Depth" value="0.0089285" units="MM" />
+      <StatisticMeasure type="Baseflow Minimum" displayString="Minimum Baseflow" value="1.4809838" units="M3/S" />
+      <StatisticMeasure type="Baseflow Minimum Time" displayString="Time of Minimum Baseflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Baseflow Maximum" displayString="Maximum Baseflow" value="5.0000000" units="M3/S" />
+      <StatisticMeasure type="Baseflow Maximum Time" displayString="Time of Maximum Baseflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Baseflow Volume" displayString="Baseflow Volume" value="1250601.4753958" units="M3" />
+      <StatisticMeasure type="Baseflow Depth" displayString="Baseflow Depth" value="16.9000199" units="MM" />
+      <StatisticMeasure type="Precipitation Maximum" displayString="Maximum Precipitation" value="0.0039648" units="MM" />
+      <StatisticMeasure type="Precipitation Maximum Time" displayString="Time of Maximum Precipitation" value="10Feb2020, 17:05" />
+      <StatisticMeasure type="Precipitation Total" displayString="Precipitation Total" value="0.0626076" units="MM" />
+      <StatisticMeasure type="Precipitation Volume" displayString="Precipitation Volume" value="4632.9623095" units="M3" />
+      <StatisticMeasure type="Loss Maximum" displayString="Maximum Loss" value="0.0031718" units="MM" />
+      <StatisticMeasure type="Loss Maximum Time" displayString="Time of Maximum Loss" value="10Feb2020, 17:05" />
+      <StatisticMeasure type="Loss Total" displayString="Loss Total" value="0.0500861" units="MM" />
+      <StatisticMeasure type="Loss Volume" displayString="Could not find requested resource: STAT_LossVolume_Label" value="3706.3698476" units="M3" />
+      <StatisticMeasure type="Excess Maximum" displayString="Maximum Excess" value="0.0007930" units="MM" />
+      <StatisticMeasure type="Excess Maximum Time" displayString="Time of Maximum Excess" value="10Feb2020, 17:05" />
+      <StatisticMeasure type="Excess Total" displayString="Excess Total" value="0.0125215" units="MM" />
+      <StatisticMeasure type="Excess Volume" displayString="Could not find requested resource: STAT_ExcessVolume_Label" value="926.5924619" units="M3" />
     </Statistics>
   </BasinElement>
   <BasinElement name="Junction-2" type="Junction">
-    <ExecutionTime>17Sep2019, 10:01:03</ExecutionTime>
+    <ExecutionTime>10Feb2020, 11:20:52</ExecutionTime>
     <UnitSystem>SI</UnitSystem>
     <IsComputationPoint>No</IsComputationPoint>
-    <DrainageArea area="1509.269933" units="KM2" />
+    <DrainageArea area="1510.269933" units="KM2" />
     <FlowLink upstreamName="Reach-2" />
     <FlowLink upstreamName="Sub4" />
     <FlowLink upstreamName="Sub5" />
@@ -974,26 +824,26 @@
     <Sediment />
     <WaterQuality />
     <Statistics>
-      <StatisticMeasure type="Inflow Minimum" displayString="Minimum Inflow" value="8.1379264" units="M3/S" />
-      <StatisticMeasure type="Inflow Minimum Time" displayString="Time of Minimum Inflow" value="14Sep2019, 15:45" />
-      <StatisticMeasure type="Inflow Maximum" displayString="Maximum Inflow" value="309.1707849" units="M3/S" />
-      <StatisticMeasure type="Inflow Maximum Time" displayString="Time of Maximum Inflow" value="16Sep2019, 18:20" />
-      <StatisticMeasure type="Inflow Volume" displayString="Inflow Volume" value="52472461.1045035" units="M3" />
-      <StatisticMeasure type="Inflow Depth" displayString="Inflow Depth" value="34.7667836" units="MM" />
-      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="8.1379264" units="M3/S" />
-      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="14Sep2019, 15:45" />
-      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="309.1707849" units="M3/S" />
-      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="16Sep2019, 18:20" />
-      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="52472461.1045035" units="M3" />
-      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="34.7667836" units="MM" />
+      <StatisticMeasure type="Inflow Minimum" displayString="Minimum Inflow" value="72.1929776" units="M3/S" />
+      <StatisticMeasure type="Inflow Minimum Time" displayString="Time of Minimum Inflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Inflow Maximum" displayString="Maximum Inflow" value="160.0000000" units="M3/S" />
+      <StatisticMeasure type="Inflow Maximum Time" displayString="Time of Maximum Inflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Inflow Volume" displayString="Inflow Volume" value="46933802.9221874" units="M3" />
+      <StatisticMeasure type="Inflow Depth" displayString="Inflow Depth" value="31.0764334" units="MM" />
+      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="72.1929776" units="M3/S" />
+      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="160.0000000" units="M3/S" />
+      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="46933802.9221874" units="M3" />
+      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="31.0764334" units="MM" />
     </Statistics>
   </BasinElement>
   <BasinElement name="Sink-1" type="Sink">
-    <ExecutionTime>17Sep2019, 10:01:03</ExecutionTime>
+    <ExecutionTime>10Feb2020, 11:20:52</ExecutionTime>
     <UnitSystem>SI</UnitSystem>
     <IsComputationPoint>No</IsComputationPoint>
-    <DrainageArea area="1509.269933" units="KM2" />
-    <ObservedFlowGage name="Glencose" />
+    <DrainageArea area="1510.269933" units="KM2" />
+    <ObservedFlowGage name="Ranwala 24" />
     <FlowLink upstreamName="Junction-2" />
     <Hydrology>
       <TimeSeries>
@@ -1010,18 +860,18 @@
     <Sediment />
     <WaterQuality />
     <Statistics>
-      <StatisticMeasure type="Inflow Minimum" displayString="Minimum Inflow" value="8.1379264" units="M3/S" />
-      <StatisticMeasure type="Inflow Minimum Time" displayString="Time of Minimum Inflow" value="14Sep2019, 15:45" />
-      <StatisticMeasure type="Inflow Maximum" displayString="Maximum Inflow" value="309.1707849" units="M3/S" />
-      <StatisticMeasure type="Inflow Maximum Time" displayString="Time of Maximum Inflow" value="16Sep2019, 18:20" />
-      <StatisticMeasure type="Inflow Volume" displayString="Inflow Volume" value="52472461.1045035" units="M3" />
-      <StatisticMeasure type="Inflow Depth" displayString="Inflow Depth" value="34.7667836" units="MM" />
-      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="8.1379264" units="M3/S" />
-      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="14Sep2019, 15:45" />
-      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="309.1707849" units="M3/S" />
-      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="16Sep2019, 18:20" />
-      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="52472461.1045035" units="M3" />
-      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="34.7667836" units="MM" />
+      <StatisticMeasure type="Inflow Minimum" displayString="Minimum Inflow" value="72.1929776" units="M3/S" />
+      <StatisticMeasure type="Inflow Minimum Time" displayString="Time of Minimum Inflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Inflow Maximum" displayString="Maximum Inflow" value="160.0000000" units="M3/S" />
+      <StatisticMeasure type="Inflow Maximum Time" displayString="Time of Maximum Inflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Inflow Volume" displayString="Inflow Volume" value="46933802.9221874" units="M3" />
+      <StatisticMeasure type="Inflow Depth" displayString="Inflow Depth" value="31.0764334" units="MM" />
+      <StatisticMeasure type="Outflow Minimum" displayString="Minimum Outflow" value="72.1929776" units="M3/S" />
+      <StatisticMeasure type="Outflow Minimum Time" displayString="Time of Minimum Outflow" value="12Feb2020, 00:05" />
+      <StatisticMeasure type="Outflow Maximum" displayString="Maximum Outflow" value="160.0000000" units="M3/S" />
+      <StatisticMeasure type="Outflow Maximum Time" displayString="Time of Maximum Outflow" value="06Feb2020, 24:00" />
+      <StatisticMeasure type="Outflow Volume" displayString="Outflow Volume" value="46933802.9221874" units="M3" />
+      <StatisticMeasure type="Outflow Depth" displayString="Outflow Depth" value="31.0764334" units="MM" />
     </Statistics>
   </BasinElement>
 </RunResults>

@@ -2,7 +2,7 @@ Basin: distributed_model
      Last Modified Date: 15 February 2018
      Last Modified Time: 05:07:08
      Version: 4.2.1
-     Filepath Separator: \
+     Filepath Separator: /
      Unit System: Metric
      Missing Flow To Zero: No
      Enable Flow Ratio: No
@@ -15,44 +15,44 @@ End:
 
 Subbasin: Sub1
      Description: Kehelgamu Oya + Maskeli oya Basins
-          Last Modified Date: 5 October 2019
-          Last Modified Time: 06:42:13
-          Canvas X: 476309.0436383641
-          Canvas Y: 483544.476721086
-          Area: 418.495741
-          Downstream: Reach-1
+     Last Modified Date: 5 October 2019
+     Last Modified Time: 06:42:13
+     Canvas X: 476309.0436383641
+     Canvas Y: 483544.476721086
+     Area: 418.495741
+     Downstream: Reach-1
 
-          Canopy: None
-          Allow Simultaneous Precip Et: No
-          Plant Uptake Method: None
+     Canopy: None
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: None
 
-          Surface: None
+     Surface: None
 
-          LossRate: Soil Moisture Account
-          Percent Impervious Area: 10
-          Initial Soil Storage Percent: 70
-          Initial Gw1 Storage Percent: 45
-          Initial Gw2 Storage Percent: 82
-          Soil Maximum Infiltration: 12.027
-          Soil Storage Capacity: 125
-          Soil Tension Capacity: 75
-          Soil Maximum Percolation: 6.0000
-          Groundwater 1 Storage Capacity: 100
-          Groundwater 1 Routing Coefficient: 100
-          Groundwater 1 Maximum Percolation: 9
-          Groundwater 2 Storage Capacity: 150
-          Groundwater 2 Routing Coefficient: 200
-          Groundwater 2 Maximum Percolation: 2
+     LossRate: Soil Moisture Account
+     Percent Impervious Area: 10
+     Initial Soil Storage Percent: 70
+     Initial Gw1 Storage Percent: 45
+     Initial Gw2 Storage Percent: 82
+     Soil Maximum Infiltration: 12.027
+     Soil Storage Capacity: 125
+     Soil Tension Capacity: 75
+     Soil Maximum Percolation: 6.0000
+     Groundwater 1 Storage Capacity: 100
+     Groundwater 1 Routing Coefficient: 100
+     Groundwater 1 Maximum Percolation: 9
+     Groundwater 2 Storage Capacity: 150
+     Groundwater 2 Routing Coefficient: 200
+     Groundwater 2 Maximum Percolation: 2
 
-          Transform: Clark
-          Time of Concentration: 4.4217
-          Storage Coefficient: 10.306
-          Time Area Method: Default
+     Transform: Clark
+     Time of Concentration: 4.4217
+     Storage Coefficient: 10.306
+     Time Area Method: Default
 
-          Baseflow: Recession
-          Recession Factor: 0.80373
-          Initial Baseflow: 50
-          Threshold Flow to Peak Ratio: 0.4
+     Baseflow: Recession
+     Recession Factor: 0.80373
+     Initial Baseflow: 50
+     Threshold Flow to Peak Ratio: 0.4
 End:
 
 Reach: Reach-1
