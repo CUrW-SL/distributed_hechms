@@ -6,7 +6,7 @@ from os import path
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from config import UPLOADS_DEFAULT_DEST, INIT_DATE_TIME_FORMAT, RAIN_FALL_FILE_NAME, \
+from config import UPLOADS_DEFAULT_DEST, INIT_DATE_TIME_FORMAT,\
     HEC_HMS_MODEL_DIR, OUTPUT_DIR, HEC_INPUT_DSS, HEC_OUTPUT_DSS, FILE_REMOVE_CMD
 from input.shape_util.polygon_util import get_rain_files
 from input.gage.model_gage import create_gage_file_by_rain_file
@@ -76,7 +76,7 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
         get_mean_rain(from_date, to_date, output_dir)
         rain_fall_file = Path(output_file)
         if rain_fall_file.is_file():
-            create_dir_if_not_exists(os.path.join(output_dir, 'distributed_model'))
+            create_dir_if_not_exists(os.path.join(OUTPUT_DIR, 'distributed_model'))
             subprocess.call(COPY_MODEL_TEMPLATE_CMD.format(file_date, file_time), shell=True)
             create_gage_file_by_rain_file('distributed_model', output_file)
             create_control_file_by_rain_file('distributed_model', output_file)
@@ -165,48 +165,48 @@ def upload_discharge(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S')):
         return jsonify({'Result': 'Fail'})
 
 
-@app.route('/HECHMS/distributed/rain-fall', methods=['GET', 'POST'])
-@app.route('/HECHMS/distributed/rain-fall/<string:run_datetime>',  methods=['GET', 'POST'])
-@app.route('/HECHMS/distributed/rain-fall/<string:run_datetime>/<int:back_days>/<int:forward_days>',  methods=['GET', 'POST'])
-def get_sub_catchment_rain_fall(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), back_days=2, forward_days=3):
-    print('get_sub_catchment_rain_fall.')
-    print('run_datetime : ', run_datetime)
-    print('back_days : ', back_days)
-    print('forward_days : ', forward_days)
+# @app.route('/HECHMS/distributed/rain-fall', methods=['GET', 'POST'])
+# @app.route('/HECHMS/distributed/rain-fall/<string:run_datetime>',  methods=['GET', 'POST'])
+# @app.route('/HECHMS/distributed/rain-fall/<string:run_datetime>/<int:back_days>/<int:forward_days>',  methods=['GET', 'POST'])
+# def get_sub_catchment_rain_fall(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), back_days=2, forward_days=3):
+#     print('get_sub_catchment_rain_fall.')
+#     print('run_datetime : ', run_datetime)
+#     print('back_days : ', back_days)
+#     print('forward_days : ', forward_days)
+#
+#     run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')
+#     to_date = run_datetime + timedelta(days=forward_days)
+#     from_date = run_datetime - timedelta(days=back_days)
+#     file_date = run_datetime.strftime('%Y-%m-%d')
+#     from_date = from_date.strftime('%Y-%m-%d %H:%M:%S')
+#     to_date = to_date.strftime('%Y-%m-%d %H:%M:%S')
+#     file_name = RAIN_FALL_FILE_NAME.format(file_date)
+#     print('file_name : ', file_name)
+#     print('{from_date, to_date} : ', {from_date, to_date})
+#     # get_sub_catchment_rain_files(file_name, from_date, to_date)
+#     get_rain_files(file_name, run_datetime.strftime('%Y-%m-%d %H:%M:%S'), forward_days, back_days)
+#     return jsonify({'timeseries': {}})
 
-    run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')
-    to_date = run_datetime + timedelta(days=forward_days)
-    from_date = run_datetime - timedelta(days=back_days)
-    file_date = run_datetime.strftime('%Y-%m-%d')
-    from_date = from_date.strftime('%Y-%m-%d %H:%M:%S')
-    to_date = to_date.strftime('%Y-%m-%d %H:%M:%S')
-    file_name = RAIN_FALL_FILE_NAME.format(file_date)
-    print('file_name : ', file_name)
-    print('{from_date, to_date} : ', {from_date, to_date})
-    # get_sub_catchment_rain_files(file_name, from_date, to_date)
-    get_rain_files(file_name, run_datetime.strftime('%Y-%m-%d %H:%M:%S'), forward_days, back_days)
-    return jsonify({'timeseries': {}})
 
-
-@app.route('/HECHMS/distributed/create-gage-file', methods=['GET', 'POST'])
-@app.route('/HECHMS/distributed/create-gage-file/<string:run_datetime>',  methods=['GET', 'POST'])
-@app.route('/HECHMS/distributed/create-gage-file/<string:run_datetime>/<int:back_days>/<int:forward_days>',  methods=['GET', 'POST'])
-def get_gage_file(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), back_days=2, forward_days=3):
-    print('create_gage_file.')
-    print('run_datetime : ', run_datetime)
-    print('back_days : ', back_days)
-    print('forward_days : ', forward_days)
-    run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')
-    to_date = run_datetime + timedelta(days=forward_days)
-    from_date = run_datetime - timedelta(days=back_days)
-    file_date = run_datetime.strftime('%Y-%m-%d')
-    from_date = from_date.strftime('%Y-%m-%d %H:%M:%S')
-    to_date = to_date.strftime('%Y-%m-%d %H:%M:%S')
-    file_name = RAIN_FALL_FILE_NAME.format(file_date)
-    rain_fall_file = Path(file_name)
-    if rain_fall_file.is_file():
-        create_gage_file_by_rain_file('distributed_model', file_name)
-    return jsonify({'timeseries': {}})
+# @app.route('/HECHMS/distributed/create-gage-file', methods=['GET', 'POST'])
+# @app.route('/HECHMS/distributed/create-gage-file/<string:run_datetime>',  methods=['GET', 'POST'])
+# @app.route('/HECHMS/distributed/create-gage-file/<string:run_datetime>/<int:back_days>/<int:forward_days>',  methods=['GET', 'POST'])
+# def get_gage_file(run_datetime=datetime.now().strftime('%Y-%m-%d %H:%M:%S'), back_days=2, forward_days=3):
+#     print('create_gage_file.')
+#     print('run_datetime : ', run_datetime)
+#     print('back_days : ', back_days)
+#     print('forward_days : ', forward_days)
+#     run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d %H:%M:%S')
+#     to_date = run_datetime + timedelta(days=forward_days)
+#     from_date = run_datetime - timedelta(days=back_days)
+#     file_date = run_datetime.strftime('%Y-%m-%d')
+#     from_date = from_date.strftime('%Y-%m-%d %H:%M:%S')
+#     to_date = to_date.strftime('%Y-%m-%d %H:%M:%S')
+#     file_name = RAIN_FALL_FILE_NAME.format(file_date)
+#     rain_fall_file = Path(file_name)
+#     if rain_fall_file.is_file():
+#         create_gage_file_by_rain_file('distributed_model', file_name)
+#     return jsonify({'timeseries': {}})
 
 
 @app.route('/HECHMS/distributed/create-control-file', methods=['GET', 'POST'])
