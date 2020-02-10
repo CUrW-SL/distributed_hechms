@@ -18,7 +18,7 @@ try :
     try :
         print 'Jython version: ', sys.version
 
-        CONFIG = json.loads(open('CONFIG.json').read())
+        CONFIG = json.loads(open('/home/curw/git/distributed_hechms/model/CONFIG.json').read())
         # print('Config :: ', CONFIG)
 
         NUM_METADATA_LINES = 3;
