@@ -265,7 +265,7 @@ def is_valid_init_dt(date_time):
 
 
 if __name__ == '__main__':
-    app.run(host='10.138.0.3', port=5000)
+    app.run(host='192.168.1.43', port=5000)
     #app.run(port=5000)
 
 # /home/curw/distributed_hec/hechms-distributed
