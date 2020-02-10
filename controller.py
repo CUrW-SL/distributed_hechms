@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 from config import UPLOADS_DEFAULT_DEST, INIT_DATE_TIME_FORMAT,\
-    HEC_HMS_MODEL_DIR, OUTPUT_DIR, HEC_INPUT_DSS, HEC_OUTPUT_DSS, FILE_REMOVE_CMD
+    OUTPUT_DIR, HEC_INPUT_DSS, HEC_OUTPUT_DSS, FILE_REMOVE_CMD
 from input.shape_util.polygon_util import get_rain_files
 from input.gage.model_gage import create_gage_file_by_rain_file
 from input.control.model_control import create_control_file, create_control_file_by_rain_file
@@ -17,9 +17,11 @@ from uploads.upload_discharge import extract_distrubuted_hechms_outputs
 
 from input.rainfall.mean_rain import get_mean_rain
 
+
 import logging
 logging.basicConfig(filename="/home/uwcc-admin/distributed_hec/distributed_hechms/hechms.log", level=logging.DEBUG)
 
+HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'distributed_model')
 COPY_BASIN_CMD = 'cp -R /home/uwcc-admin/distributed_hec/distributed_model.basin /home/uwcc-admin/distributed_hec/distributed_model'
 COPY_MET_CMD = 'cp -R /home/uwcc-admin/distributed_hec/distributed_model.met /home/uwcc-admin/distributed_hec/distributed_model'
 COPY_MODEL_TEMPLATE_CMD = 'cp -R /home/curw/git/distributed_hechms/distributed_model_template/* /home/curw/git/distributed_hechms/output/distributed_model'
