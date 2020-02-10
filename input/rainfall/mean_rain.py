@@ -12,6 +12,8 @@ from functools import reduce
 
 THESSIAN_DECIMAL_POINTS = 4
 
+RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+
 
 def _voronoi_finite_polygons_2d(vor, radius=None):
     """
@@ -165,9 +167,9 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
         print('[ts_start, ts_end, output_dir, catchment] : ', [ts_start, ts_end, output_dir, catchment])
         sim_adapter = CurwSimAdapter(MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DB)
         if catchment == 'kub':
-            shape_file = res_mgr.get_resource_path('kub-wgs84/kub-wgs84.shp')
+            shape_file = res_mgr.get_resource_path(os.path.join(RESOURCE_PATH, 'kub-wgs84/kub-wgs84.shp'))
         else:
-            shape_file = res_mgr.get_resource_path('klb-wgs84/klb-wgs84.shp')
+            shape_file = res_mgr.get_resource_path(os.path.join(RESOURCE_PATH, 'klb-wgs84/klb-wgs84.shp'))
         # {station1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1, 'timeseries': timeseries1}}
         available_stations = sim_adapter.get_basin_available_stations_timeseries(shape_file, ts_start, ts_end,
                                                                                  allowed_error=0.5)
@@ -180,7 +182,8 @@ def get_mean_rain(ts_start, ts_end, output_dir, catchment='kub'):
         print('output_dir : ', output_dir)
         gauge_points_thessian = get_thessian_polygon_from_gage_points(output_dir, shape_file, gauge_points)
         print('gauge_points_thessian : ', gauge_points_thessian)
-        shape_file = res_mgr.get_resource_path('sub_catchments/sub_catchments.shp')
+        shape_file = res_mgr.get_resource_path(os.path.join(RESOURCE_PATH, 'sub_catchments/sub_catchments.shp'))
+        #shape_file = res_mgr.get_resource_path('sub_catchments/sub_catchments.shp')
         catchment_df = gpd.GeoDataFrame.from_file(shape_file)
         sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
         print('sub_ratios : ', sub_ratios)
