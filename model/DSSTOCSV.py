@@ -9,7 +9,7 @@ from hec.io import TimeSeriesContainer
 
 from optparse import OptionParser
 
-sys.path.append("./simplejson-2.5.2")
+sys.path.append("/home/curw/distributed_hec/simplejson-2.5.2")
 import simplejson as json
 
 try :
