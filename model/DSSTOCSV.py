@@ -12,9 +12,10 @@ from optparse import OptionParser
 sys.path.append("/home/curw/distributed_hec/simplejson-2.5.2")
 import simplejson as json
 
-try :
-    try :
-        print 'Jython version: ', sys.version
+try:
+    try:
+        print
+        'Jython version: ', sys.version
 
         CONFIG = json.loads(open('/home/curw/git/distributed_hechms/model/CONFIG.json').read())
         # print('Config :: ', CONFIG)
@@ -157,7 +158,6 @@ try :
         MessageBox.showError(' '.join(e.args), "Python Error")
     except java.lang.Exception, e:
         MessageBox.showError(e.getMessage(), "Error")
-    finally:
-        myDss.done()
-        print
-        '\nCompleted converting.'
+finally:
+    myDss.done()
+    print '\nCompleted converting.'
