@@ -16,7 +16,7 @@ MYSQL_DB = 'curw_sim'
 
 BACK_DAYS = 2
 
-OUTPUT_DIR = '/mnt/disks/curwsl_nfs/distributed_hechms'
+OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
 
 FILE_REMOVE_CMD = 'rm -f {FILE_NAME}'
 
