@@ -2,7 +2,6 @@ import os
 import subprocess
 from flask import Flask, request, jsonify
 from flask_json import FlaskJSON, JsonError, json_response
-from flask_uploads import UploadSet, configure_uploads
 from os import path
 from datetime import datetime, timedelta
 from pathlib import Path
