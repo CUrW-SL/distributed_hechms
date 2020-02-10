@@ -95,4 +95,3 @@ def create_run_file1(model_name, date_time, startDateTime, saveStateDateTime, st
         file.write(run_file)
         file.write('\n\n')
     file.close()
-
