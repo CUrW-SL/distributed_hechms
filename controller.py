@@ -87,8 +87,6 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
                 subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_input), shell=True)
                 print('hechms_output : ', hechms_output)
                 subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_output), shell=True)
-                #subprocess.call(COPY_BASIN_CMD, shell=True)
-                #subprocess.call(COPY_MET_CMD, shell=True)
             except Exception as e:
                 print('Remove hechms input/output files|Exception: ', e)
                 logging.debug("Remove hechms input/output files|Exception|{}".format(e))
