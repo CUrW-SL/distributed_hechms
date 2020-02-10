@@ -1,7 +1,7 @@
 {
   "HEC_HMS_DIR": "/home/curw/distributed_hec/hec-hms-421",
   "HEC_DSSVUE_DIR": "/home/curw/distributed_hec/hec-dssvue201",
-  "OUTPUT_DIR": "/home/curw/distributed_hec/OUTPUT",
+  "OUTPUT_DIR": "/home/curw/git/distributed_hechms/output",
   "HEC_HMS_MODEL_DIR": "/home/curw/git/distributed_hechms/output/distributed_model",
   "DSS_INPUT_FILE": "/home/curw/git/distributed_hechms/output/distributed_model/distributed_model_input.dss",
   "DSS_OUTPUT_FILE": "/home/curw/git/distributed_hechms/output/distributed_model/distributed_model_run.dss",
