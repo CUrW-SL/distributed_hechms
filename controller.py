@@ -19,11 +19,9 @@ from input.rainfall.mean_rain import get_mean_rain
 
 
 import logging
-logging.basicConfig(filename="/home/uwcc-admin/distributed_hec/distributed_hechms/hechms.log", level=logging.DEBUG)
+logging.basicConfig(filename="home/curw/git/distributed_hechms/output/hechms.log", level=logging.DEBUG)
 
 HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'distributed_model')
-COPY_BASIN_CMD = 'cp -R /home/uwcc-admin/distributed_hec/distributed_model.basin /home/uwcc-admin/distributed_hec/distributed_model'
-COPY_MET_CMD = 'cp -R /home/uwcc-admin/distributed_hec/distributed_model.met /home/uwcc-admin/distributed_hec/distributed_model'
 COPY_MODEL_TEMPLATE_CMD = 'cp -R /home/curw/git/distributed_hechms/distributed_model_template/* /home/curw/git/distributed_hechms/output/distributed_model'
 
 app = Flask(__name__)

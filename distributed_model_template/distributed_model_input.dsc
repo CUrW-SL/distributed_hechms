@@ -1,5 +1,5 @@
 
-     HECDSS Complete Catalog of Record Pathnames in File /home/uwcc-admin/distributed_hec/distributed_model/distributed_model_input.dss
+     HECDSS Complete Catalog of Record Pathnames in File /home/curw/git/distributed_hechms/output/distributed_model/distributed_model_input.dss
 
      Catalog Created on Feb 10, 2020, 11:20
      Number of Records:0000030                   DSS 
