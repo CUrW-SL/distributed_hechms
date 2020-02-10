@@ -1,4 +1,4 @@
 from hms.model.JythonHms import *
-OpenProject("distributed_model", "../distributed_model")
+OpenProject("distributed_model", "/home/curw/git/distributed_hechms/output/distributed_model")
 Compute("distributed_model")
 Exit(1)
