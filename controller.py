@@ -160,8 +160,8 @@ def upload_discharge(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S')):
     output_file = os.path.join(output_dir, 'DailyDischarge.csv')
     try:
         print('extract_distrubuted_hechms_outputs|[output_file, file_date] : ', [output_file, file_date])
-        extract_distrubuted_hechms_outputs(output_file, file_date, '00:00:00')
-        return jsonify({'Result': 'Success'})
+        response = extract_distrubuted_hechms_outputs(output_file, file_date, '00:00:00')
+        return jsonify(response)
     except Exception as e:
         return jsonify({'Result': 'Fail'})
 

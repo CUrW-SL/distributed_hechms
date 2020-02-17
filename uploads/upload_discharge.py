@@ -266,11 +266,9 @@ def extract_distrubuted_hechms_outputs(out_file_path, run_date, run_time):
         # Push timeseries to database
         save_forecast_timeseries_to_db(pool=pool, timeseries=timeseries,
                                        run_date=run_date, run_time=run_time, tms_meta=tms_meta, fgt=fgt)
-
+        return {'Result': 'Success'}
     except Exception as e:
         logger.error('JSON config data loading error.')
         print('JSON config data loading error.')
         traceback.print_exc()
-    finally:
-        logger.info("Process finished.")
-        print("Process finished.")
+        return {'Result': 'Fail'}
