@@ -9,8 +9,9 @@ import csv
 import time
 
 from db_adapter.logger import logger
-from db_adapter.constants import COMMON_DATE_TIME_FORMAT, CURW_FCST_DATABASE, CURW_FCST_PASSWORD, CURW_FCST_USERNAME, \
-    CURW_FCST_PORT, CURW_FCST_HOST
+from db_adapter.constants import COMMON_DATE_TIME_FORMAT
+# from db_adapter.constants import COMMON_DATE_TIME_FORMAT, CURW_FCST_DATABASE, CURW_FCST_PASSWORD, CURW_FCST_USERNAME, \
+#     CURW_FCST_PORT, CURW_FCST_HOST
 from db_adapter.base import get_Pool
 from db_adapter.curw_fcst.source import get_source_id, get_source_parameters
 from db_adapter.curw_fcst.variable import get_variable_id
@@ -18,6 +19,11 @@ from db_adapter.curw_fcst.unit import get_unit_id, UnitType
 from db_adapter.curw_fcst.station import get_hechms_stations
 from db_adapter.curw_fcst.timeseries import Timeseries
 
+CURW_FCST_DATABASE = 'curw_fcst'
+CURW_FCST_PASSWORD = 'cfcwm07'
+CURW_FCST_USERNAME = 'curw'
+CURW_FCST_PORT = '3306'
+CURW_FCST_HOST = '192.168.1.43'
 hechms_stations = {}
 
 
