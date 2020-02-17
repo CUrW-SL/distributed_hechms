@@ -254,7 +254,7 @@ class CurwSimAdapter:
         finally:
             return available_stations
 
-    def get_available_stations_in_sub_basin(self, sub_basin_shape_file, date_time):
+    def get_available_stations_in_sub_basin(self, sub_basin_shape_file, date_time, model, method):
         """
         Getting station points resides in the given shapefile
         :param db_adapter:
@@ -262,7 +262,7 @@ class CurwSimAdapter:
         :param date_time: '2019-08-28 11:00:00'
         :return: {station1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1}, station2:{}}
         """
-        available_stations = self.get_available_stations_info(date_time)
+        available_stations = self.get_available_stations_info(date_time, model, method)
         corrected_available_stations = {}
         if len(available_stations):
             for station, info in available_stations.items():
@@ -279,7 +279,7 @@ class CurwSimAdapter:
             print('Not available stations..')
             return {}
 
-    def get_basin_available_stations_timeseries(self, shape_file, start_time, end_time, allowed_error=0.7):
+    def get_basin_available_stations_timeseries(self, shape_file, start_time, end_time, model, method, allowed_error=0.7):
         """
         Add time series to the given available station list.
         :param shape_file:
@@ -289,7 +289,7 @@ class CurwSimAdapter:
         :param end_time: '2019-08-28 11:00:00'
         :return: {station1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1, 'timeseries': timeseries1}, station2:{}}
         """
-        basin_available_stations = self.get_available_stations_in_sub_basin(shape_file, start_time)
+        basin_available_stations = self.get_available_stations_in_sub_basin(shape_file, start_time, model, method)
         print('get_basin_available_stations_timeseries|basin_available_stations: ', basin_available_stations)
         for station in list(basin_available_stations):
             hash_id = basin_available_stations[station]['hash_id']

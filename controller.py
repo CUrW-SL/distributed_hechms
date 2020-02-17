@@ -48,14 +48,15 @@ def hello_world():
 
 @app.route('/HECHMS/distributed/init', methods=['GET', 'POST'])
 @app.route('/HECHMS/distributed/init/<string:run_datetime>',  methods=['GET', 'POST'])
-@app.route('/HECHMS/distributed/init/<string:run_datetime>/<int:back_days>/<int:forward_days>/<int:initial_wl>',  methods=['GET', 'POST'])
+@app.route('/HECHMS/distributed/init/<string:run_datetime>/<int:back_days>/<int:forward_days>/<int:initial_wl>/<string:pop_method>',  methods=['GET', 'POST'])
 def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), back_days=2, forward_days=3,
-                        initial_wl=0):
+                        initial_wl=0, pop_method='MME'):
     print('prepare_input_files.')
     print('run_datetime : ', run_datetime)
     print('back_days : ', back_days)
     print('forward_days : ', forward_days)
     print('initial_wl : ', initial_wl)
+    print('pop_method : ', pop_method)
     file_date = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%Y-%m-%d')
     print('file_date : ', file_date)
     file_time = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%H:%M:%S')
@@ -73,7 +74,7 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
     output_file = os.path.join(output_dir, 'DailyRain.csv')
     try:
         create_dir_if_not_exists(output_dir)
-        get_mean_rain(from_date, to_date, output_dir)
+        get_mean_rain(from_date, to_date, output_dir, 'hechms', pop_method)
         rain_fall_file = Path(output_file)
         if rain_fall_file.is_file():
             create_dir_if_not_exists(os.path.join(OUTPUT_DIR, 'distributed_model'))
