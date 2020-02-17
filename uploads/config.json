@@ -1,12 +1,12 @@
 {
   "output_file_name": "DailyDischarge.csv",
-  "output_dir": "/home/uwcc-admin/distributed_hechms",
+  "output_dir": "/home/curw/git/distributed_hechms/output",
 
   "run_date": "2019-09-09",
   "run_time": "22:00:00",
   "utc_offset": "",
 
-  "sim_tag": "hourly_run",
+  "sim_tag": "event_run",
 
   "model": "HECHMS",
   "version": "distributed",

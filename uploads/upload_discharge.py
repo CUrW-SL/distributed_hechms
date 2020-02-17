@@ -183,7 +183,7 @@ def extract_distrubuted_hechms_outputs(out_file_path, run_date, run_time):
     """
     try:
 
-        config = json.loads(open('config.json').read())
+        config = json.loads(open('/home/curw/git/distributed_hechms/uploads/config.json').read())
 
         # output related details
         run_date = run_date
