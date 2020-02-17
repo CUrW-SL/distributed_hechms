@@ -5,3 +5,5 @@ venv/
 __pycache__/
 hechms.log
 cachedir
+distributed_model_template_back/
+new_distributed_model/distributed_hechms_2019-10-05_14_00_00_DailyDischarge.csv
