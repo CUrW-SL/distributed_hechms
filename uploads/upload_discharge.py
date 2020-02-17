@@ -22,7 +22,7 @@ from db_adapter.curw_fcst.timeseries import Timeseries
 CURW_FCST_DATABASE = 'curw_fcst'
 CURW_FCST_PASSWORD = 'cfcwm07'
 CURW_FCST_USERNAME = 'curw'
-CURW_FCST_PORT = '3306'
+CURW_FCST_PORT = 3306
 CURW_FCST_HOST = '192.168.1.43'
 hechms_stations = {}
 
