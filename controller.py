@@ -147,10 +147,11 @@ def post_processing(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), b
         return jsonify({'Result': 'Fail'})
 
 
-@app.route('/HECHMS/distributed/upload-discharge/<string:run_datetime>', methods=['GET', 'POST'])
-def upload_discharge(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S')):
+@app.route('/HECHMS/distributed/upload-discharge/<string:run_datetime>/<string:model>', methods=['GET', 'POST'])
+def upload_discharge(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), model='distributed'):
     print('upload_discharge..')
     print('run_datetime : ', run_datetime)
+    print('model : ', model)
     file_date = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%Y-%m-%d')
     print('file_date : ', file_date)
     file_time = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%H:%M:%S')
