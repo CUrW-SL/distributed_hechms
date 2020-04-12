@@ -7,12 +7,13 @@ from scipy.spatial import Voronoi
 from shapely.geometry import Polygon, Point
 from db_layer import CurwSimAdapter
 from resources import manager as res_mgr
-from config import MYSQL_USER, MYSQL_DB, MYSQL_HOST, MYSQL_PASSWORD
+# from config import MYSQL_USER, MYSQL_DB, MYSQL_HOST, MYSQL_PASSWORD
 from functools import reduce
 
 THESSIAN_DECIMAL_POINTS = 4
 
-RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+#RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
 
 
 def _voronoi_finite_polygons_2d(vor, radius=None):
@@ -232,3 +233,17 @@ def get_mean_rain(ts_start, ts_end, output_dir, model, pop_method, catchment='ku
         sim_adapter.close_connection()
     except Exception as e:
         print("get_mean_rain|Exception|e : ", e)
+
+
+if __name__ == '__main__':
+    try:
+        MYSQL_HOST = "35.227.163.211"
+        MYSQL_USER = "admin"
+        MYSQL_PASSWORD = "floody"
+        MYSQL_DB = "curw_sim"
+        ts_start = '2020-03-01 00:00:00'
+        ts_end = '2020-04-01 00:00:00'
+        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output'
+        get_mean_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', catchment='kub')
+    except Exception as e:
+        print(str(e))
