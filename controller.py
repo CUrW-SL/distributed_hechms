@@ -16,6 +16,7 @@ from model.model_execute import execute_pre_dssvue, execute_post_dssvue, execute
 from uploads.upload_discharge import extract_distrubuted_hechms_outputs
 
 from input.rainfall.mean_rain import get_mean_rain
+from input.event_rain.create_rainfall import get_event_mean_rain
 
 
 import logging
@@ -62,6 +63,7 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
     file_time = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%H:%M:%S')
     print('file_time : ', file_time)
     run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')
+    exec_datetime = run_datetime
     run_datetime = datetime.strptime(run_datetime.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
     print('run_datetime : ', run_datetime)
     to_date = run_datetime + timedelta(days=forward_days)
@@ -74,7 +76,13 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
     output_file = os.path.join(output_dir, 'DailyRain.csv')
     try:
         create_dir_if_not_exists(output_dir)
-        get_mean_rain(from_date, to_date, output_dir, 'hechms', pop_method)
+        if pop_method.isupper():
+            get_mean_rain(from_date, to_date, output_dir, 'hechms', pop_method)
+        else:
+            sim_tag = pop_method[:len(pop_method) - 3]
+            wrf_model = int(pop_method[len(pop_method) - 2:])
+            print('prepare_input_files|[sim_tag, wrf_model, exec_datetime] : ', [sim_tag, wrf_model, exec_datetime])
+            get_event_mean_rain(exec_datetime, forward_days, back_days, output_dir, wrf_model, sim_tag)
         rain_fall_file = Path(output_file)
         if rain_fall_file.is_file():
             create_dir_if_not_exists(os.path.join(OUTPUT_DIR, 'distributed_model'))
