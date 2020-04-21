@@ -214,6 +214,7 @@ def get_event_mean_rain(run_datetime, forward, backward, output_dir, wrf_model, 
                 gauge_name = ratio['gage_name']
                 ratio = Decimal(ratio['ratio'])
                 gauge_ts = available_stations[gauge_name]['timeseries']
+                print('get_event_mean_rain|gauge_ts : ', gauge_ts)
                 gauge_ts.to_csv(os.path.join(output_dir, '{}_{}_rain.csv'.format(catchment_name, gauge_name)))
                 modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
                 modified_gauge_ts.to_csv(os.path.join(output_dir,

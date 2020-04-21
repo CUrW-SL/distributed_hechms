@@ -133,7 +133,7 @@ def get_obs_timeseries_by_id(obs_connection, hash_id, timeseries_start, timeseri
     try:
         print('data_sql : ', data_sql)
         results = get_multiple_result(obs_connection, data_sql)
-        print('get_obs_timeseries_by_id|results : ', results)
+        # print('get_obs_timeseries_by_id|results : ', results)
         if len(results) > 0:
             time_step_count = int((datetime.strptime(timeseries_end, '%Y-%m-%d %H:%M:%S')
                                  - datetime.strptime(timeseries_start,'%Y-%m-%d %H:%M:%S')).total_seconds() / (60 * 5))
