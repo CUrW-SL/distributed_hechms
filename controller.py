@@ -58,12 +58,12 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
     print('forward_days : ', forward_days)
     print('initial_wl : ', initial_wl)
     print('pop_method : ', pop_method)
+    exec_datetime = run_datetime
     file_date = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%Y-%m-%d')
     print('file_date : ', file_date)
     file_time = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%H:%M:%S')
     print('file_time : ', file_time)
     run_datetime = datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')
-    exec_datetime = run_datetime
     run_datetime = datetime.strptime(run_datetime.strftime('%Y-%m-%d 00:00:00'), '%Y-%m-%d %H:%M:%S')
     print('run_datetime : ', run_datetime)
     to_date = run_datetime + timedelta(days=forward_days)
