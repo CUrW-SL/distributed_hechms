@@ -241,9 +241,9 @@ if __name__ == '__main__':
         MYSQL_USER = "admin"
         MYSQL_PASSWORD = "floody"
         MYSQL_DB = "curw_sim"
-        ts_start = '2020-03-01 00:00:00'
-        ts_end = '2020-04-01 00:00:00'
-        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output'
+        ts_start = '2020-04-01 00:00:00'
+        ts_end = '2020-04-21 00:00:00'
+        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/2020-04-01'
         get_mean_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', catchment='kub')
     except Exception as e:
         print(str(e))

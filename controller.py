@@ -77,8 +77,10 @@ def prepare_input_files(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
     try:
         create_dir_if_not_exists(output_dir)
         if pop_method.isupper():
+            print('Capital tag has used|pop_method : ', pop_method)
             get_mean_rain(from_date, to_date, output_dir, 'hechms', pop_method)
         else:
+            print('Event tag has used|pop_method : ', pop_method)
             sim_tag = pop_method[:len(pop_method) - 3]
             wrf_model = int(pop_method[len(pop_method) - 2:])
             print('prepare_input_files|[sim_tag, wrf_model, exec_datetime] : ', [sim_tag, wrf_model, exec_datetime])
