@@ -184,19 +184,33 @@ def get_fcst_timeseries_by_id(fcst_connection, station_id, sim_tag, wrf_model, t
     print('get_fcst_timeseries_by_id|row : ', row)
     hash_id = row['id']
     if hash_id is not None:
-        data_sql = 'select time,value from curw_fcst.data where id=\'{}\' and time>\'{}\' ' \
-                   'and time <= \'{}\';'.format(hash_id, timeseries_start, timeseries_end)
-        print('get_fcst_timeseries_by_id|data_sql : ', data_sql)
-        rows = get_multiple_result(fcst_connection, data_sql)
-        df = pd.DataFrame(data=rows, columns=['time', 'value'])
-        df['time'] = pd.to_datetime(df['time'])
-        df = (df.set_index('time').resample('5T').first().reset_index().reindex(columns=df.columns))
-        df.set_index(keys='time')
-        df.interpolate(method='linear', limit_direction='forward')
-        print('get_fcst_timeseries_by_id|df : ', df)
-        return df
+        latest_fgt = get_latest_fgt(fcst_connection, hash_id, timeseries_start)
+        if latest_fgt is not None:
+            sql_query = 'select time,value from curw_fcst.data where id=\'{}\' and time>=\'{}\' ' \
+                        'and time<=\'{}\' and fgt=\'{}\''.format(hash_id, timeseries_start, timeseries_end, latest_fgt)
+            rows = get_multiple_result(fcst_connection, sql_query)
+            df = pd.DataFrame(data=rows, columns=['time', 'value'])
+            df['time'] = pd.to_datetime(df['time'])
+            resample_df = (df.set_index('time').resample('5T').first().reset_index().reindex(columns=df.columns))
+            interpolate_df = resample_df.interpolate(method='linear', limit_direction='forward')
+            interpolate_df['value'].fillna(Decimal(0.0), inplace=True)
+            return interpolate_df.set_index(keys='time')
     return None
 
+
+def get_latest_fgt(fcst_connection, hash_id, start_time):
+    print('get_latest_fgt|[hash_id, start_time] : ', [hash_id, start_time])
+    cur = fcst_connection.cursor()
+    cur.callproc('getLatestFGTs', (hash_id, start_time))
+    rows = cur.fetchall()
+    if rows is not None:
+        if rows:
+            print('get_latest_fgts|rows: ', rows)
+            return rows[0]['fgt'].strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            return None
+    else:
+        return None
 
 def get_station_info(obs_connection, station_id):
     sql_query = 'select name,latitude,longitude from curw_obs.station where ' \
