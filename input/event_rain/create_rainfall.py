@@ -15,7 +15,7 @@ from input.event_rain.db_plugin import get_basin_available_stations_timeseries
 THESSIAN_DECIMAL_POINTS = 4
 
 # RESOURCE_PATH = '/home/hasitha/PycharmProjects/DSS-Framework/resources/shape_files'
-RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources/shape_files'
+RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
 
 # connection params
 HOST = "35.227.163.211"
