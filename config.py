@@ -8,9 +8,15 @@ STATE_INTERVAL = 1 * 24 * 60
 
 OBSERVED_MYSQL_HOST = '192.168.1.43'
 
-MYSQL_USER = 'readuser'
-MYSQL_PASSWORD = 'aquaread'
-MYSQL_HOST = '35.227.163.211'
+# MYSQL_USER = 'readuser'
+# MYSQL_PASSWORD = 'aquaread'
+# MYSQL_HOST = '35.227.163.211'
+# MYSQL_PORT = '3306'
+# MYSQL_DB = 'curw_sim'
+
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = 'cfcwm07'
+MYSQL_HOST = '192.168.1.43'
 MYSQL_PORT = '3306'
 MYSQL_DB = 'curw_sim'
 

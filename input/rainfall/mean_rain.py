@@ -7,13 +7,13 @@ from scipy.spatial import Voronoi
 from shapely.geometry import Polygon, Point
 from db_layer import CurwSimAdapter
 from resources import manager as res_mgr
-# from config import MYSQL_USER, MYSQL_DB, MYSQL_HOST, MYSQL_PASSWORD
+from config import MYSQL_USER, MYSQL_DB, MYSQL_HOST, MYSQL_PASSWORD
 from functools import reduce
 
 THESSIAN_DECIMAL_POINTS = 4
 
-#RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
-RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
+RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
 
 
 def _voronoi_finite_polygons_2d(vor, radius=None):
