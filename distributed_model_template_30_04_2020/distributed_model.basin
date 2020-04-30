@@ -1,0 +1,303 @@
+Basin: distributed_model
+     Last Modified Date: 15 February 2018
+     Last Modified Time: 05:07:08
+     Version: 4.2.1
+     Filepath Separator: /
+     Unit System: Metric
+     Missing Flow To Zero: No
+     Enable Flow Ratio: No
+     Compute Local Flow At Junctions: No
+
+     Enable Sediment Routing: No
+
+     Enable Quality Routing: No
+End:
+
+Subbasin: Sub1
+     Description: Kehelgamu Oya + Maskeli oya Basins
+     Last Modified Date: 5 October 2019
+     Last Modified Time: 06:42:13
+     Canvas X: 476309.0436383641
+     Canvas Y: 483544.476721086
+     Area: 418.495741
+     Downstream: Reach-1
+
+     Canopy: None
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: None
+
+     Surface: None
+
+     LossRate: Soil Moisture Account
+     Percent Impervious Area: 10
+     Initial Soil Storage Percent: 70
+     Initial Gw1 Storage Percent: 45
+     Initial Gw2 Storage Percent: 82
+     Soil Maximum Infiltration: 12.027
+     Soil Storage Capacity: 125
+     Soil Tension Capacity: 75
+     Soil Maximum Percolation: 6.0000
+     Groundwater 1 Storage Capacity: 100
+     Groundwater 1 Routing Coefficient: 100
+     Groundwater 1 Maximum Percolation: 9
+     Groundwater 2 Storage Capacity: 150
+     Groundwater 2 Routing Coefficient: 200
+     Groundwater 2 Maximum Percolation: 2
+
+     Transform: Clark
+     Time of Concentration: 4.4217
+     Storage Coefficient: 10.306
+     Time Area Method: Default
+
+     Baseflow: Recession
+     Recession Factor: 0.80373
+     Initial Baseflow: 50
+     Threshold Flow to Peak Ratio: 0.4
+End:
+
+Reach: Reach-1
+     Description: Kelani Ganga US1
+     Last Modified Date: 5 October 2019
+     Last Modified Time: 06:46:01
+     Canvas X: 442012.9466409666
+     Canvas Y: 504811.38961869886
+     From Canvas X: 464394.79470727564
+     From Canvas Y: 498083.56211834017
+     Downstream: Junction-1
+
+     Route: Muskingum
+     Muskingum K: 2.5
+     Muskingum x: 0.2
+     Muskingum Steps: 2
+     Channel Loss: None
+End:
+
+Subbasin: Sub3
+     Description: Gurugoda oya Basin
+     Last Modified Date: 5 October 2019
+     Last Modified Time: 06:42:13
+     Canvas X: 454050.11813588033
+     Canvas Y: 517358.58212923084
+     Area: 349.675879
+     Downstream: Junction-1
+
+     Canopy: None
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: None
+
+     Surface: None
+
+     LossRate: Soil Moisture Account
+     Percent Impervious Area: 15
+     Initial Soil Storage Percent: 70
+     Initial Gw1 Storage Percent: 45
+     Initial Gw2 Storage Percent: 82
+     Soil Maximum Infiltration: 10.010
+     Soil Storage Capacity: 125
+     Soil Tension Capacity: 75
+     Soil Maximum Percolation: 13.500
+     Groundwater 1 Storage Capacity: 100
+     Groundwater 1 Routing Coefficient: 100
+     Groundwater 1 Maximum Percolation: 9
+     Groundwater 2 Storage Capacity: 150
+     Groundwater 2 Routing Coefficient: 200
+     Groundwater 2 Maximum Percolation: 2
+
+     Transform: Clark
+     Time of Concentration: 11.449
+     Storage Coefficient: 22.090
+     Time Area Method: Default
+
+     Baseflow: Recession
+     Recession Factor: 1.00000
+     Initial Baseflow: 30
+     Threshold Flow to Peak Ratio: 0.4
+End:
+
+Subbasin: Sub2
+     Description: Kelani Ganga US Basin
+     Last Modified Date: 5 October 2019
+     Last Modified Time: 06:42:13
+     Canvas X: 458915.45704352704
+     Canvas Y: 506289.9361143345
+     Area: 261.655098
+     Downstream: Junction-1
+
+     Canopy: None
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: None
+
+     Surface: None
+
+     LossRate: Soil Moisture Account
+     Percent Impervious Area: 10
+     Initial Soil Storage Percent: 70
+     Initial Gw1 Storage Percent: 45
+     Initial Gw2 Storage Percent: 82
+     Soil Maximum Infiltration: 12.042
+     Soil Storage Capacity: 125
+     Soil Tension Capacity: 75
+     Soil Maximum Percolation: 8.7891
+     Groundwater 1 Storage Capacity: 100
+     Groundwater 1 Routing Coefficient: 100
+     Groundwater 1 Maximum Percolation: 9
+     Groundwater 2 Storage Capacity: 150
+     Groundwater 2 Routing Coefficient: 200
+     Groundwater 2 Maximum Percolation: 2
+
+     Transform: Clark
+     Time of Concentration: 5.3025
+     Storage Coefficient: 11.963
+     Time Area Method: Default
+
+     Baseflow: Recession
+     Recession Factor: 0.80373
+     Initial Baseflow: 25
+     Threshold Flow to Peak Ratio: 0.4
+End:
+
+Junction: Junction-1
+     Description: Ruwanwella
+     Last Modified Date: 28 February 2018
+     Last Modified Time: 03:49:33
+     Canvas X: 442012.9466409666
+     Canvas Y: 504811.38961869886
+     Downstream: Reach-2
+End:
+
+Reach: Reach-2
+     Description: Kelani ganga US2
+     Last Modified Date: 5 October 2019
+     Last Modified Time: 06:46:14
+     Canvas X: 437706.9532793276
+     Canvas Y: 497815.15913991514
+     From Canvas X: 442012.9466409666
+     From Canvas Y: 504811.38961869886
+     Downstream: Junction-2
+
+     Route: Muskingum
+     Muskingum K: 1
+     Muskingum x: 0.01
+     Muskingum Steps: 2
+     Channel Loss: None
+End:
+
+Subbasin: Sub4
+     Description: Seethawaka Ganga Basin
+     Last Modified Date: 5 October 2019
+     Last Modified Time: 06:42:13
+     Canvas X: 449792.9465916894
+     Canvas Y: 487071.84742912994
+     Area: 406.443215
+     Downstream: Junction-2
+
+     Canopy: None
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: None
+
+     Surface: None
+
+     LossRate: Soil Moisture Account
+     Percent Impervious Area: 10
+     Initial Soil Storage Percent: 70
+     Initial Gw1 Storage Percent: 45
+     Initial Gw2 Storage Percent: 82
+     Soil Maximum Infiltration: 12.023
+     Soil Storage Capacity: 125
+     Soil Tension Capacity: 75
+     Soil Maximum Percolation: 8.8200
+     Groundwater 1 Storage Capacity: 100
+     Groundwater 1 Routing Coefficient: 100
+     Groundwater 1 Maximum Percolation: 9
+     Groundwater 2 Storage Capacity: 150
+     Groundwater 2 Routing Coefficient: 200
+     Groundwater 2 Maximum Percolation: 2
+
+     Transform: Clark
+     Time of Concentration: 11.449
+     Storage Coefficient: 18.324
+     Time Area Method: Default
+
+     Baseflow: Recession
+     Recession Factor: 0.78400
+     Initial Baseflow: 50
+     Threshold Flow to Peak Ratio: 0.4
+End:
+
+Subbasin: Sub5
+     Last Modified Date: 5 October 2019
+     Last Modified Time: 06:42:13
+     Canvas X: 437361.01029297407
+     Canvas Y: 502560.55725093867
+     Area: 74
+     Downstream: Junction-2
+
+     Canopy: None
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: None
+
+     Surface: None
+
+     LossRate: Soil Moisture Account
+     Percent Impervious Area: 20
+     Initial Soil Storage Percent: 65
+     Initial Gw1 Storage Percent: 45
+     Initial Gw2 Storage Percent: 82
+     Soil Maximum Infiltration: 10.0000
+     Soil Storage Capacity: 125
+     Soil Tension Capacity: 75
+     Soil Maximum Percolation: 6.0000
+     Groundwater 1 Storage Capacity: 100
+     Groundwater 1 Routing Coefficient: 100
+     Groundwater 1 Maximum Percolation: 9
+     Groundwater 2 Storage Capacity: 150
+     Groundwater 2 Routing Coefficient: 200
+     Groundwater 2 Maximum Percolation: 2
+
+     Transform: Clark
+     Time of Concentration: 8.7105
+     Storage Coefficient: 16.173
+     Time Area Method: Default
+
+     Baseflow: Recession
+     Recession Factor: 0.78400
+     Initial Baseflow: 5
+     Threshold Flow to Peak Ratio: 0.4
+End:
+
+Junction: Junction-2
+     Description: Glencourse
+     Last Modified Date: 28 February 2018
+     Last Modified Time: 03:49:21
+     Canvas X: 437706.9532793276
+     Canvas Y: 497815.15913991514
+     Downstream: Sink-1
+End:
+
+Sink: Sink-1
+     Last Modified Date: 24 September 2019
+     Last Modified Time: 07:11:29
+     Canvas X: 434038.9768363428
+     Canvas Y: 495536.40537841176
+     Observed Hydrograph Gage: Ranwala 24
+End:
+
+Basin Schematic Properties:
+     Last View N: 517358.58212923084
+     Last View S: 483544.476721086
+     Last View W: 400998.4207443235
+     Last View E: 476309.0436383641
+     Maximum View N: 517358.58212923084
+     Maximum View S: 483544.476721086
+     Maximum View W: 400998.4207443235
+     Maximum View E: 476309.0436383641
+     Extent Method: Elements
+     Buffer: 0
+     Draw Icons: Yes
+     Draw Icon Labels: Name
+     Draw Map Objects: No
+     Draw Gridlines: Yes
+     Draw Flow Direction: Yes
+     Fix Element Locations: No
+     Fix Hydrologic Order: No
+End:
