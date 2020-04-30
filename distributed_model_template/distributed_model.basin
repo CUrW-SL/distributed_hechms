@@ -22,11 +22,19 @@ Subbasin: Sub1
      Area: 418.495741
      Downstream: Reach-1
 
-     Canopy: None
+     Canopy: Simple
      Allow Simultaneous Precip Et: No
-     Plant Uptake Method: None
+     Plant Uptake Method: Simple
+     Initial Canopy Storage Percent: 10
+     Canopy Storage Capacity: 20.299
+     Crop Coefficient: 1.0
+     End Canopy:
 
-     Surface: None
+     Surface: Simple
+     Initial Surface Storage Percent: 10
+     Surface Storage Capacity: 200
+     Surface Albedo: 0.20
+     End Surface:
 
      LossRate: Soil Moisture Account
      Percent Impervious Area: 10
@@ -45,13 +53,13 @@ Subbasin: Sub1
      Groundwater 2 Maximum Percolation: 2
 
      Transform: Clark
-     Time of Concentration: 4.4217
-     Storage Coefficient: 10.306
+     Time of Concentration: 4.4
+     Storage Coefficient: 40.767
      Time Area Method: Default
 
      Baseflow: Recession
-     Recession Factor: 0.80373
-     Initial Baseflow: 50
+     Recession Factor: 0.52267
+     Initial Baseflow: 0.5
      Threshold Flow to Peak Ratio: 0.4
 End:
 
@@ -67,7 +75,7 @@ Reach: Reach-1
 
      Route: Muskingum
      Muskingum K: 2.5
-     Muskingum x: 0.2
+     Muskingum x: 0.029
      Muskingum Steps: 2
      Channel Loss: None
 End:
@@ -81,11 +89,19 @@ Subbasin: Sub3
      Area: 349.675879
      Downstream: Junction-1
 
-     Canopy: None
+     Canopy: Simple
      Allow Simultaneous Precip Et: No
-     Plant Uptake Method: None
+     Plant Uptake Method: Simple
+     Initial Canopy Storage Percent: 10
+     Canopy Storage Capacity: 18.824
+     Crop Coefficient: 1.0
+     End Canopy:
 
-     Surface: None
+     Surface: Simple
+     Initial Surface Storage Percent: 10
+     Surface Storage Capacity: 200
+     Surface Albedo: 0.20
+     End Surface:
 
      LossRate: Soil Moisture Account
      Percent Impervious Area: 15
@@ -104,13 +120,13 @@ Subbasin: Sub3
      Groundwater 2 Maximum Percolation: 2
 
      Transform: Clark
-     Time of Concentration: 11.449
-     Storage Coefficient: 22.090
+     Time of Concentration: 5.04
+     Storage Coefficient: 43.218
      Time Area Method: Default
 
      Baseflow: Recession
-     Recession Factor: 1.00000
-     Initial Baseflow: 30
+     Recession Factor: 0.78400
+     Initial Baseflow: 1
      Threshold Flow to Peak Ratio: 0.4
 End:
 
@@ -123,11 +139,19 @@ Subbasin: Sub2
      Area: 261.655098
      Downstream: Junction-1
 
-     Canopy: None
+     Canopy: Simple
      Allow Simultaneous Precip Et: No
-     Plant Uptake Method: None
+     Plant Uptake Method: Simple
+     Initial Canopy Storage Percent: 10
+     Canopy Storage Capacity: 18.824
+     Crop Coefficient: 1.0
+     End Canopy:
 
-     Surface: None
+     Surface: Simple
+     Initial Surface Storage Percent: 10
+     Surface Storage Capacity: 200
+     Surface Albedo: 0.20
+     End Surface:
 
      LossRate: Soil Moisture Account
      Percent Impervious Area: 10
@@ -146,13 +170,13 @@ Subbasin: Sub2
      Groundwater 2 Maximum Percolation: 2
 
      Transform: Clark
-     Time of Concentration: 5.3025
-     Storage Coefficient: 11.963
+     Time of Concentration: 3.5
+     Storage Coefficient: 46.378
      Time Area Method: Default
 
      Baseflow: Recession
-     Recession Factor: 0.80373
-     Initial Baseflow: 25
+     Recession Factor: 0.78400
+     Initial Baseflow: 1
      Threshold Flow to Peak Ratio: 0.4
 End:
 
@@ -191,11 +215,19 @@ Subbasin: Sub4
      Area: 406.443215
      Downstream: Junction-2
 
-     Canopy: None
+     Canopy: Simple
      Allow Simultaneous Precip Et: No
-     Plant Uptake Method: None
+     Plant Uptake Method: Simple
+     Initial Canopy Storage Percent: 10
+     Canopy Storage Capacity: 18.824
+     Crop Coefficient: 1.0
+     End Canopy:
 
-     Surface: None
+     Surface: Simple
+     Initial Surface Storage Percent: 10
+     Surface Storage Capacity: 200
+     Surface Albedo: 0.20
+     End Surface:
 
      LossRate: Soil Moisture Account
      Percent Impervious Area: 10
@@ -214,13 +246,13 @@ Subbasin: Sub4
      Groundwater 2 Maximum Percolation: 2
 
      Transform: Clark
-     Time of Concentration: 11.449
-     Storage Coefficient: 18.324
+     Time of Concentration: 4.08
+     Storage Coefficient: 45.629
      Time Area Method: Default
 
      Baseflow: Recession
-     Recession Factor: 0.78400
-     Initial Baseflow: 50
+     Recession Factor: 0.80000
+     Initial Baseflow: 1
      Threshold Flow to Peak Ratio: 0.4
 End:
 
@@ -232,11 +264,19 @@ Subbasin: Sub5
      Area: 74
      Downstream: Junction-2
 
-     Canopy: None
+     Canopy: Simple
      Allow Simultaneous Precip Et: No
-     Plant Uptake Method: None
+     Plant Uptake Method: Simple
+     Initial Canopy Storage Percent: 10
+     Canopy Storage Capacity: 20
+     Crop Coefficient: 1.0
+     End Canopy:
 
-     Surface: None
+     Surface: Simple
+     Initial Surface Storage Percent: 10
+     Surface Storage Capacity: 200
+     Surface Albedo: 0.20
+     End Surface:
 
      LossRate: Soil Moisture Account
      Percent Impervious Area: 20
@@ -255,13 +295,13 @@ Subbasin: Sub5
      Groundwater 2 Maximum Percolation: 2
 
      Transform: Clark
-     Time of Concentration: 8.7105
-     Storage Coefficient: 16.173
+     Time of Concentration: 5.75
+     Storage Coefficient: 75.745
      Time Area Method: Default
 
      Baseflow: Recession
-     Recession Factor: 0.78400
-     Initial Baseflow: 5
+     Recession Factor: 0.5
+     Initial Baseflow: 0.5
      Threshold Flow to Peak Ratio: 0.4
 End:
 
