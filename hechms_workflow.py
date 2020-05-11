@@ -46,7 +46,8 @@ def run_hechms_workflow(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
     from_date = from_date.strftime('%Y-%m-%d %H:%M:%S')
     to_date = to_date.strftime('%Y-%m-%d %H:%M:%S')
     print('{from_date, to_date} : ', {from_date, to_date})
-    output_dir = os.path.join(OUTPUT_DIR, file_date, file_time)
+    # output_dir = os.path.join(OUTPUT_DIR, file_date, file_time)
+    output_dir = OUTPUT_DIR
     print('output_dir : ', output_dir)
     output_file = os.path.join(output_dir, 'DailyRain.csv')
     try:
