@@ -112,7 +112,8 @@ try:
         # fileName = DISCHARGE_CSV_FILE.rsplit('.', 1)
         # str .format not working on this version
         # fileName = '%s-%s%s.%s' % (fileName[0], date, '.'+tag if tag else '', fileName[1])
-        DISCHARGE_CSV_FILE_PATH = os.path.join(OUTPUT_DIR, date, time, 'DailyDischarge.csv')
+        #DISCHARGE_CSV_FILE_PATH = os.path.join(OUTPUT_DIR, date, time, 'DailyDischarge.csv')
+        DISCHARGE_CSV_FILE_PATH = os.path.join(OUTPUT_DIR, 'DailyDischarge.csv')
         print
         'Open Discharge CSV ::', DISCHARGE_CSV_FILE_PATH
         csvWriter = csv.writer(open(DISCHARGE_CSV_FILE_PATH, 'w'), delimiter=',', quotechar='|')

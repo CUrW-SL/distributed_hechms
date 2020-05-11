@@ -107,7 +107,8 @@ try :
         #fileName = RAIN_CSV_FILE.rsplit('.', 1)
         # str .format not working on this version
         #fileName = '%s-%s%s.%s' % (fileName[0], date, '.'+tag if tag else '', fileName[1])
-        RAIN_CSV_FILE_PATH = os.path.join(OUTPUT_DIR, date, time, 'DailyRain.csv')
+        #RAIN_CSV_FILE_PATH = os.path.join(OUTPUT_DIR, date, time, 'DailyRain.csv')
+        RAIN_CSV_FILE_PATH = os.path.join(OUTPUT_DIR, 'DailyRain.csv')
         print 'Open Rainfall CSV ::', RAIN_CSV_FILE_PATH
         csvReader = csv.reader(open(RAIN_CSV_FILE_PATH, 'r'), delimiter=',', quotechar='|')
         csvList = list(csvReader)
