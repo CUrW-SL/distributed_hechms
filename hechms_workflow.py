@@ -33,7 +33,7 @@ def run_hechms_workflow(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
     print('initial_wl : ', initial_wl)
     print('pop_method : ', pop_method)
     exec_datetime = datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')
-    exec_datetime = exec_datetime.strftime('%Y-%m-%d %H:%M:%S')
+    # exec_datetime = exec_datetime.strftime('%Y-%m-%d %H:%M:%S')
     file_date = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%Y-%m-%d')
     print('file_date : ', file_date)
     file_time = (datetime.strptime(run_datetime, '%Y-%m-%d_%H:%M:%S')).strftime('%H:%M:%S')
