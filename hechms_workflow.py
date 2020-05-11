@@ -66,7 +66,7 @@ def run_hechms_workflow(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
                 subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_input), shell=True)
                 print('hechms_output : ', hechms_output)
                 subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_output), shell=True)
-                ts_start_date = from_date.strftime('%Y-%m-%d')
+                ts_start_date = (datetime.strptime(from_date, '%Y-%m-%d %H:%M:%S')).strftime('%Y-%m-%d')
                 ts_start_time = '00:00:00'
                 print('[ts_start_date, ts_start_time] : ', [ts_start_date, ts_start_time])
                 ret_code = execute_pre_dssvue(exec_datetime, ts_start_date, ts_start_time)
