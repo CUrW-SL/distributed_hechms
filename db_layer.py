@@ -238,8 +238,9 @@ class CurwSimAdapter:
         print('get_available_stations_info|date_time : ', date_time)
         cursor = self.cursor
         try:
-            sql = 'select id, grid_id, latitude, longitude from curw_sim.run where model=\'{}\' and method=\'{}\'  and obs_end>=\'{}\''.format(
-                model, method, date_time)
+            # sql = 'select id, grid_id, latitude, longitude from curw_sim.run where model=\'{}\' and method=\'{}\'  and obs_end>=\'{}\''.format(
+            #     model, method, date_time)
+            sql = 'select id, grid_id, latitude, longitude from curw_sim.run where model=\'{}\' and method=\'{}\' '.format(model, method)
             print('sql : ', sql)
             cursor.execute(sql)
             results = cursor.fetchall()
