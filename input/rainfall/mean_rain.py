@@ -163,11 +163,11 @@ def calculate_intersection(thessian_df, catchment_df):
     return sub_ratios
 
 
-def get_mean_rain(ts_start, ts_end, output_dir, model, pop_method, catchment='kub'):
+def get_mean_rain(ts_start, ts_end, output_dir, model, pop_method, db_user, db_pwd, db_host, db_name, catchment='kub'):
     try:
         print('[ts_start, ts_end, output_dir, pop_method, catchment] : ', [ts_start, ts_end, output_dir,
                                                                            pop_method, catchment])
-        sim_adapter = CurwSimAdapter(MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DB)
+        sim_adapter = CurwSimAdapter(db_user, db_pwd, db_host, db_name)
         if catchment == 'kub':
             # shape_file = res_mgr.get_resource_path('resources/kub-wgs84/kub-wgs84.shp')
             shape_file = os.path.join(RESOURCE_PATH, 'kub-wgs84/kub-wgs84.shp')

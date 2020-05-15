@@ -24,7 +24,7 @@ def create_dir_if_not_exists(path):
     return path
 
 
-def run_hechms_workflow(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), back_days=2, forward_days=3,
+def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), back_days=2, forward_days=3,
                         initial_wl=0, pop_method='MME'):
     print('prepare_input_files.')
     print('run_datetime : ', run_datetime)
@@ -52,7 +52,7 @@ def run_hechms_workflow(run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'
     output_file = os.path.join(output_dir, 'DailyRain.csv')
     try:
         create_dir_if_not_exists(output_dir)
-        get_mean_rain(from_date, to_date, output_dir, 'hechms', pop_method)
+        get_mean_rain(from_date, to_date, output_dir, 'hechms', pop_method, db_user, db_pwd, db_host, db_name)
         rain_fall_file = Path(output_file)
         if rain_fall_file.is_file():
             create_dir_if_not_exists(os.path.join(OUTPUT_DIR, 'distributed_model'))
@@ -125,12 +125,16 @@ if __name__ == '__main__':
     backward = int(args['backward'])
     init_run = int(args['init_run'])
     pop_method = args['pop_method']
+    db_user = args['db_user']
+    db_pwd = args['db_pwd']
+    db_host = args['db_host']
+    db_name = args['db_name']
     print('**** HECHMS RUN **** run_datetime: {}'.format(run_datetime))
     print('**** HECHMS RUN **** forward: {}'.format(forward))
     print('**** HECHMS RUN **** backward: {}'.format(backward))
     print('**** HECHMS RUN **** init_run: {}'.format(init_run))
     print('**** HECHMS RUN **** pop_method: {}'.format(pop_method))
-    if run_hechms_workflow(run_datetime, backward, forward, init_run, pop_method):
+    if run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime, backward, forward, init_run, pop_method):
         print('**** HECHMS RUN Completed****')
     else:
         print('**** HECHMS RUN Failed****')
