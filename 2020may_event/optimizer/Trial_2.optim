@@ -1,0 +1,174 @@
+Trial Name: Trial 2
+     Description: 
+     Location: Sink-1
+     Version: 4.2.1
+     Filepath Separator: \
+     Optimizer File: Trial_2.optim
+     DSS File: Trial_2.dss
+     Last Modified Date: 16 May 2020
+     Last Modified Time: 02:16:44
+
+     Basin Name: Kelani
+     Met Name: Met_may2020
+
+     Simulation Start Date: 5 September 2019
+     Simulation Start Time: 24:00
+
+     Simulation End Date: 22 September 2019
+     Simulation End Time: 21:00
+
+     Simulation Time Interval: 15
+     Simulation Time Zone: Asia/Colombo
+End: 
+
+Search Method: Univariate Gradient
+     Search Tolerance: 0.01
+     Maximum Iterations: 50
+End:
+
+Objective Function: Peak-Weighted RMS Error
+     Start Date: 5 September 2019
+     Start Time: 24:00
+     End Date: 22 September 2019
+     End Time: 21:00
+     Percent Missing Allowed: 0
+End:
+
+Optimize Location: Sink-1
+     Objective Function Value: 45.78
+
+     Component: SB-1
+     Parameter: Storage Coefficient
+     Initial Value: 12.112
+     Minimum Constraint: 0.010
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 10.260
+     Sensitivity: 0.11
+
+     Component: SB-2
+     Parameter: Storage Coefficient
+     Initial Value: 12.405
+     Minimum Constraint: 0.010
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 12.085
+     Sensitivity: 0.07
+
+     Component: SB-3
+     Parameter: Storage Coefficient
+     Initial Value: 22.406
+     Minimum Constraint: 0.010
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 22.093
+     Sensitivity: 0.06
+
+     Component: SB-4
+     Parameter: Storage Coefficient
+     Initial Value: 18.448
+     Minimum Constraint: 0.010
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 18.393
+     Sensitivity: 0.06
+
+     Component: SB-5
+     Parameter: Storage Coefficient
+     Initial Value: 12.307
+     Minimum Constraint: 0.010
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 16.648
+     Sensitivity: 0.02
+
+     Component: SB-1
+     Parameter: Initial Baseflow
+     Initial Value: 94.119
+     Minimum Constraint: 0.0000
+     Maximum Constraint: 100000.0000
+     Locked: No
+     Optimized Value: 93.477
+     Sensitivity: -0.04
+
+     Component: SB-2
+     Parameter: Initial Baseflow
+     Initial Value: 23.530
+     Minimum Constraint: 0.0000
+     Maximum Constraint: 100000.0000
+     Locked: No
+     Optimized Value: 22.146
+     Sensitivity: 0.01
+
+     Component: SB-3
+     Parameter: Initial Baseflow
+     Initial Value: 28.236
+     Minimum Constraint: 0.0000
+     Maximum Constraint: 100000.0000
+     Locked: No
+     Optimized Value: 26.575
+     Sensitivity: 0.00
+
+     Component: SB-4
+     Parameter: Initial Baseflow
+     Initial Value: 47.060
+     Minimum Constraint: 0.0000
+     Maximum Constraint: 100000.0000
+     Locked: No
+     Optimized Value: 44.292
+     Sensitivity: 0.00
+
+     Component: SB-5
+     Parameter: Initial Baseflow
+     Initial Value: 3.2013
+     Minimum Constraint: 0.0000
+     Maximum Constraint: 100000.0000
+     Locked: No
+     Optimized Value: 3.0130
+     Sensitivity: 0.00
+
+     Component: SB-1
+     Parameter: Time of Concentration
+     Initial Value: 4.4217
+     Minimum Constraint: 0.0167
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 4.4646
+     Sensitivity: -0.09
+
+     Component: SB-2
+     Parameter: Time of Concentration
+     Initial Value: 3.5
+     Minimum Constraint: 0.0167
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 7.9490
+     Sensitivity: -0.05
+
+     Component: SB-3
+     Parameter: Time of Concentration
+     Initial Value: 5.04
+     Minimum Constraint: 0.0167
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 11.393
+     Sensitivity: -0.09
+
+     Component: SB-4
+     Parameter: Time of Concentration
+     Initial Value: 4.08
+     Minimum Constraint: 0.0167
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 6.2055
+     Sensitivity: -0.07
+
+     Component: SB-5
+     Parameter: Time of Concentration
+     Initial Value: 5.75
+     Minimum Constraint: 0.0167
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 8.7103
+     Sensitivity: -0.02
+End:

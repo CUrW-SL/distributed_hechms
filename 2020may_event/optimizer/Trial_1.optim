@@ -1,0 +1,129 @@
+Trial Name: Trial 1
+     Description: 
+     Location: Sink-1
+     Version: 4.2.1
+     Filepath Separator: \
+     Optimizer File: Trial_1.optim
+     DSS File: Trial_1.dss
+     Last Modified Date: 16 May 2020
+     Last Modified Time: 02:16:44
+
+     Basin Name: Kelani
+     Met Name: Met_may2020
+
+     Simulation Start Date: 13 September 2019
+     Simulation Start Time: 24:00
+
+     Simulation End Date: 19 September 2019
+     Simulation End Time: 21:00
+
+     Simulation Time Interval: 15
+     Simulation Time Zone: Asia/Colombo
+End: 
+
+Search Method: Univariate Gradient
+     Search Tolerance: 0.01
+     Maximum Iterations: 50
+End:
+
+Objective Function: Peak-Weighted RMS Error
+     Start Date: 13 September 2019
+     Start Time: 24:00
+     End Date: 19 September 2019
+     End Time: 21:00
+     Percent Missing Allowed: 0
+End:
+
+Optimize Location: Sink-1
+     Objective Function Value: 194.63
+
+     Component: SB-1
+     Parameter: Storage Coefficient
+     Initial Value: 10.306
+     Minimum Constraint: 0.010
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 10.510
+     Sensitivity: -0.33
+
+     Component: SB-2
+     Parameter: Storage Coefficient
+     Initial Value: 11.963
+     Minimum Constraint: 0.010
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 27.049
+     Sensitivity: -0.16
+
+     Component: SB-3
+     Parameter: Storage Coefficient
+     Initial Value: 22.090
+     Minimum Constraint: 0.010
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 22.411
+     Sensitivity: -0.20
+
+     Component: SB-4
+     Parameter: Storage Coefficient
+     Initial Value: 18.324
+     Minimum Constraint: 0.010
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 18.588
+     Sensitivity: -0.28
+
+     Component: SB-5
+     Parameter: Storage Coefficient
+     Initial Value: 16.173
+     Minimum Constraint: 0.010
+     Maximum Constraint: 1000.0000
+     Locked: No
+     Optimized Value: 24.498
+     Sensitivity: -0.04
+
+     Component: SB-1
+     Parameter: Recession Factor
+     Initial Value: 0.80373
+     Minimum Constraint: 0.01000
+     Maximum Constraint: 1.00000
+     Locked: No
+     Optimized Value: 0.75646
+     Sensitivity: 0.38
+
+     Component: SB-2
+     Parameter: Recession Factor
+     Initial Value: 0.80373
+     Minimum Constraint: 0.01000
+     Maximum Constraint: 1.00000
+     Locked: No
+     Optimized Value: 0.75646
+     Sensitivity: 0.14
+
+     Component: SB-3
+     Parameter: Recession Factor
+     Initial Value: 1.00000
+     Minimum Constraint: 0.01000
+     Maximum Constraint: 1.00000
+     Locked: No
+     Optimized Value: 1.00000
+     Sensitivity: 0.38
+
+     Component: SB-4
+     Parameter: Recession Factor
+     Initial Value: 0.78400
+     Minimum Constraint: 0.01000
+     Maximum Constraint: 1.00000
+     Locked: No
+     Optimized Value: 0.73789
+     Sensitivity: 0.29
+
+     Component: SB-5
+     Parameter: Recession Factor
+     Initial Value: 0.78400
+     Minimum Constraint: 0.01000
+     Maximum Constraint: 1.00000
+     Locked: No
+     Optimized Value: 0.73789
+     Sensitivity: 0.03
+End:

@@ -1,0 +1,130 @@
+Gage Manager: 2020may event
+     Version: 4.2.1
+     Filepath Separator: \
+End:
+
+Gage: R_SB_1
+     Last Modified Date: 16 May 2020
+     Last Modified Time: 02:44:04
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Gage Type: Precipitation
+     Precipitation Type: Incremental
+     Units: MM
+     Data Type: PER-CUM
+     Data Source Type: Manual Entry
+     Variant: Variant-1
+       Last Variant Modified Date: 16 May 2020
+       Last Variant Modified Time: 02:43:49
+       Default Variant: Yes
+       DSS File Name: 2020may_event.dss
+       DSS Pathname: //R_SB_1/PRECIP-INC//5MIN/GAGE/
+       Start Time: 13 May 2020, 00:00
+       End Time: 18 May 2020, 00:00
+     End Variant: Variant-1
+End:
+
+Gage: R_SB_2
+     Last Modified Date: 16 May 2020
+     Last Modified Time: 02:44:41
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Gage Type: Precipitation
+     Precipitation Type: Incremental
+     Units: MM
+     Data Type: PER-CUM
+     Data Source Type: Manual Entry
+     Variant: Variant-1
+       Last Variant Modified Date: 16 May 2020
+       Last Variant Modified Time: 02:44:15
+       Default Variant: Yes
+       DSS File Name: 2020may_event.dss
+       DSS Pathname: //R_SB_2/PRECIP-INC//5MIN/GAGE/
+       Start Time: 13 May 2020, 00:00
+       End Time: 18 May 2020, 00:00
+     End Variant: Variant-1
+End:
+
+Gage: R_SB_3
+     Last Modified Date: 16 May 2020
+     Last Modified Time: 02:45:20
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Gage Type: Precipitation
+     Precipitation Type: Incremental
+     Units: MM
+     Data Type: PER-CUM
+     Data Source Type: Manual Entry
+     Variant: Variant-1
+       Last Variant Modified Date: 16 May 2020
+       Last Variant Modified Time: 02:44:57
+       Default Variant: Yes
+       DSS File Name: 2020may_event.dss
+       DSS Pathname: //R_SB_3/PRECIP-INC//5MIN/GAGE/
+       Start Time: 13 May 2020, 00:00
+       End Time: 18 May 2020, 00:00
+     End Variant: Variant-1
+End:
+
+Gage: R_SB_4
+     Last Modified Date: 16 May 2020
+     Last Modified Time: 02:45:57
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Gage Type: Precipitation
+     Precipitation Type: Incremental
+     Units: MM
+     Data Type: PER-CUM
+     Data Source Type: Manual Entry
+     Variant: Variant-1
+       Last Variant Modified Date: 16 May 2020
+       Last Variant Modified Time: 02:45:31
+       Default Variant: Yes
+       DSS File Name: 2020may_event.dss
+       DSS Pathname: //R_SB_4/PRECIP-INC//5MIN/GAGE/
+       Start Time: 13 May 2020, 00:00
+       End Time: 18 May 2020, 00:00
+     End Variant: Variant-1
+End:
+
+Gage: R_SB_5
+     Last Modified Date: 16 May 2020
+     Last Modified Time: 02:46:51
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Gage Type: Precipitation
+     Precipitation Type: Incremental
+     Units: MM
+     Data Type: PER-CUM
+     Data Source Type: Manual Entry
+     Variant: Variant-1
+       Last Variant Modified Date: 16 September 2019
+       Last Variant Modified Time: 14:30:22
+       Default Variant: Yes
+       DSS File Name: 2020may_event.dss
+       DSS Pathname: //R_SB_5/PRECIP-INC//5MIN/GAGE/
+       Start Time: 13 May 2020, 00:00
+       End Time: 18 May 2020, 00:00
+     End Variant: Variant-1
+End:
+
+Gage: Ranwala Dis
+     Last Modified Date: 16 May 2020
+     Last Modified Time: 04:16:34
+     Reference Height Units: Meters
+     Reference Height: 10.0
+     Gage Type: Flow
+     Units: M3/S
+     Data Type: INST-VAL
+     Data Source Type: Manual Entry
+     Variant: Variant-1
+       Last Variant Modified Date: 16 May 2020
+       Last Variant Modified Time: 04:03:04
+       Default Variant: Yes
+       DSS File Name: 2020may_event.dss
+       DSS Pathname: //Ranwala Dis/FLOW//15MIN/GAGE/
+       Start Time: 10 May 2020, 00:00
+       End Time: 16 May 2020, 08:15
+     End Variant: Variant-1
+End:
+

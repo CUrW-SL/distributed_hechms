@@ -1,0 +1,89 @@
+    -----DSS---ZCLOSE Unit:   74,   File: D:/HEC_af_2019/Event Model/2020 May event/2020may_event/Run_1.ds
+               Pointer Utilization:  0.18
+               Number of Records:    362
+               File Size:   6740.5  Kbytes
+               Percent Inactive:  81.0
+
+    -----DSS---ZCLOSE Unit:   73,   File: D:/HEC_af_2019/Event Model/2020 May event/2020may_event/2020may_
+               Pointer Utilization:  0.03
+               Number of Records:     51
+               File Size:   1805.4  Kbytes
+               Percent Inactive:  76.0
+
+    -----DSS---ZOPEN:  Existing File Opened,  File: D:/HEC_af_2019/Event Model/2020 May event/2020may_event/2020may_event.dss
+                       Unit:   75;  DSS Versions - Software: 6-SH, File: 6-WD
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   75
+ Pathname: //R_SB_5/PRECIP-INC/12MAY2020/5MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   75
+ Pathname: //R_SB_5/PRECIP-INC/12MAY2020/5MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   75
+ Pathname: //R_SB_5/PRECIP-INC/12MAY2020/5MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   75
+ Pathname: //R_SB_5/PRECIP-INC/12MAY2020/5MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   75
+ Pathname: //R_SB_5/PRECIP-INC/12MAY2020/5MIN/GAGE/
+    -----DSS---ZCLOSE Unit:   75,   File: D:/HEC_af_2019/Event Model/2020 May event/2020may_event/2020may_
+               Pointer Utilization:  0.03
+               Number of Records:     51
+               File Size:   1805.4  Kbytes
+               Percent Inactive:  76.0
+
+    -----DSS---ZOPEN:  Existing File Opened,  File: D:/HEC_af_2019/Event Model/2020 May event/2020may_event/2020may_event.dss
+                       Unit:   76;  DSS Versions - Software: 6-SH, File: 6-WD
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   76
+ Pathname: //R_SB_5/PRECIP-INC/12MAY2020/5MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   76
+ Pathname: //R_SB_5/PRECIP-INC/12MAY2020/5MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   76
+ Pathname: //R_SB_5/PRECIP-INC/12MAY2020/5MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   76
+ Pathname: //R_SB_5/PRECIP-INC/12MAY2020/5MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   76
+ Pathname: //R_SB_1/PRECIP-INC/12MAY2020/5MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   76
+ Pathname: //R_SB_1/PRECIP-INC/12MAY2020/5MIN/GAGE/
+    -----DSS---ZCLOSE Unit:   76,   File: D:/HEC_af_2019/Event Model/2020 May event/2020may_event/2020may_
+               Pointer Utilization:  0.03
+               Number of Records:     51
+               File Size:   1805.4  Kbytes
+               Percent Inactive:  76.0
+
+    -----DSS---ZOPEN:  Existing File Opened,  File: D:/HEC_af_2019/Event Model/2020 May event/2020may_event/2020may_event.dss
+                       Unit:   77;  DSS Versions - Software: 6-SH, File: 6-WD
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   77
+ Pathname: //R_SB_1/PRECIP-INC/12MAY2020/5MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   77
+ Pathname: //R_SB_1/PRECIP-INC/12MAY2020/5MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   77
+ Pathname: //R_SB_1/PRECIP-INC/12MAY2020/5MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   77
+ Pathname: //R_SB_1/PRECIP-INC/12MAY2020/5MIN/GAGE/
+    -----DSS *** ZSET ERROR: Illegal Flag; Flag: PSEU  String: ON  Integer:       0
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   77
+ Pathname: //RANWALA DIS/FLOW/01APR2020/15MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   77
+ Pathname: //RANWALA DIS/FLOW/01APR2020/15MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   77
+ Pathname: //RANWALA DIS/FLOW/01APR2020/15MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   77
+ Pathname: //RANWALA DIS/FLOW/01APR2020/15MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   77
+ Pathname: //RANWALA DIS/FLOW/01APR2020/15MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   77
+ Pathname: //RANWALA DIS/FLOW/01APR2020/15MIN/GAGE/
+    -----DSS---ZCLOSE Unit:   77,   File: D:/HEC_af_2019/Event Model/2020 May event/2020may_event/2020may_
+               Pointer Utilization:  0.03
+               Number of Records:     46
+               File Size:   1829.6  Kbytes
+               Percent Inactive:  75.8
+
+    -----DSS---ZOPEN:  Existing File Opened,  File: D:/HEC_af_2019/Event Model/2020 May event/2020may_event/2020may_event.dss
+                       Unit:   78;  DSS Versions - Software: 6-SH, File: 6-WD
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   78
+ Pathname: //RANWALA DIS/FLOW/01APR2020/15MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   78
+ Pathname: //RANWALA DIS/FLOW/01APR2020/15MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   78
+ Pathname: //RANWALA DIS/FLOW/01APR2020/15MIN/GAGE/
+ -----DSS*** ZRRTS:  CAUTION - Data block not found in file.  Unit:   78
+ Pathname: //RANWALA DIS/FLOW/01APR2020/15MIN/GAGE/
