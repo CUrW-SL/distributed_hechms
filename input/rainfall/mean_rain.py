@@ -163,7 +163,7 @@ def calculate_intersection(thessian_df, catchment_df):
     return sub_ratios
 
 
-def get_mean_rain(ts_start, ts_end, output_dir, model, pop_method, db_user, db_pwd, db_host, db_name, catchment='kub'):
+def get_mean_rain(ts_start, ts_end, output_dir, model, pop_method, db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub'):
     try:
         print('[ts_start, ts_end, output_dir, pop_method, catchment] : ', [ts_start, ts_end, output_dir,
                                                                            pop_method, catchment])

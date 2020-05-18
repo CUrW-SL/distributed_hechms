@@ -10,8 +10,6 @@ import time
 
 from db_adapter.logger import logger
 from db_adapter.constants import COMMON_DATE_TIME_FORMAT
-# from db_adapter.constants import COMMON_DATE_TIME_FORMAT, CURW_FCST_DATABASE, CURW_FCST_PASSWORD, CURW_FCST_USERNAME, \
-#     CURW_FCST_PORT, CURW_FCST_HOST
 from db_adapter.base import get_Pool
 from db_adapter.curw_fcst.source import get_source_id, get_source_parameters
 from db_adapter.curw_fcst.variable import get_variable_id
@@ -19,11 +17,6 @@ from db_adapter.curw_fcst.unit import get_unit_id, UnitType
 from db_adapter.curw_fcst.station import get_hechms_stations
 from db_adapter.curw_fcst.timeseries import Timeseries
 
-CURW_FCST_DATABASE = 'curw_fcst'
-CURW_FCST_PASSWORD = 'cfcwm07'
-CURW_FCST_USERNAME = 'curw'
-CURW_FCST_PORT = 3306
-CURW_FCST_HOST = '192.168.1.43'
 hechms_stations = {}
 
 
@@ -169,7 +162,7 @@ def save_forecast_timeseries_to_db(pool, timeseries, run_date, run_time, tms_met
         traceback.print_exc()
 
 
-def extract_distrubuted_hechms_outputs(out_file_path, run_date, run_time):
+def extract_distrubuted_hechms_outputs(db_user, db_pwd, db_host, db_name, out_file_path, run_date, run_time):
     """
     Config.json
     {
@@ -228,8 +221,7 @@ def extract_distrubuted_hechms_outputs(out_file_path, run_date, run_time):
 
         timeseries = read_csv(out_file_path)
 
-        pool = get_Pool(host=CURW_FCST_HOST, port=CURW_FCST_PORT, db=CURW_FCST_DATABASE, user=CURW_FCST_USERNAME,
-                        password=CURW_FCST_PASSWORD)
+        pool = get_Pool(host=db_host, port=3306, db=db_name, user=db_user, password=db_pwd)
 
         hechms_stations = get_hechms_stations(pool=pool)
 
