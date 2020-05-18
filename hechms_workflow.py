@@ -15,8 +15,8 @@ from uploads.upload_discharge import extract_distrubuted_hechms_outputs
 from input.rainfall.mean_rain import get_mean_rain
 
 HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'distributed_model')
-COPY_MODEL_TEMPLATE_CMD = 'cp -R /home/curw/git/distributed_hechms/distributed_model_template/* /home/curw/git/distributed_hechms/output/distributed_model'
-COPY_MODEL_TEMPLATE1_CMD = 'cp -R /home/curw/git/distributed_hechms/distributed_model_template1/* /home/curw/git/distributed_hechms/output/distributed_model'
+COPY_MODEL_TEMPLATE_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/distributed_model_template/* /home/curw/git/distributed_hechms/output/distributed_model'
+COPY_MODEL_TEMPLATE1_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/distributed_model_template1/* /home/curw/git/distributed_hechms/output/distributed_model'
 
 
 def create_dir_if_not_exists(path):
