@@ -26,7 +26,7 @@ def create_dir_if_not_exists(path):
 
 
 def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), back_days=2, forward_days=3,
-                        initial_wl=0, pop_method='MME', hechms_model='hechms_prod'):
+                        initial_wl=0, pop_method='MME', target_model='hechms_prod'):
     print('prepare_input_files.')
     print('run_datetime : ', run_datetime)
     print('back_days : ', back_days)
@@ -57,7 +57,7 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
         rain_fall_file = Path(output_file)
         if rain_fall_file.is_file():
             create_dir_if_not_exists(os.path.join(OUTPUT_DIR, 'distributed_model'))
-            if hechms_model == 'hechms_prod' :
+            if target_model == 'hechms_prod' :
                 subprocess.call(COPY_MODEL_TEMPLATE_CMD, shell=True)
             else:
                 subprocess.call(COPY_MODEL_TEMPLATE1_CMD, shell=True)
@@ -133,15 +133,15 @@ if __name__ == '__main__':
     db_pwd = args['db_pwd']
     db_host = args['db_host']
     db_name = args['db_name']
-    hechms_model = args['hechms_model']
+    target_model = args['target_model']
     print('**** HECHMS RUN **** run_datetime: {}'.format(run_datetime))
     print('**** HECHMS RUN **** forward: {}'.format(forward))
     print('**** HECHMS RUN **** backward: {}'.format(backward))
     print('**** HECHMS RUN **** init_run: {}'.format(init_run))
     print('**** HECHMS RUN **** pop_method: {}'.format(pop_method))
-    print('**** HECHMS RUN **** hechms_model: {}'.format(hechms_model))
+    print('**** HECHMS RUN **** target_model: {}'.format(target_model))
     if run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime, backward, forward, init_run, pop_method,
-                           hechms_model):
+                           target_model):
         print('**** HECHMS RUN Completed****')
     else:
         print('**** HECHMS RUN Failed****')
