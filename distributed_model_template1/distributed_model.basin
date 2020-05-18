@@ -2,7 +2,7 @@ Basin: distributed_model
      Last Modified Date: 15 February 2018
      Last Modified Time: 05:07:08
      Version: 4.2.1
-     Filepath Separator: \
+     Filepath Separator: /
      Unit System: Metric
      Missing Flow To Zero: No
      Enable Flow Ratio: No
