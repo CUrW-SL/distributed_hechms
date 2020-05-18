@@ -1,4 +1,4 @@
-Basin: Kelani
+Basin: distributed_model
      Last Modified Date: 15 February 2018
      Last Modified Time: 05:07:08
      Version: 4.2.1
@@ -13,7 +13,7 @@ Basin: Kelani
      Enable Quality Routing: No
 End:
 
-Subbasin: SB-1
+Subbasin: Sub1
      Description: Kehelgamu Oya + Maskeli oya Basins
      Last Modified Date: 26 February 2020
      Last Modified Time: 10:34:46
@@ -63,7 +63,7 @@ Reach: Reach-1
      Channel Loss: None
 End:
 
-Subbasin: SB-3
+Subbasin: Sub3
      Description: Gurugoda oya Basin
      Last Modified Date: 26 February 2020
      Last Modified Time: 10:34:46
@@ -96,7 +96,7 @@ Subbasin: SB-3
      Threshold Flow to Peak Ratio: 0.4
 End:
 
-Subbasin: SB-2
+Subbasin: Sub2
      Description: Kelani Ganga US Basin
      Last Modified Date: 26 February 2020
      Last Modified Time: 10:34:46
@@ -155,7 +155,7 @@ Reach: Reach-2
      Channel Loss: None
 End:
 
-Subbasin: SB-4
+Subbasin: Sub4
      Description: Seethawaka Ganga Basin
      Last Modified Date: 26 February 2020
      Last Modified Time: 10:34:46
@@ -188,7 +188,7 @@ Subbasin: SB-4
      Threshold Flow to Peak Ratio: 0.4
 End:
 
-Subbasin: SB-5
+Subbasin: Sub5
      Last Modified Date: 26 February 2020
      Last Modified Time: 10:34:46
      Canvas X: 437361.01029297407
@@ -255,9 +255,4 @@ Basin Schematic Properties:
      Draw Flow Direction: Yes
      Fix Element Locations: No
      Fix Hydrologic Order: No
-     Map: hec.map.aishape.AiShapeMap
-     Map File Name: D:\HEC_af_2019\GIS\Keleni_Sub\Sub_Catch.shp
-     Minimum Scale: -2147483648
-     Maximum Scale: 2147483647
-     Map Shown: Yes
 End:

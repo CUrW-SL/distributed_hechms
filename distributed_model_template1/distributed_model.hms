@@ -1,27 +1,27 @@
-Project: 2020may event
+Project: distributed_model
      Description: testing with continuous data
      Version: 4.2.1
      Filepath Separator: \
-     DSS File Name: 2020may_event.dss
+     DSS File Name: distributed_model_input.dss
      Time Zone ID: Asia/Colombo
 End:
 
-Precipitation: Met_may2020
-     Filename: Met_may2020.met
+Precipitation: distributed_model
+     Filename: distributed_model.met
      Description: 
      Last Modified Date: 16 May 2020
      Last Modified Time: 02:39
 End:
 
-Basin: Kelani
-     Filename: Kelani.basin
+Basin: distributed_model
+     Filename: distributed_model.basin
      Description: 
      Last Modified Date: 16 May 2020
      Last Modified Time: 04:16:34
 End:
 
-Control: 05_2020
-     FileName: 05_2020.control
+Control: distributed_model
+     FileName: distributed_model.control
      Description: 
 End:
 

@@ -9,7 +9,7 @@ Meteorology: Met_may2020
      Long-Wave Radiation Method: None
      Snowmelt Method: None
      Evapotranspiration Method: Monthly Evaporation
-     Use Basin Model: Kelani
+     Use Basin Model: distributed_model
 End:
 
 Precip Method Parameters: Specified Average
@@ -23,12 +23,12 @@ Evapotranspiration Method Parameters: Monthly Evaporation
      Last Modified Time: 03:17:24
 End:
 
-Subbasin: SB-1
+Subbasin: Sub1
      Last Modified Date: 4 October 2019
      Last Modified Time: 05:47:20
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
-     Gage: R_SB_1
+     Gage: SB_1
 
      Begin Et:
      Pan Evaporation: 114.7
@@ -58,12 +58,12 @@ Subbasin: SB-1
      End Et:
 End:
 
-Subbasin: SB-3
+Subbasin: Sub3
      Last Modified Date: 4 October 2019
      Last Modified Time: 05:47:20
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
-     Gage: R_SB_3
+     Gage: SB_3
 
      Begin Et:
      Pan Evaporation: 114.7
@@ -93,12 +93,12 @@ Subbasin: SB-3
      End Et:
 End:
 
-Subbasin: SB-2
+Subbasin: Sub2
      Last Modified Date: 4 October 2019
      Last Modified Time: 05:47:20
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
-     Gage: R_SB_2
+     Gage: SB_2
 
      Begin Et:
      Pan Evaporation: 114.7
@@ -128,12 +128,12 @@ Subbasin: SB-2
      End Et:
 End:
 
-Subbasin: SB-4
+Subbasin: Sub4
      Last Modified Date: 4 October 2019
      Last Modified Time: 05:47:20
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
-     Gage: R_SB_4
+     Gage: SB_4
 
      Begin Et:
      Pan Evaporation: 114.7
@@ -163,12 +163,12 @@ Subbasin: SB-4
      End Et:
 End:
 
-Subbasin: SB-5
+Subbasin: Sub5
      Last Modified Date: 4 October 2019
      Last Modified Time: 05:47:20
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
-     Gage: R_SB_5
+     Gage: SB_5
 
      Begin Et:
      Pan Evaporation: 114.7
