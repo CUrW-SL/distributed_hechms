@@ -118,6 +118,11 @@ def parse_args():
     parser.add_argument('-backward', default=2)
     parser.add_argument('-init_run', default=0)
     parser.add_argument('-pop_method', default='MME')
+    parser.add_argument('-db_user')
+    parser.add_argument('-db_pwd')
+    parser.add_argument('-db_host')
+    parser.add_argument('-db_name')
+    parser.add_argument('-target_model')
     return parser.parse_args()
 
 
