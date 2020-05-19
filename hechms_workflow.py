@@ -33,10 +33,11 @@ def create_dir_if_not_exists(path):
 def get_state_file_name(ts_start_datetime):
     startDateTime = datetime.strptime(ts_start_datetime, '%Y-%m-%d %H:%M:%S')
     saveStateDateTime = startDateTime + timedelta(minutes=STATE_INTERVAL)
-    startStateDateTime = startDateTime - timedelta(minutes=STATE_INTERVAL)
-    state_file_name = 'State_{}_To_{}.state'.format(startStateDateTime.strftime('%Y_%m_%d'),
+    # startStateDateTime = startDateTime - timedelta(minutes=STATE_INTERVAL)
+    state_file_name = 'State_{}_To_{}.state'.format(startDateTime.strftime('%Y_%m_%d'),
                                                     saveStateDateTime.strftime('%Y_%m_%d'))
     state_file = os.path.join(HEC_HMS_STATE_DIR, state_file_name)
+    print('get_state_file_name|state_file : ', state_file)
     return state_file
 
 
