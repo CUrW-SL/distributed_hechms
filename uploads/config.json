@@ -6,10 +6,10 @@
   "run_time": "22:00:00",
   "utc_offset": "",
 
-  "sim_tag": "event_run",
+  "sim_tag": "hourly_run",
 
   "model": "HECHMS",
-  "version": "distributed",
+  "version": "event",
 
   "unit": "m3/s",
   "unit_type": "Instantaneous",
