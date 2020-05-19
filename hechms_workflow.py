@@ -5,24 +5,38 @@ import subprocess
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from config import OUTPUT_DIR, HEC_INPUT_DSS, HEC_OUTPUT_DSS, FILE_REMOVE_CMD
+from config import OUTPUT_DIR, HEC_INPUT_DSS, HEC_OUTPUT_DSS, FILE_REMOVE_CMD, STATE_INTERVAL
 from input.gage.model_gage import create_gage_file_by_rain_file
 from input.control.model_control import create_control_file_by_rain_file
 from input.run.model_run import create_run_file
 from model.model_execute import execute_pre_dssvue, execute_post_dssvue, execute_hechms
 from uploads.upload_discharge import extract_distrubuted_hechms_outputs
-
 from input.rainfall.mean_rain import get_mean_rain
 
+
 HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'distributed_model')
+HEC_HMS_STATE_DIR = os.path.join(OUTPUT_DIR, 'distributed_model', 'basinStates')
 COPY_MODEL_TEMPLATE_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/distributed_model_template/* /home/curw/git/distributed_hechms/output/distributed_model'
 COPY_MODEL_TEMPLATE1_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/distributed_model_template1/* /home/curw/git/distributed_hechms/output/distributed_model'
+STATE_BACKUP_DIR = '/home/curw/basin_states'
+COPY_STATE_FILES_CMD = 'yes | cp -R /home/curw/basin_states/* /home/curw/git/distributed_hechms/output/distributed_model/basinStates'
+
+FILE_COPY_CMD_TEMPLATE = 'yes | cp -R {} {}'
 
 
 def create_dir_if_not_exists(path):
     if not os.path.exists(path):
         os.makedirs(path)
     return path
+
+
+def get_state_file_name(ts_start_datetime):
+    startDateTime = datetime.strptime(ts_start_datetime, '%Y-%m-%d %H:%M:%S')
+    saveStateDateTime = startDateTime + timedelta(minutes=STATE_INTERVAL)
+    startStateDateTime = startDateTime - timedelta(minutes=STATE_INTERVAL)
+    state_file_name = 'State_{}_To_{}.state'.format(startStateDateTime, saveStateDateTime)
+    state_file = os.path.join(HEC_HMS_STATE_DIR, state_file_name)
+    return state_file
 
 
 def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'), back_days=2, forward_days=3,
@@ -61,9 +75,11 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                 subprocess.call(COPY_MODEL_TEMPLATE_CMD, shell=True)
             else:
                 subprocess.call(COPY_MODEL_TEMPLATE1_CMD, shell=True)
+            subprocess.call(COPY_STATE_FILES_CMD, shell=True)
             create_gage_file_by_rain_file('distributed_model', output_file)
             create_control_file_by_rain_file('distributed_model', output_file)
             create_run_file('distributed_model', initial_wl, run_datetime.strftime('%Y-%m-%d %H:%M:%S'), from_date)
+            state_file = get_state_file_name(run_datetime.strftime('%Y-%m-%d %H:%M:%S'))
             hechms_input = os.path.join(HEC_HMS_MODEL_DIR, HEC_INPUT_DSS.replace('{MODEL_NAME}', 'distributed_model'))
             hechms_output = os.path.join(HEC_HMS_MODEL_DIR, HEC_OUTPUT_DSS.replace('{MODEL_NAME}', 'distributed_model'))
             try:
@@ -86,6 +102,9 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                             output_dir = os.path.join(OUTPUT_DIR, file_date, file_time)
                             print('output_dir : ', output_dir)
                             output_file = os.path.join(output_dir, 'DailyDischarge.csv')
+                            state_file_copy_cmd = FILE_COPY_CMD_TEMPLATE.format(state_file, STATE_BACKUP_DIR)
+                            print('state_file_copy_cmd : ', state_file_copy_cmd)
+                            subprocess.call(state_file_copy_cmd, shell=True)
                             try:
                                 print('extract_distrubuted_hechms_outputs|[output_file, file_date] : ',
                                       [output_file, file_date])
