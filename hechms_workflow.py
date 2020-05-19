@@ -34,7 +34,8 @@ def get_state_file_name(ts_start_datetime):
     startDateTime = datetime.strptime(ts_start_datetime, '%Y-%m-%d %H:%M:%S')
     saveStateDateTime = startDateTime + timedelta(minutes=STATE_INTERVAL)
     startStateDateTime = startDateTime - timedelta(minutes=STATE_INTERVAL)
-    state_file_name = 'State_{}_To_{}.state'.format(startStateDateTime, saveStateDateTime)
+    state_file_name = 'State_{}_To_{}.state'.format(startStateDateTime.strftime('%Y_%m_%d'),
+                                                    saveStateDateTime.strftime('%Y_%m_%d'))
     state_file = os.path.join(HEC_HMS_STATE_DIR, state_file_name)
     return state_file
 
