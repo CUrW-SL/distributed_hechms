@@ -12,9 +12,12 @@ FILL_VALUE = 0
 def validate_dataframe(df, allowed_error):
     row_count = len(df.index)
     missing_count = df['value'][df['value'] == MISSING_VALUE].count()
+    print('validate_dataframe|row_count : ', row_count)
+    print('validate_dataframe|missing_count : ', missing_count)
     df_error = missing_count/row_count
+    print('validate_dataframe|df_error : ', df_error)
     print('validate_dataframe|[row_count, missing_count, df_error]:', [row_count, missing_count, df_error, allowed_error])
-    if df_error > allowed_error:
+    if df_error <= allowed_error:
         print('Invalid')
         return False
     else:
@@ -172,10 +175,11 @@ class CurwSimAdapter:
                 print('time_step_count : {}'.format(time_step_count))
                 print('len(results) : {}'.format(len(results)))
                 data_error = ((time_step_count - len(results)) / time_step_count) * 100
+                print('data_error : {}'.format(data_error))
                 if data_error < 0:
                     df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
                     return df
-                elif data_error < 40:
+                elif data_error < 5:
                     print('data_error : {}'.format(data_error))
                     print('filling missing data.')
                     formatted_ts = []
@@ -280,7 +284,7 @@ class CurwSimAdapter:
             print('Not available stations..')
             return {}
 
-    def get_basin_available_stations_timeseries(self, shape_file, start_time, end_time, model, method, allowed_error=0.7):
+    def get_basin_available_stations_timeseries(self, shape_file, start_time, end_time, model, method, allowed_error):
         """
         Add time series to the given available station list.
         :param shape_file:
@@ -296,6 +300,7 @@ class CurwSimAdapter:
             hash_id = basin_available_stations[station]['hash_id']
             station_df = self.get_timeseries_by_id(hash_id, start_time, end_time)
             if station_df is not None:
+                print('get_basin_available_stations_timeseries|allowed_error : ', allowed_error)
                 if validate_dataframe(station_df, allowed_error):
                     basin_available_stations[station]['timeseries'] = station_df.replace(MISSING_VALUE,
                                                                                                   FILL_VALUE)
