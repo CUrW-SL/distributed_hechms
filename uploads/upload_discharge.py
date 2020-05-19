@@ -162,7 +162,7 @@ def save_forecast_timeseries_to_db(pool, timeseries, run_date, run_time, tms_met
         traceback.print_exc()
 
 
-def extract_distrubuted_hechms_outputs(db_user, db_pwd, db_host, db_name, out_file_path, run_date, run_time):
+def extract_distrubuted_hechms_outputs(target_model, db_user, db_pwd, db_host, db_name, out_file_path, run_date, run_time):
     """
     Config.json
     {
