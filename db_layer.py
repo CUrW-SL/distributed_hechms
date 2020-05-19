@@ -17,7 +17,7 @@ def validate_dataframe(df, allowed_error):
     df_error = missing_count/row_count
     print('validate_dataframe|df_error : ', df_error)
     print('validate_dataframe|[row_count, missing_count, df_error]:', [row_count, missing_count, df_error, allowed_error])
-    if df_error <= allowed_error:
+    if df_error > allowed_error:
         print('Invalid')
         return False
     else:
