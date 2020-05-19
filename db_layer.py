@@ -25,6 +25,12 @@ def validate_dataframe(df, allowed_error):
         return True
 
 
+def get_missing_count(results):
+    df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
+    missing_count = df['value'][df['value'] == MISSING_VALUE].count()
+    return missing_count
+
+
 class CurwSimAdapter:
     def __init__(self, mysql_user, mysql_password, mysql_host, mysql_db):
         print('[mysql_user, mysql_password, mysql_host, mysql_db] : ',
@@ -156,7 +162,61 @@ class CurwSimAdapter:
             print('get_station_timeseries|Exception:', e)
             return None
 
-    def get_timeseries_by_id(self, hash_id, timeseries_start, timeseries_end, time_step_size=5):
+    # def get_timeseries_by_id(self, hash_id, timeseries_start, timeseries_end, time_step_size=5):
+    #     cursor = self.cursor
+    #     data_sql = 'select time,value from curw_sim.data where time>=\'{}\' and time<=\'{}\' and id=\'{}\' '.format(
+    #         timeseries_start, timeseries_end, hash_id)
+    #     try:
+    #         print('data_sql : ', data_sql)
+    #         cursor.execute(data_sql)
+    #         results = cursor.fetchall()
+    #         # print('results : ', results)
+    #         if len(results) > 0:
+    #             time_step_count = int((datetime.strptime(timeseries_end, '%Y-%m-%d %H:%M:%S')
+    #                                    - datetime.strptime(timeseries_start,
+    #                                                        '%Y-%m-%d %H:%M:%S')).total_seconds() / (
+    #                                           60 * time_step_size))
+    #             print('timeseries_start : {}'.format(timeseries_start))
+    #             print('timeseries_end : {}'.format(timeseries_end))
+    #             print('time_step_count : {}'.format(time_step_count))
+    #             print('len(results) : {}'.format(len(results)))
+    #             data_error = ((time_step_count - len(results)) / time_step_count) * 100
+    #             print('data_error : {}'.format(data_error))
+    #             if data_error < 0:
+    #                 df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
+    #                 return df
+    #             elif data_error < 5:
+    #                 print('data_error : {}'.format(data_error))
+    #                 print('filling missing data.')
+    #                 formatted_ts = []
+    #                 i = 0
+    #                 for step in range(time_step_count + 1):
+    #                     tms_step = datetime.strptime(timeseries_start, '%Y-%m-%d %H:%M:%S') + timedelta(
+    #                         minutes=step * time_step_size)
+    #                     # print('tms_step : ', tms_step)
+    #                     if step < len(results):
+    #                         if tms_step == results[i][0]:
+    #                             formatted_ts.append(results[i])
+    #                         else:
+    #                             formatted_ts.append((tms_step, Decimal(0)))
+    #                     else:
+    #                         formatted_ts.append((tms_step, Decimal(0)))
+    #                     i += 1
+    #                 df = pd.DataFrame(data=formatted_ts, columns=['time', 'value']).set_index(keys='time')
+    #                 print('get_station_timeseries|df: ', df)
+    #                 return df
+    #             else:
+    #                 print('data_error : {}'.format(data_error))
+    #                 print('Data error is too large')
+    #                 return None
+    #         else:
+    #             print('No data.')
+    #             return None
+    #     except Exception as e:
+    #         print('get_timeseries_by_id|data fetch|Exception:', e)
+    #         return None
+
+    def get_timeseries_by_id(self, hash_id, timeseries_start, timeseries_end, allowed_error, time_step_size=5):
         cursor = self.cursor
         data_sql = 'select time,value from curw_sim.data where time>=\'{}\' and time<=\'{}\' and id=\'{}\' '.format(
             timeseries_start, timeseries_end, hash_id)
@@ -164,7 +224,6 @@ class CurwSimAdapter:
             print('data_sql : ', data_sql)
             cursor.execute(data_sql)
             results = cursor.fetchall()
-            # print('results : ', results)
             if len(results) > 0:
                 time_step_count = int((datetime.strptime(timeseries_end, '%Y-%m-%d %H:%M:%S')
                                        - datetime.strptime(timeseries_start,
@@ -174,12 +233,15 @@ class CurwSimAdapter:
                 print('timeseries_end : {}'.format(timeseries_end))
                 print('time_step_count : {}'.format(time_step_count))
                 print('len(results) : {}'.format(len(results)))
-                data_error = ((time_step_count - len(results)) / time_step_count) * 100
+                missing_count = time_step_count - len(results)
+                missing_count = get_missing_count(results) + missing_count
+                print('missing_count : {}'.format(missing_count))
+                data_error = (missing_count / time_step_count)
                 print('data_error : {}'.format(data_error))
                 if data_error < 0:
                     df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
                     return df
-                elif data_error < 5:
+                elif data_error <= allowed_error:
                     print('data_error : {}'.format(data_error))
                     print('filling missing data.')
                     formatted_ts = []
@@ -298,15 +360,11 @@ class CurwSimAdapter:
         print('get_basin_available_stations_timeseries|basin_available_stations: ', basin_available_stations)
         for station in list(basin_available_stations):
             hash_id = basin_available_stations[station]['hash_id']
-            station_df = self.get_timeseries_by_id(hash_id, start_time, end_time)
+            station_df = self.get_timeseries_by_id(hash_id, start_time, end_time, allowed_error)
             if station_df is not None:
                 print('get_basin_available_stations_timeseries|allowed_error : ', allowed_error)
-                if validate_dataframe(station_df, allowed_error):
-                    basin_available_stations[station]['timeseries'] = station_df.replace(MISSING_VALUE,
-                                                                                                  FILL_VALUE)
-                else:
-                    print('Invalid dataframe station : ', station)
-                    basin_available_stations.pop(station, None)
+                basin_available_stations[station]['timeseries'] = station_df.replace(MISSING_VALUE,
+                                                                                     FILL_VALUE)
             else:
                 print('No times series data avaialble for the station ', station)
                 basin_available_stations.pop(station, None)
