@@ -234,6 +234,7 @@ class CurwSimAdapter:
                 print('time_step_count : {}'.format(time_step_count))
                 print('len(results) : {}'.format(len(results)))
                 missing_count = time_step_count - len(results)
+                print('missing_count : {}'.format(missing_count))
                 missing_count = get_missing_count(results) + missing_count
                 print('missing_count : {}'.format(missing_count))
                 data_error = (missing_count / time_step_count)
