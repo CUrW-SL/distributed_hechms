@@ -9,6 +9,9 @@ def create_run_file(model_name, initial_wl, date_time, ts_start_datetime):
     startDateTime = datetime.strptime(ts_start_datetime, '%Y-%m-%d %H:%M:%S')
     saveStateDateTime = startDateTime + timedelta(minutes=STATE_INTERVAL)
     startStateDateTime = startDateTime - timedelta(minutes=STATE_INTERVAL)
+    print('create_run_file|startDateTime : ', startDateTime)
+    print('create_run_file|saveStateDateTime : ', startDateTime)
+    print('create_run_file|startDateTime : ', startDateTime)
     if initial_wl == 0:
         create_run_file0(model_name, date_time, startDateTime, saveStateDateTime)
     else:

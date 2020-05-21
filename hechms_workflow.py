@@ -5,7 +5,7 @@ import subprocess
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from config import OUTPUT_DIR, HEC_INPUT_DSS, HEC_OUTPUT_DSS, FILE_REMOVE_CMD, STATE_INTERVAL
+from config import HEC_INPUT_DSS, HEC_OUTPUT_DSS, FILE_REMOVE_CMD, STATE_INTERVAL
 from input.gage.model_gage import create_gage_file_by_rain_file
 from input.control.model_control import create_control_file_by_rain_file
 from input.run.model_run import create_run_file
@@ -13,7 +13,7 @@ from model.model_execute import execute_pre_dssvue, execute_post_dssvue, execute
 from uploads.upload_discharge import extract_distrubuted_hechms_outputs
 from input.rainfall.mean_rain import get_mean_rain
 
-
+OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
 HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'distributed_model')
 HEC_HMS_STATE_DIR = os.path.join(OUTPUT_DIR, 'distributed_model', 'basinStates')
 COPY_MODEL_TEMPLATE_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/distributed_model_template/* /home/curw/git/distributed_hechms/output/distributed_model'
@@ -31,6 +31,7 @@ def create_dir_if_not_exists(path):
 
 
 def get_state_file_name(ts_start_datetime):
+    print('get_state_file_name|ts_start_datetime : ', ts_start_datetime)
     startDateTime = datetime.strptime(ts_start_datetime, '%Y-%m-%d %H:%M:%S')
     saveStateDateTime = startDateTime + timedelta(minutes=STATE_INTERVAL)
     # startStateDateTime = startDateTime - timedelta(minutes=STATE_INTERVAL)
@@ -81,7 +82,7 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
             create_gage_file_by_rain_file('distributed_model', output_file)
             create_control_file_by_rain_file('distributed_model', output_file)
             create_run_file('distributed_model', initial_wl, run_datetime.strftime('%Y-%m-%d %H:%M:%S'), from_date)
-            state_file = get_state_file_name(run_datetime.strftime('%Y-%m-%d %H:%M:%S'))
+            state_file = get_state_file_name(from_date)
             hechms_input = os.path.join(HEC_HMS_MODEL_DIR, HEC_INPUT_DSS.replace('{MODEL_NAME}', 'distributed_model'))
             hechms_output = os.path.join(HEC_HMS_MODEL_DIR, HEC_OUTPUT_DSS.replace('{MODEL_NAME}', 'distributed_model'))
             try:
