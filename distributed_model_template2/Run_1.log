@@ -1,0 +1,6 @@
+NOTE 15301:  Began computing simulation run "Run 1" at time 20May2020, 20:25:15.
+NOTE 10181:  Opened control specifications "05_2020" at time 20May2020, 20:25:15.
+NOTE 20364:  Found no parameter problems in meteorologic model "Met_may2020".
+NOTE 40049:  Found no parameter problems in basin model "Kelani".
+WARNING 41169:  Muskingum routing is unstable with the given parameters for reach "Reach-1".
+NOTE 15302:  Finished computing simulation run "Run 1" at time 20May2020, 20:25:15.

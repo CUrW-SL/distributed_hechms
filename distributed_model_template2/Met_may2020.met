@@ -1,0 +1,59 @@
+Meteorology: Met_may2020
+     Last Modified Date: 19 May 2020
+     Last Modified Time: 07:50:38
+     Version: 4.2.1
+     Unit System: Metric
+     Set Missing Data to Default: Yes
+     Precipitation Method: Specified Average
+     Short-Wave Radiation Method: None
+     Long-Wave Radiation Method: None
+     Snowmelt Method: None
+     Evapotranspiration Method: No Evapotranspiration
+     Use Basin Model: Kelani
+End:
+
+Precip Method Parameters: Specified Average
+     Last Modified Date: 16 September 2019
+     Last Modified Time: 14:37:48
+     Allow Depth Override: No
+End:
+
+Subbasin: SB-1
+     Last Modified Date: 4 October 2019
+     Last Modified Time: 05:47:20
+     Vapor Pressure Type: Relative Humidity
+     Relative Humidity Gage Name: --None--
+     Gage: R_SB_1
+End:
+
+Subbasin: SB-3
+     Last Modified Date: 4 October 2019
+     Last Modified Time: 05:47:20
+     Vapor Pressure Type: Relative Humidity
+     Relative Humidity Gage Name: --None--
+     Gage: R_SB_3
+End:
+
+Subbasin: SB-2
+     Last Modified Date: 4 October 2019
+     Last Modified Time: 05:47:20
+     Vapor Pressure Type: Relative Humidity
+     Relative Humidity Gage Name: --None--
+     Gage: R_SB_2
+End:
+
+Subbasin: SB-4
+     Last Modified Date: 4 October 2019
+     Last Modified Time: 05:47:20
+     Vapor Pressure Type: Relative Humidity
+     Relative Humidity Gage Name: --None--
+     Gage: R_SB_4
+End:
+
+Subbasin: SB-5
+     Last Modified Date: 4 October 2019
+     Last Modified Time: 05:47:20
+     Vapor Pressure Type: Relative Humidity
+     Relative Humidity Gage Name: --None--
+     Gage: R_SB_5
+End:

@@ -1,0 +1,13 @@
+Run: Run 1
+     Default Description: Yes
+     Log File: Run_1.log
+     DSS File: Run_1.dss
+     Last Modified Date: 20 May 2020
+     Last Modified Time: 14:51:31
+     Last Execution Date: 20 May 2020
+     Last Execution Time: 14:55:15
+     Basin: Kelani
+     Precip: Met_may2020
+     Control: 05_2020
+End:
+

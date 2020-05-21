@@ -1,0 +1,262 @@
+Basin: Kelani
+     Last Modified Date: 15 February 2018
+     Last Modified Time: 05:07:08
+     Version: 4.2.1
+     Filepath Separator: \
+     Unit System: Metric
+     Missing Flow To Zero: No
+     Enable Flow Ratio: No
+     Compute Local Flow At Junctions: No
+
+     Enable Sediment Routing: No
+
+     Enable Quality Routing: No
+End:
+
+Subbasin: SB-1
+     Description: Kehelgamu Oya + Maskeli oya Basins
+     Last Modified Date: 19 May 2020
+     Last Modified Time: 07:36:17
+     Canvas X: 476309.0436383641
+     Canvas Y: 483544.476721086
+     Area: 418.495741
+     Downstream: Reach-1
+
+     Canopy: None
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: None
+
+     Surface: None
+
+     LossRate: Green and Ampt
+     Percent Impervious Area: 20
+     Initial Content: 0.146
+     Saturated Content: 0.469
+     Wetting Front Suction: 208
+     Hydraulic Conductivity: 1.4519
+
+     Transform: Clark
+     Time of Concentration: 9.6417
+     Storage Coefficient: 4.5529
+     Time Area Method: Default
+
+     Baseflow: Recession
+     Recession Factor: 0.45
+     Initial Baseflow: 50
+     Threshold Flow to Peak Ratio: 0.2
+End:
+
+Reach: Reach-1
+     Description: Kelani Ganga US1
+     Last Modified Date: 19 May 2020
+     Last Modified Time: 05:57:35
+     Canvas X: 442012.9466409666
+     Canvas Y: 504811.38961869886
+     From Canvas X: 464394.79470727564
+     From Canvas Y: 498083.56211834017
+     Downstream: Junction-1
+
+     Route: Muskingum
+     Muskingum K: 6
+     Muskingum x: 0.3
+     Muskingum Steps: 2
+     Channel Loss: None
+End:
+
+Subbasin: SB-3
+     Description: Gurugoda oya Basin
+     Last Modified Date: 19 May 2020
+     Last Modified Time: 07:36:17
+     Canvas X: 454050.11813588033
+     Canvas Y: 517358.58212923084
+     Area: 349.675879
+     Downstream: Junction-1
+
+     Canopy: None
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: None
+
+     Surface: None
+
+     LossRate: Green and Ampt
+     Percent Impervious Area: 30
+     Initial Content: 0.146
+     Saturated Content: 0.469
+     Wetting Front Suction: 208
+     Hydraulic Conductivity: 3.2013
+
+     Transform: Clark
+     Time of Concentration: 9.5042
+     Storage Coefficient: 9.7125
+     Time Area Method: Default
+
+     Baseflow: Recession
+     Recession Factor: 0.45
+     Initial Baseflow: 30
+     Threshold Flow to Peak Ratio: 0.2
+End:
+
+Subbasin: SB-2
+     Description: Kelani Ganga US Basin
+     Last Modified Date: 19 May 2020
+     Last Modified Time: 07:36:17
+     Canvas X: 458915.45704352704
+     Canvas Y: 506289.9361143345
+     Area: 261.655098
+     Downstream: Junction-1
+
+     Canopy: None
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: None
+
+     Surface: None
+
+     LossRate: Green and Ampt
+     Percent Impervious Area: 25
+     Initial Content: 0.146
+     Saturated Content: 0.469
+     Wetting Front Suction: 208
+     Hydraulic Conductivity: 3.2013
+
+     Transform: Clark
+     Time of Concentration: 17.230
+     Storage Coefficient: 7.8535
+     Time Area Method: Default
+
+     Baseflow: Recession
+     Recession Factor: 0.45
+     Initial Baseflow: 25
+     Threshold Flow to Peak Ratio: 0.2
+End:
+
+Junction: Junction-1
+     Description: Ruwanwella
+     Last Modified Date: 28 February 2018
+     Last Modified Time: 03:49:33
+     Canvas X: 442012.9466409666
+     Canvas Y: 504811.38961869886
+     Downstream: Reach-2
+End:
+
+Reach: Reach-2
+     Description: Kelani ganga US2
+     Last Modified Date: 19 May 2020
+     Last Modified Time: 05:57:18
+     Canvas X: 437706.9532793276
+     Canvas Y: 497815.15913991514
+     From Canvas X: 442012.9466409666
+     From Canvas Y: 504811.38961869886
+     Downstream: Junction-2
+
+     Route: Muskingum
+     Muskingum K: 2.5
+     Muskingum x: 0.02
+     Muskingum Steps: 2
+     Channel Loss: None
+End:
+
+Subbasin: SB-4
+     Description: Seethawaka Ganga Basin
+     Last Modified Date: 19 May 2020
+     Last Modified Time: 07:36:17
+     Canvas X: 449792.9465916894
+     Canvas Y: 487071.84742912994
+     Area: 406.443215
+     Downstream: Junction-2
+
+     Canopy: None
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: None
+
+     Surface: None
+
+     LossRate: Green and Ampt
+     Percent Impervious Area: 20
+     Initial Content: 0.146
+     Saturated Content: 0.469
+     Wetting Front Suction: 208
+     Hydraulic Conductivity: 2.1778
+
+     Transform: Clark
+     Time of Concentration: 11.311
+     Storage Coefficient: 10.776
+     Time Area Method: Default
+
+     Baseflow: Recession
+     Recession Factor: 0.45
+     Initial Baseflow: 50
+     Threshold Flow to Peak Ratio: 0.2
+End:
+
+Subbasin: SB-5
+     Last Modified Date: 19 May 2020
+     Last Modified Time: 07:36:17
+     Canvas X: 437361.01029297407
+     Canvas Y: 502560.55725093867
+     Area: 74
+     Downstream: Junction-2
+
+     Canopy: None
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: None
+
+     Surface: None
+
+     LossRate: Green and Ampt
+     Percent Impervious Area: 30
+     Initial Content: 0.146
+     Saturated Content: 0.469
+     Wetting Front Suction: 208
+     Hydraulic Conductivity: 0.98765
+
+     Transform: Clark
+     Time of Concentration: 13.297
+     Storage Coefficient: 15.368
+     Time Area Method: Default
+
+     Baseflow: Recession
+     Recession Factor: 0.45
+     Initial Baseflow: 5
+     Threshold Flow to Peak Ratio: 0.2
+End:
+
+Junction: Junction-2
+     Description: Glencourse
+     Last Modified Date: 28 February 2018
+     Last Modified Time: 03:49:21
+     Canvas X: 437706.9532793276
+     Canvas Y: 497815.15913991514
+     Downstream: Sink-1
+End:
+
+Sink: Sink-1
+     Last Modified Date: 19 May 2020
+     Last Modified Time: 08:03:55
+     Canvas X: 434038.9768363428
+     Canvas Y: 495536.40537841176
+End:
+
+Basin Schematic Properties:
+     Last View N: 517358.58212923084
+     Last View S: 483544.476721086
+     Last View W: 400998.4207443235
+     Last View E: 476309.0436383641
+     Maximum View N: 517358.58212923084
+     Maximum View S: 483544.476721086
+     Maximum View W: 400998.4207443235
+     Maximum View E: 476309.0436383641
+     Extent Method: Elements
+     Buffer: 0
+     Draw Icons: Yes
+     Draw Icon Labels: Name
+     Draw Map Objects: No
+     Draw Gridlines: Yes
+     Draw Flow Direction: Yes
+     Fix Element Locations: No
+     Fix Hydrologic Order: No
+     Map: hec.map.aishape.AiShapeMap
+     Map File Name: D:\HEC_af_2019\GIS\Keleni_Sub\Sub_Catch.shp
+     Minimum Scale: -2147483648
+     Maximum Scale: 2147483647
+     Map Shown: Yes
+End:

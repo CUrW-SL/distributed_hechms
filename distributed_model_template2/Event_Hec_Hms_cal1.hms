@@ -1,0 +1,26 @@
+Project: Event_Hec Hms_cal1
+     Description: testing with continuous data
+     Version: 4.2.1
+     Filepath Separator: \
+     DSS File Name: Event_Hec_Hms_cal1.dss
+End:
+
+Precipitation: Met_may2020
+     Filename: Met_may2020.met
+     Description: 
+     Last Modified Date: 19 May 2020
+     Last Modified Time: 07:56
+End:
+
+Basin: Kelani
+     Filename: Kelani.basin
+     Description: 
+     Last Modified Date: 19 May 2020
+     Last Modified Time: 08:03:55
+End:
+
+Control: 05_2020
+     FileName: 05_2020.control
+     Description: 
+End:
+
