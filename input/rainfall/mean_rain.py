@@ -176,7 +176,7 @@ def get_mean_rain(ts_start, ts_end, output_dir, model, pop_method, db_user, db_p
             # shape_file = res_mgr.get_resource_path('resources/klb-wgs84/klb-wgs84.shp')
         # {station1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1, 'timeseries': timeseries1}}
         available_stations = sim_adapter.get_basin_available_stations_timeseries(shape_file, ts_start, ts_end, model,
-                                                                                 pop_method, 0.2)
+                                                                                 pop_method, 0.25)
         # {'id' --> [lon, lat]}
         gauge_points = {}
         for station, info in available_stations.items():
