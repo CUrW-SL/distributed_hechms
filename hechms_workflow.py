@@ -101,9 +101,10 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                         ret_code = execute_post_dssvue(exec_datetime, ts_start_date, ts_start_time)
                         print('execute_post_dssvue|ret_code : ', ret_code)
                         if ret_code == 0:
-                            output_dir = os.path.join(OUTPUT_DIR, file_date, file_time)
-                            print('output_dir : ', output_dir)
-                            output_file = os.path.join(output_dir, 'DailyDischarge.csv')
+                            # output_dir = os.path.join(OUTPUT_DIR, file_date, file_time)
+                            # print('output_dir : ', output_dir)
+                            output_file = os.path.join(OUTPUT_DIR, 'DailyDischarge.csv')
+                            print('output_file : ', output_file)
                             state_file_copy_cmd = FILE_COPY_CMD_TEMPLATE.format(state_file, STATE_BACKUP_DIR)
                             print('state_file_copy_cmd : ', state_file_copy_cmd)
                             subprocess.call(state_file_copy_cmd, shell=True)
