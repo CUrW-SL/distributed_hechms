@@ -23,7 +23,7 @@ Subbasin: Sub1
      Last Modified Time: 05:47:20
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
-     Gage: SB_1
+     Gage: SB-1
 End:
 
 Subbasin: Sub3
@@ -31,7 +31,7 @@ Subbasin: Sub3
      Last Modified Time: 05:47:20
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
-     Gage: SB_3
+     Gage: SB-3
 End:
 
 Subbasin: Sub2
@@ -39,7 +39,7 @@ Subbasin: Sub2
      Last Modified Time: 05:47:20
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
-     Gage: SB_2
+     Gage: SB-2
 End:
 
 Subbasin: Sub4
@@ -47,7 +47,7 @@ Subbasin: Sub4
      Last Modified Time: 05:47:20
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
-     Gage: SB_4
+     Gage: SB-4
 End:
 
 Subbasin: Sub5
@@ -55,5 +55,5 @@ Subbasin: Sub5
      Last Modified Time: 05:47:20
      Vapor Pressure Type: Relative Humidity
      Relative Humidity Gage Name: --None--
-     Gage: SB_5
+     Gage: SB-5
 End:
