@@ -13,6 +13,7 @@ from model.model_execute import execute_pre_dssvue, execute_post_dssvue, execute
 from uploads.upload_discharge import extract_distrubuted_hechms_outputs
 from input.rainfall.mean_rain import get_mean_rain, get_basin_init_discharge
 
+RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
 OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
 HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'distributed_model')
 HEC_HMS_STATE_DIR = os.path.join(OUTPUT_DIR, 'distributed_model', 'basinStates')
@@ -93,7 +94,9 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                 ts_start_date = (datetime.strptime(from_date, '%Y-%m-%d %H:%M:%S')).strftime('%Y-%m-%d')
                 ts_start_time = '00:00:00'
                 print('[ts_start_date, ts_start_time] : ', [ts_start_date, ts_start_time])
-                update_basin_init_values('{} {}'.format(ts_start_date, ts_start_time), db_user, db_pwd, db_host)
+                sub_catchment_shape_file = os.path.join(RESOURCE_PATH, 'sub_catchments/sub_subcatchments.shp')
+                update_basin_init_values('{} {}'.format(ts_start_date, ts_start_time), db_user, db_pwd, db_host,
+                                         sub_catchment_shape_file)
                 ret_code = execute_pre_dssvue(exec_datetime, ts_start_date, ts_start_time)
                 print('execute_pre_dssvue|ret_code : ', ret_code)
                 if ret_code == 0:
