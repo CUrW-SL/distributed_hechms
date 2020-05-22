@@ -303,8 +303,8 @@ class CurwSimAdapter:
         """
         available_stations = {}
         print('get_available_stations_info| [date_time, exec_datetime] : ', [date_time, exec_datetime])
-        last_hour = datetime.strptime(exec_datetime, '%Y-%m-%d_%H:%M:%S') - timedelta(hours=1)
-        last_hour = last_hour.strftime('%Y-%m-%d_%H:%M:%S')
+        last_hour = datetime.strptime(exec_datetime, '%Y-%m-%d %H:%M:%S') - timedelta(hours=1)
+        last_hour = last_hour.strftime('%Y-%m-%d %H:%M:%S')
         print('get_available_stations_info| last_hour : ', last_hour)
         cursor = self.cursor
         try:
