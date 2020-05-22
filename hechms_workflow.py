@@ -4,14 +4,14 @@ import os
 import subprocess
 from datetime import datetime, timedelta
 from pathlib import Path
-
+import geopandas as gpd
 from config import HEC_INPUT_DSS, HEC_OUTPUT_DSS, FILE_REMOVE_CMD, STATE_INTERVAL
 from input.gage.model_gage import create_gage_file_by_rain_file
 from input.control.model_control import create_control_file_by_rain_file
 from input.run.model_run import create_run_file
 from model.model_execute import execute_pre_dssvue, execute_post_dssvue, execute_hechms
 from uploads.upload_discharge import extract_distrubuted_hechms_outputs
-from input.rainfall.mean_rain import get_mean_rain
+from input.rainfall.mean_rain import get_mean_rain, get_basin_init_discharge
 
 OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
 HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'distributed_model')
@@ -93,6 +93,7 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                 ts_start_date = (datetime.strptime(from_date, '%Y-%m-%d %H:%M:%S')).strftime('%Y-%m-%d')
                 ts_start_time = '00:00:00'
                 print('[ts_start_date, ts_start_time] : ', [ts_start_date, ts_start_time])
+                update_basin_init_values('{} {}'.format(ts_start_date, ts_start_time), db_user, db_pwd, db_host)
                 ret_code = execute_pre_dssvue(exec_datetime, ts_start_date, ts_start_time)
                 print('execute_pre_dssvue|ret_code : ', ret_code)
                 if ret_code == 0:
@@ -132,6 +133,56 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
     except Exception as e:
         print('prepare_input_files|Exception: ', e)
         return False
+
+
+def update_basin_init_values(init_date_time, db_user, db_pwd, db_host, sub_catchment_shape_file):
+    print('update_basin_init_values|init_date_time : ', init_date_time)
+    init_discharge = get_basin_init_discharge(init_date_time, db_user, db_pwd, db_host)
+    print('update_basin_init_values|init_discharge : ', init_discharge)
+    if init_discharge is not None:
+        area_ratio = get_sub_catchment_area_ratios(sub_catchment_shape_file)
+        print('update_basin_init_values|area_ratio : ', area_ratio)
+        basin_template_file = os.path.join(OUTPUT_DIR, 'distributed_model', 'distributed_model_template.basin')
+        basin_file = os.path.join(OUTPUT_DIR, 'distributed_model', 'distributed_model.basin')
+        template = open(basin_template_file, 'r')
+        lines = template.readlines()
+        line_count = 1
+        with open(basin_file, 'w') as actual:
+            for line in lines:
+                if line_count == 45:
+                    discharge_value1 = init_discharge*area_ratio['SB-1']
+                    new_line = '     Initial Baseflow: {}\n'.format(discharge_value1)
+                elif line_count == 95:
+                    discharge_value2 = init_discharge * area_ratio['SB-3']
+                    new_line = '     Initial Baseflow: {}\n'.format(discharge_value2)
+                elif line_count == 128:
+                    discharge_value3 = init_discharge * area_ratio['SB-2']
+                    new_line = '     Initial Baseflow: {}\n'.format(discharge_value3)
+                elif line_count == 187:
+                    discharge_value4 = init_discharge * area_ratio['SB-4']
+                    new_line = '     Initial Baseflow: {}\n'.format(discharge_value4)
+                elif line_count == 219:
+                    discharge_value5 = init_discharge * area_ratio['SB-5']
+                    new_line = '     Initial Baseflow: {}\n'.format(discharge_value5)
+                else:
+                    new_line = line
+                actual.write(new_line)
+                line_count += 1
+        template.close()
+
+
+def get_sub_catchment_area_ratios(sub_catchment_shape_file):
+    catchment_df = gpd.GeoDataFrame.from_file(sub_catchment_shape_file)
+    print('get_sub_catchment_area_ratios|catchment_df : ', catchment_df)
+    total_area = 0
+    for index, row in catchment_df.iterrows():
+        total_area += row['Area']
+    print('get_sub_catchment_area_ratios|total_area : ', total_area)
+    area_ratio = {}
+    for index, row in catchment_df.iterrows():
+        area_ratio[row['Name_of_Su']] = row['Area'] / total_area
+    print('get_sub_catchment_area_ratios|area_ratio : ', area_ratio)
+    return area_ratio
 
 
 def parse_args():
