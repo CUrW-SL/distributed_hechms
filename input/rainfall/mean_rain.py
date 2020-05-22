@@ -235,6 +235,14 @@ def get_mean_rain(ts_start, ts_end, output_dir, model, pop_method, db_user, db_p
         print("get_mean_rain|Exception|e : ", e)
 
 
+def get_basin_init_discharge(init_date_time, db_user, db_pwd, db_host, db_name='curw_sim'):
+    print('get_basin_init_discharge|init_date_time : ', init_date_time)
+    sim_adapter = CurwSimAdapter(db_user, db_pwd, db_host, db_name)
+    value = sim_adapter.get_basin_discharge(init_date_time, grid_id='discharge_glencourse')
+    print('get_basin_init_discharge|value : ', value)
+    return value
+
+
 if __name__ == '__main__':
     try:
         MYSQL_HOST = "35.227.163.211"

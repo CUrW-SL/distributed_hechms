@@ -371,6 +371,28 @@ class CurwSimAdapter:
                 basin_available_stations.pop(station, None)
         return basin_available_stations
 
+    def get_basin_discharge(self, time, grid_id, method='SF', model='flo2d_150'):
+        discharge_hash_sql = 'select id,latitude,longitude from curw_sim.dis_run where grid_id=\'{}\' ' \
+                             'and method=\'{}\' and model=\'{}\';'.format(grid_id, method, model)
+        print('get_basin_discharge|discharge_hash_sql : ', discharge_hash_sql)
+        cursor = self.cursor
+        cursor.execute(discharge_hash_sql)
+        hash_result = cursor.fetchone()
+        print('get_basin_discharge|hash_result : ', hash_result)
+        if hash_result:
+            hash_id = hash_result[0]
+            print('get_basin_discharge|hash_id : ', hash_id)
+            value_sql = 'select id,time,value from curw_sim.dis_data where id=\'{}\' and time =\'{}\';'.format(hash_id,
+                                                                                                               time)
+            cursor.execute(value_sql)
+            value_result = cursor.fetchone()
+            print('get_basin_discharge|value_result : ', value_result)
+            if value_result:
+                discharge_value = value_result[2]
+                print('get_basin_discharge|value_result : ', value_result)
+                return discharge_value
+        return None
+
 
 class CurwFcstAdapter:
     def __init__(self, mysql_user, mysql_password, mysql_host, mysql_db):
