@@ -229,22 +229,22 @@ class CurwSimAdapter:
                                        - datetime.strptime(timeseries_start,
                                                            '%Y-%m-%d %H:%M:%S')).total_seconds() / (
                                               60 * time_step_size))
-                print('timeseries_start : {}'.format(timeseries_start))
-                print('timeseries_end : {}'.format(timeseries_end))
-                print('time_step_count : {}'.format(time_step_count))
-                print('len(results) : {}'.format(len(results)))
+                print('get_timeseries_by_id|timeseries_start : {}'.format(timeseries_start))
+                print('get_timeseries_by_id|timeseries_end : {}'.format(timeseries_end))
+                print('get_timeseries_by_id|time_step_count : {}'.format(time_step_count))
+                print('get_timeseries_by_id|len(results) : {}'.format(len(results)))
                 missing_count = time_step_count - len(results)
-                print('missing_count : {}'.format(missing_count))
+                print('get_timeseries_by_id|missing_count : {}'.format(missing_count))
                 missing_count = get_missing_count(results) + missing_count
-                print('missing_count : {}'.format(missing_count))
+                print('get_timeseries_by_id|missing_count : {}'.format(missing_count))
                 data_error = (missing_count / time_step_count)
-                print('data_error : {}'.format(data_error))
+                print('get_timeseries_by_id|data_error : {}'.format(data_error))
                 if data_error < 0:
                     df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
                     return df
                 elif data_error <= allowed_error:
-                    print('data_error : {}'.format(data_error))
-                    print('filling missing data.')
+                    print('get_timeseries_by_id|data_error : {}'.format(data_error))
+                    print('get_timeseries_by_id|filling missing data.')
                     formatted_ts = []
                     i = 0
                     for step in range(time_step_count + 1):
@@ -292,7 +292,7 @@ class CurwSimAdapter:
         finally:
             return available_list
 
-    def get_available_stations_info(self, date_time, model='hechms', method='MME'):
+    def get_available_stations_info(self, date_time, exec_datetime, model='hechms', method='MME'):
         """
         To get station information where it has obs_end for before the given limit
         :param date_time: '2019-08-27 05:00:00'
@@ -302,12 +302,15 @@ class CurwSimAdapter:
         station_name1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1}}
         """
         available_stations = {}
-        print('get_available_stations_info|date_time : ', date_time)
+        print('get_available_stations_info| [date_time, exec_datetime] : ', [date_time, exec_datetime])
+        last_hour = datetime.strptime(exec_datetime, '%Y-%m-%d_%H:%M:%S') - timedelta(hours=1)
+        last_hour = last_hour.strftime('%Y-%m-%d_%H:%M:%S')
+        print('get_available_stations_info| last_hour : ', last_hour)
         cursor = self.cursor
         try:
-            # sql = 'select id, grid_id, latitude, longitude from curw_sim.run where model=\'{}\' and method=\'{}\'  and obs_end>=\'{}\''.format(
-            #     model, method, date_time)
-            sql = 'select id, grid_id, latitude, longitude from curw_sim.run where model=\'{}\' and method=\'{}\' '.format(model, method)
+            sql = 'select id, grid_id, latitude, longitude from curw_sim.run where model=\'{}\' and method=\'{}\'  and obs_end>=\'{}\''.format(
+                model, method, last_hour)
+            # sql = 'select id, grid_id, latitude, longitude from curw_sim.run where model=\'{}\' and method=\'{}\' '.format(model, method)
             print('sql : ', sql)
             cursor.execute(sql)
             results = cursor.fetchall()
@@ -322,7 +325,7 @@ class CurwSimAdapter:
         finally:
             return available_stations
 
-    def get_available_stations_in_sub_basin(self, sub_basin_shape_file, date_time, model, method):
+    def get_available_stations_in_sub_basin(self, sub_basin_shape_file, date_time, model, method, exec_datetime):
         """
         Getting station points resides in the given shapefile
         :param db_adapter:
@@ -330,7 +333,7 @@ class CurwSimAdapter:
         :param date_time: '2019-08-28 11:00:00'
         :return: {station1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1}, station2:{}}
         """
-        available_stations = self.get_available_stations_info(date_time, model, method)
+        available_stations = self.get_available_stations_info(date_time, exec_datetime, model, method)
         corrected_available_stations = {}
         if len(available_stations):
             for station, info in available_stations.items():
@@ -347,7 +350,8 @@ class CurwSimAdapter:
             print('Not available stations..')
             return {}
 
-    def get_basin_available_stations_timeseries(self, shape_file, start_time, end_time, model, method, allowed_error):
+    def get_basin_available_stations_timeseries(self, shape_file, start_time, end_time, model,
+                                                method, allowed_error, exec_datetime):
         """
         Add time series to the given available station list.
         :param shape_file:
@@ -357,13 +361,13 @@ class CurwSimAdapter:
         :param end_time: '2019-08-28 11:00:00'
         :return: {station1:{'hash_id': hash_id1, 'latitude': latitude1, 'longitude': longitude1, 'timeseries': timeseries1}, station2:{}}
         """
-        basin_available_stations = self.get_available_stations_in_sub_basin(shape_file, start_time, model, method)
+        basin_available_stations = self.get_available_stations_in_sub_basin(shape_file, start_time, model, method,
+                                                                            exec_datetime)
         print('get_basin_available_stations_timeseries|basin_available_stations: ', basin_available_stations)
         for station in list(basin_available_stations):
             hash_id = basin_available_stations[station]['hash_id']
             station_df = self.get_timeseries_by_id(hash_id, start_time, end_time, allowed_error)
             if station_df is not None:
-                print('get_basin_available_stations_timeseries|allowed_error : ', allowed_error)
                 basin_available_stations[station]['timeseries'] = station_df.replace(MISSING_VALUE,
                                                                                      FILL_VALUE)
             else:

@@ -24,6 +24,7 @@ STATE_BACKUP_DIR = '/home/curw/basin_states'
 COPY_STATE_FILES_CMD = 'yes | cp -R /home/curw/basin_states/* /home/curw/git/distributed_hechms/output/distributed_model/basinStates'
 
 FILE_COPY_CMD_TEMPLATE = 'yes | cp -R {} {}'
+ALLOWED_RAIN_ERROR = 0.25
 
 
 def create_dir_if_not_exists(path):
@@ -72,7 +73,8 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
     output_file = os.path.join(output_dir, 'DailyRain.csv')
     try:
         create_dir_if_not_exists(output_dir)
-        get_mean_rain(from_date, to_date, output_dir, 'hechms', pop_method, db_user, db_pwd, db_host, db_name)
+        get_mean_rain(from_date, to_date, output_dir, 'hechms', pop_method, ALLOWED_RAIN_ERROR, exec_datetime.strftime(
+            '%Y-%m-%d %H:00:00'), db_user, db_pwd, db_host, db_name)
         rain_fall_file = Path(output_file)
         if rain_fall_file.is_file():
             create_dir_if_not_exists(os.path.join(OUTPUT_DIR, 'distributed_model'))
