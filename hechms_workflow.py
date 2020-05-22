@@ -12,6 +12,7 @@ from input.run.model_run import create_run_file
 from model.model_execute import execute_pre_dssvue, execute_post_dssvue, execute_hechms
 from uploads.upload_discharge import extract_distrubuted_hechms_outputs
 from input.rainfall.mean_rain import get_mean_rain, get_basin_init_discharge
+from decimal import Decimal
 
 RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
 OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
@@ -183,7 +184,7 @@ def get_sub_catchment_area_ratios(sub_catchment_shape_file):
     print('get_sub_catchment_area_ratios|total_area : ', total_area)
     area_ratio = {}
     for index, row in catchment_df.iterrows():
-        area_ratio[row['Name_of_Su']] = row['Area'] / total_area
+        area_ratio[row['Name_of_Su']] = Decimal(row['Area'] / total_area)
     print('get_sub_catchment_area_ratios|area_ratio : ', area_ratio)
     return area_ratio
 
