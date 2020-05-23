@@ -18,8 +18,8 @@ RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
 OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
 HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'distributed_model')
 HEC_HMS_STATE_DIR = os.path.join(OUTPUT_DIR, 'distributed_model', 'basinStates')
-COPY_MODEL_TEMPLATE_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/distributed_model_template/* /home/curw/git/distributed_hechms/output/distributed_model'
-COPY_MODEL_TEMPLATE1_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/distributed_model_template1/* /home/curw/git/distributed_hechms/output/distributed_model'
+COPY_MODEL_TEMPLATE_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/distributed_model_prod_template/* /home/curw/git/distributed_hechms/output/distributed_model'
+COPY_MODEL_TEMPLATE1_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/distributed_model_event_template/* /home/curw/git/distributed_hechms/output/distributed_model'
 STATE_BACKUP_DIR = '/home/curw/basin_states'
 COPY_STATE_FILES_CMD = 'yes | cp -R /home/curw/basin_states/* /home/curw/git/distributed_hechms/output/distributed_model/basinStates'
 
@@ -99,7 +99,7 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                 print('[ts_start_date, ts_start_time] : ', [ts_start_date, ts_start_time])
                 sub_catchment_shape_file = os.path.join(RESOURCE_PATH, 'sub_catchments/sub_subcatchments.shp')
                 update_basin_init_values('{} {}'.format(ts_start_date, ts_start_time), db_user, db_pwd, db_host,
-                                         sub_catchment_shape_file)
+                                         sub_catchment_shape_file, target_model)
                 ret_code = execute_pre_dssvue(exec_datetime, ts_start_date, ts_start_time)
                 print('execute_pre_dssvue|ret_code : ', ret_code)
                 if ret_code == 0:
@@ -109,8 +109,6 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                         ret_code = execute_post_dssvue(exec_datetime, ts_start_date, ts_start_time)
                         print('execute_post_dssvue|ret_code : ', ret_code)
                         if ret_code == 0:
-                            # output_dir = os.path.join(OUTPUT_DIR, file_date, file_time)
-                            # print('output_dir : ', output_dir)
                             output_file = os.path.join(OUTPUT_DIR, 'DailyDischarge.csv')
                             print('output_file : ', output_file)
                             state_file_copy_cmd = FILE_COPY_CMD_TEMPLATE.format(state_file, STATE_BACKUP_DIR)
@@ -141,7 +139,7 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
         return False
 
 
-def update_basin_init_values(init_date_time, db_user, db_pwd, db_host, sub_catchment_shape_file):
+def update_basin_init_values(init_date_time, db_user, db_pwd, db_host, sub_catchment_shape_file, target_model):
     print('update_basin_init_values|init_date_time : ', init_date_time)
     init_discharge = get_basin_init_discharge(init_date_time, db_user, db_pwd, db_host)
     print('update_basin_init_values|init_discharge : ', init_discharge)
@@ -155,25 +153,46 @@ def update_basin_init_values(init_date_time, db_user, db_pwd, db_host, sub_catch
         line_count = 1
         with open(basin_file, 'w') as actual:
             for line in lines:
-                if line_count == 45:
-                    discharge_value1 = init_discharge*area_ratio['SB-1']
-                    new_line = '     Initial Baseflow: {}\n'.format(discharge_value1)
-                elif line_count == 95:
-                    discharge_value2 = init_discharge * area_ratio['SB-3']
-                    new_line = '     Initial Baseflow: {}\n'.format(discharge_value2)
-                elif line_count == 128:
-                    discharge_value3 = init_discharge * area_ratio['SB-2']
-                    new_line = '     Initial Baseflow: {}\n'.format(discharge_value3)
-                elif line_count == 187:
-                    discharge_value4 = init_discharge * area_ratio['SB-4']
-                    new_line = '     Initial Baseflow: {}\n'.format(discharge_value4)
-                elif line_count == 219:
-                    discharge_value5 = init_discharge * area_ratio['SB-5']
-                    new_line = '     Initial Baseflow: {}\n'.format(discharge_value5)
+                if target_model == 'hechms_prod':
+                    if line_count == 62:
+                        discharge_value1 = init_discharge*area_ratio['SB-1']
+                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value1)
+                    elif line_count == 129:
+                        discharge_value2 = init_discharge * area_ratio['SB-3']
+                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value2)
+                    elif line_count == 179:
+                        discharge_value3 = init_discharge * area_ratio['SB-2']
+                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value3)
+                    elif line_count == 255:
+                        discharge_value4 = init_discharge * area_ratio['SB-4']
+                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value4)
+                    elif line_count == 304:
+                        discharge_value5 = init_discharge * area_ratio['SB-5']
+                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value5)
+                    else:
+                        new_line = line
+                    actual.write(new_line)
+                    line_count += 1
                 else:
-                    new_line = line
-                actual.write(new_line)
-                line_count += 1
+                    if line_count == 45:
+                        discharge_value1 = init_discharge * area_ratio['SB-1']
+                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value1)
+                    elif line_count == 95:
+                        discharge_value2 = init_discharge * area_ratio['SB-3']
+                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value2)
+                    elif line_count == 128:
+                        discharge_value3 = init_discharge * area_ratio['SB-2']
+                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value3)
+                    elif line_count == 187:
+                        discharge_value4 = init_discharge * area_ratio['SB-4']
+                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value4)
+                    elif line_count == 219:
+                        discharge_value5 = init_discharge * area_ratio['SB-5']
+                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value5)
+                    else:
+                        new_line = line
+                    actual.write(new_line)
+                    line_count += 1
         template.close()
 
 
