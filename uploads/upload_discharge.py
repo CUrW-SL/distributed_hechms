@@ -194,21 +194,26 @@ def extract_distrubuted_hechms_outputs(target_model, db_user, db_pwd, db_host, d
 
         # sim tag
         sim_tag = read_attribute_from_config_file('sim_tag', config, True)
-
+        print("extract_distrubuted_hechms_outputs|sim_tag : ", sim_tag)
         # source details
         model = read_attribute_from_config_file('model', config, True)
+        print("extract_distrubuted_hechms_outputs|model : ", model)
         version = read_attribute_from_config_file('version', config, True)
+        print("extract_distrubuted_hechms_outputs|version : ", version)
 
         # unit details
         unit = read_attribute_from_config_file('unit', config, True)
+        print("extract_distrubuted_hechms_outputs|unit : ", unit)
         unit_type = UnitType.getType(read_attribute_from_config_file('unit_type', config, True))
+        print("extract_distrubuted_hechms_outputs|unit_type : ", unit_type)
 
         # variable details
         variable = read_attribute_from_config_file('variable', config, True)
+        print("extract_distrubuted_hechms_outputs|variable : ", variable)
 
         # station details
         station_name = read_attribute_from_config_file('station_name', config, True)
-
+        print("extract_distrubuted_hechms_outputs|station_name : ", station_name)
 
         if not os.path.exists(out_file_path):
             msg = 'no file :: {}'.format(out_file_path)
@@ -217,23 +222,28 @@ def extract_distrubuted_hechms_outputs(target_model, db_user, db_pwd, db_host, d
             exit(1)
 
         fgt = get_file_last_modified_time(out_file_path)
-        print("fgt, ", fgt)
+        print("extract_distrubuted_hechms_outputs|fgt : ", fgt)
 
         timeseries = read_csv(out_file_path)
 
         pool = get_Pool(host=db_host, port=3306, db=db_name, user=db_user, password=db_pwd)
 
         hechms_stations = get_hechms_stations(pool=pool)
+        print("extract_distrubuted_hechms_outputs|hechms_stations : ", hechms_stations)
 
         station_id = hechms_stations.get(station_name)[0]
         lat = str(hechms_stations.get(station_name)[1])
         lon = str(hechms_stations.get(station_name)[2])
+        print("extract_distrubuted_hechms_outputs|[station_id, lat, lon] : ", [station_id, lat, lon])
 
         source_id = get_source_id(pool=pool, model=model, version=version)
+        print("extract_distrubuted_hechms_outputs|source_id : ", source_id)
 
         variable_id = get_variable_id(pool=pool, variable=variable)
+        print("extract_distrubuted_hechms_outputs|variable_id : ", variable_id)
 
         unit_id = get_unit_id(pool=pool, unit=unit, unit_type=unit_type)
+        print("extract_distrubuted_hechms_outputs|unit_id : ", unit_id)
 
         tms_meta = {
             'sim_tag': sim_tag,
@@ -250,6 +260,7 @@ def extract_distrubuted_hechms_outputs(target_model, db_user, db_pwd, db_host, d
             'unit_id': unit_id
         }
 
+        print("extract_distrubuted_hechms_outputs|tms_meta : ", tms_meta)
         utcOffset = getUTCOffset(utc_offset, default=True)
 
         if utcOffset != timedelta():
