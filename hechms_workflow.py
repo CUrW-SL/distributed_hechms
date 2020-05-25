@@ -117,7 +117,12 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                             try:
                                 print('extract_distrubuted_hechms_outputs|[output_file, file_date] : ',
                                       [output_file, file_date])
+                                print('extract_distrubuted_hechms_outputs|cloud|started')
                                 extract_distrubuted_hechms_outputs(target_model, db_user, db_pwd, db_host, 'curw_fcst', output_file, file_date, '00:00:00')
+                                print('extract_distrubuted_hechms_outputs|cloud|completed')
+                                print('extract_distrubuted_hechms_outputs|local|started')
+                                extract_distrubuted_hechms_outputs(target_model, 'curw', 'cfcwm07', '192.168.1.43', 'curw_fcst', output_file, file_date, '00:00:00')
+                                print('extract_distrubuted_hechms_outputs|local|completed')
                                 return True
                             except Exception as e:
                                 return False
