@@ -12,8 +12,9 @@ from functools import reduce
 
 THESSIAN_DECIMAL_POINTS = 4
 
-RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
-# RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+
+RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
 
 
 def _voronoi_finite_polygons_2d(vor, radius=None):
@@ -250,13 +251,15 @@ def get_basin_init_discharge(init_date_time, db_user, db_pwd, db_host, db_name='
 
 if __name__ == '__main__':
     try:
-        MYSQL_HOST = "35.227.163.211"
-        MYSQL_USER = "admin"
-        MYSQL_PASSWORD = "floody"
+        db_host = "35.227.163.211"
+        db_user = "admin"
+        db_pwd = "floody"
         MYSQL_DB = "curw_sim"
-        ts_start = '2020-04-01 00:00:00'
-        ts_end = '2020-04-21 00:00:00'
-        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/2020-04-01'
-        get_mean_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', catchment='kub')
+        ts_start = '2020-04-15 00:00:00'
+        ts_end = '2020-05-25 12:00:00'
+        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/2020-05-25'
+        # get_mean_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', catchment='kub')
+        get_mean_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', 0.75, '2020-05-25 13:00:00',
+                      db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub')
     except Exception as e:
         print(str(e))
