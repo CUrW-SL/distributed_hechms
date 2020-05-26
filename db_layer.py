@@ -4,9 +4,12 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 from shapely.geometry import Polygon, Point
 import geopandas as gpd
+import os
 
 MISSING_VALUE = -99999
 FILL_VALUE = 0
+
+RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
 
 
 def validate_dataframe(df, allowed_error):
@@ -25,10 +28,27 @@ def validate_dataframe(df, allowed_error):
         return True
 
 
-def get_missing_count(results):
+def get_null_count(results):
     df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
     missing_count = df['value'][df['value'] == MISSING_VALUE].count()
     return missing_count
+
+
+def is_in_basin(station_info, basin='kub'): #{'station': station, 'hash_id': hash_id, 'latitude': latitude, 'longitude': longitude}
+    print('is_in_basin|station_info : ', station_info)
+    if basin == 'kub':
+        shape_file = os.path.join(RESOURCE_PATH, 'kub-wgs84/kub-wgs84.shp')
+    else:
+        shape_file = os.path.join(RESOURCE_PATH, 'klb-wgs84/klb-wgs84.shp')
+    shape_attribute = ['OBJECTID', 1]
+    shape_df = gpd.GeoDataFrame.from_file(shape_file)
+    shape_polygon_idx = shape_df.index[shape_df[shape_attribute[0]] == shape_attribute[1]][0]
+    shape_polygon = shape_df['geometry'][shape_polygon_idx]
+    if Point(station_info['longitude'], station_info['latitude']).within(shape_polygon):  # make a point and see if it's in the polygon
+        print('is_in_basin|True|station_info : ', station_info)
+        return True
+    else:
+        return False
 
 
 class CurwSimAdapter:
@@ -396,6 +416,79 @@ class CurwSimAdapter:
                 print('get_basin_discharge|value_result : ', value_result)
                 return discharge_value
         return None
+
+    def get_all_basin_stations(self, basin='kub', model='hechms', method='MME'):
+        available_stations = []
+        cursor = self.cursor
+        try:
+            sql = 'select id, grid_id, latitude, longitude from curw_sim.run where model=\'{}\' and method=\'{}\''.format(model, method)
+            print('get_all_basin_stations|sql : ', sql)
+            cursor.execute(sql)
+            results = cursor.fetchall()
+            for row in results:
+                hash_id = row[0]
+                station = row[1].split('_')[1]
+                latitude = Decimal(row[2])
+                longitude = Decimal(row[3])
+                station_info = {'station': station, 'hash_id': hash_id, 'latitude': latitude, 'longitude': longitude}
+                if is_in_basin(station_info, basin):
+                    available_stations.append(station_info)
+            return available_stations
+        except Exception as e:
+            print('get_available_stations_info|Exception:', e)
+            return available_stations
+
+    def get_timeseries_by_hash_id(self, hash_id, ts_start, ts_end, allowed_error, time_step_size=5):
+        print('get_timeseries_by_hash_id|[hash_id, ts_start, ts_end, allowed_error] : ',
+              [hash_id, ts_start, ts_end, allowed_error])
+        cursor = self.cursor
+        data_sql = 'select time,value from curw_sim.data where time>=\'{}\' and time<\'{}\' ' \
+                   'and id=\'{}\' '.format(ts_start, ts_end, hash_id)
+        try:
+            print('get_timeseries_by_hash_id|data_sql : ', data_sql)
+            cursor.execute(data_sql)
+            results = cursor.fetchall()
+            if len(results) > 0:
+                time_step_count = int((datetime.strptime(ts_end, '%Y-%m-%d %H:%M:%S')
+                                       - datetime.strptime(ts_start, '%Y-%m-%d %H:%M:%S')).total_seconds() / (
+                                              60 * time_step_size))
+                print('get_timeseries_by_hash_id|time_step_count : ', time_step_count)
+                missing_count = time_step_count - len(results)
+                print('get_timeseries_by_id|missing_count : ', missing_count)
+                missing_count = get_null_count(results) + missing_count
+                print('get_timeseries_by_id|missing_count : ', missing_count)
+                data_error = (missing_count / time_step_count)
+                print('get_timeseries_by_id|data_error : ', data_error)
+                if data_error <= 0:
+                    df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
+                    return df
+                elif data_error > 0 and data_error <= allowed_error:
+                    print('get_timeseries_by_id|filling missing data.')
+                    formatted_ts = []
+                    i = 0
+                    for step in range(time_step_count):
+                        tms_step = datetime.strptime(ts_start, '%Y-%m-%d %H:%M:%S') + timedelta(
+                            minutes=step * time_step_size)
+                        if step < len(results):
+                            if tms_step == results[i][0]:
+                                formatted_ts.append(results[i])
+                            else:
+                                formatted_ts.append((tms_step, Decimal(0)))
+                        else:
+                            formatted_ts.append((tms_step, Decimal(0)))
+                        i += 1
+                    df = pd.DataFrame(data=formatted_ts, columns=['time', 'value']).set_index(keys='time')
+                    return df
+                else:
+                    print('get_timeseries_by_hash_id|data_error : {}'.format(data_error))
+                    print('get_timeseries_by_hash_id|Data error is too large')
+                    return None
+            else:
+                print('get_timeseries_by_hash_id|No data.')
+                return None
+        except Exception as e:
+            print('get_timeseries_by_id|data fetch|Exception:', e)
+            return None
 
 
 class CurwFcstAdapter:
