@@ -12,6 +12,7 @@ from input.run.model_run import create_run_file
 from model.model_execute import execute_pre_dssvue, execute_post_dssvue, execute_hechms
 from uploads.upload_discharge import extract_distrubuted_hechms_outputs
 from input.rainfall.mean_rain import get_mean_rain, get_basin_init_discharge
+from input.rainfall.event_rain import get_basin_rain, get_basin_init_discharge
 from decimal import Decimal
 
 RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
@@ -73,8 +74,12 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
     output_file = os.path.join(output_dir, 'DailyRain.csv')
     try:
         create_dir_if_not_exists(output_dir)
-        get_mean_rain(from_date, to_date, output_dir, 'hechms', pop_method, ALLOWED_RAIN_ERROR, exec_datetime.strftime(
+        print('run_hechms_workflow|get_basin_rain|start')
+        # get_mean_rain(from_date, to_date, output_dir, 'hechms', pop_method, ALLOWED_RAIN_ERROR, exec_datetime.strftime(
+        #     '%Y-%m-%d %H:00:00'), db_user, db_pwd, db_host, db_name)
+        get_basin_rain(from_date, to_date, output_dir, 'hechms', pop_method, ALLOWED_RAIN_ERROR, exec_datetime.strftime(
             '%Y-%m-%d %H:00:00'), db_user, db_pwd, db_host, db_name)
+        print('run_hechms_workflow|get_basin_rain|end')
         rain_fall_file = Path(output_file)
         if rain_fall_file.is_file():
             create_dir_if_not_exists(os.path.join(OUTPUT_DIR, 'distributed_model'))
