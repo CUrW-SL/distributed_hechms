@@ -55,15 +55,18 @@ def get_basin_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allo
             next_ts_step = ts_step + timedelta(minutes=60)
             all_stations_tms = get_ts_for_start_end(sim_adapter, all_stations, ts_step.strftime('%Y-%m-%d %H:%M:%S'),
                                                     next_ts_step.strftime('%Y-%m-%d %H:%M:%S'))
-            calculate_step_mean(shape_file, sub_catchment_shape_file, all_stations_tms,
-                                ts_step.strftime('%Y-%m-%d_%H-%M-%S'), output_file, step_one)
+            calculate_step_mean(shape_file, sub_catchment_shape_file, all_stations_tms, output_file, step_one)
             step_one = False
             ts_step = next_ts_step
+        file_handler = open(output_file, 'a')
+        csvWriter = csv.writer(file_handler, delimiter=',', quotechar='|')
+        csvWriter.writerow([ts_end, 0.0, 0.0, 0.0, 0.0, 0.0])
+        file_handler.close()
     except Exception as e:
         print('get_basin_rain|Exception : ', str(e))
 
 
-def calculate_step_mean(shape_file, sub_catchment_shape_file, station_infos, ts_step, output_file, step_one):
+def calculate_step_mean(shape_file, sub_catchment_shape_file, station_infos, output_file, step_one):
     #print('calculate_step_mean|ts_step : ', ts_step)
     gauge_points = {}
     for station_info in station_infos:
