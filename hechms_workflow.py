@@ -14,6 +14,10 @@ from uploads.upload_discharge import extract_distrubuted_hechms_outputs
 from input.rainfall.mean_rain import get_mean_rain, get_basin_init_discharge
 from input.rainfall.event_rain import get_basin_rain, get_basin_init_discharge
 from decimal import Decimal
+from google.cloud import storage
+
+GOOGLE_BUCKET_KEY_PATH = '/home/curw/git/distributed_hechms/uwcc-admin.json'
+BUCKET_NAME = 'curwsl_nfs'
 
 RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
 OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
@@ -128,6 +132,24 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                                 print('extract_distrubuted_hechms_outputs|local|started')
                                 extract_distrubuted_hechms_outputs(target_model, 'root', 'cfcwm07', '192.168.1.43', 'curw_fcst', output_file, file_date, '00:00:00')
                                 print('extract_distrubuted_hechms_outputs|local|completed')
+                                upload_rain_file = os.path.join(OUTPUT_DIR, 'DailyRain.csv')
+                                upload_discharge_file = os.path.join(OUTPUT_DIR, 'DailyDischarge.csv')
+                                bucket_rain_file = 'event_hechms/{}/{}/DailyRain.csv'.format(file_date,
+                                                                                             file_time)
+                                bucket_discharge_file = 'event_hechms/{}/{}/DailyDischarge.csv'.format(file_date,
+                                                                                                       file_time)
+                                print('extract_distrubuted_hechms_outputs|upload_rain_file : ', upload_rain_file)
+                                print('extract_distrubuted_hechms_outputs|bucket_rain_file : ', bucket_rain_file)
+                                print('extract_distrubuted_hechms_outputs|upload_discharge_file : ',
+                                      upload_discharge_file)
+                                print('extract_distrubuted_hechms_outputs|bucket_discharge_file : ',
+                                      bucket_discharge_file)
+                                print('extract_distrubuted_hechms_outputs|file upload started')
+                                upload_file_to_bucket(GOOGLE_BUCKET_KEY_PATH, BUCKET_NAME, upload_rain_file,
+                                                      bucket_rain_file)
+                                upload_file_to_bucket(GOOGLE_BUCKET_KEY_PATH, BUCKET_NAME, upload_discharge_file,
+                                                      bucket_discharge_file)
+                                print('extract_distrubuted_hechms_outputs|file upload completed')
                                 return True
                             except Exception as e:
                                 return False
@@ -233,6 +255,24 @@ def parse_args():
     parser.add_argument('-db_name')
     parser.add_argument('-target_model')
     return parser.parse_args()
+
+
+def upload_file_to_bucket(key_file, bucket_name, source_file_name, destination_blob_name):
+    """Uploads a file to the bucket."""
+    # bucket_name = "your-bucket-name"
+    # source_file_name = "local/path/to/file"
+    # destination_blob_name = "storage-object-name"
+    client = storage.Client.from_service_account_json(key_file)
+    bucket = client.get_bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+
+    blob.upload_from_filename(source_file_name)
+
+    print(
+        "File {} uploaded to {}.".format(
+            source_file_name, destination_blob_name
+        )
+    )
 
 
 if __name__ == '__main__':
