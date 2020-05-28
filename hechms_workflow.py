@@ -145,11 +145,14 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                                 print('extract_distrubuted_hechms_outputs|bucket_discharge_file : ',
                                       bucket_discharge_file)
                                 print('extract_distrubuted_hechms_outputs|file upload started')
-                                upload_file_to_bucket(GOOGLE_BUCKET_KEY_PATH, BUCKET_NAME, upload_rain_file,
-                                                      bucket_rain_file)
-                                upload_file_to_bucket(GOOGLE_BUCKET_KEY_PATH, BUCKET_NAME, upload_discharge_file,
-                                                      bucket_discharge_file)
-                                print('extract_distrubuted_hechms_outputs|file upload completed')
+                                try:
+                                    upload_file_to_bucket(GOOGLE_BUCKET_KEY_PATH, BUCKET_NAME, upload_rain_file,
+                                                          bucket_rain_file)
+                                    upload_file_to_bucket(GOOGLE_BUCKET_KEY_PATH, BUCKET_NAME, upload_discharge_file,
+                                                          bucket_discharge_file)
+                                    print('extract_distrubuted_hechms_outputs|file upload completed')
+                                except Exception as e:
+                                    print('extract_distrubuted_hechms_outputs|Exception : ', str(e))
                                 return True
                             except Exception as e:
                                 return False
