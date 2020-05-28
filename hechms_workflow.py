@@ -16,7 +16,7 @@ from input.rainfall.event_rain import get_basin_rain, get_basin_init_discharge
 from decimal import Decimal
 from google.cloud import storage
 
-GOOGLE_BUCKET_KEY_PATH = '/home/curw/git/distributed_hechms/uwcc-admin.json'
+GOOGLE_BUCKET_KEY_PATH = '/home/curw/uwcc-admin.json'
 BUCKET_NAME = 'curwsl_nfs'
 
 RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
