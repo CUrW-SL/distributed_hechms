@@ -9,7 +9,7 @@ import os
 MISSING_VALUE = -99999
 FILL_VALUE = 0
 
-RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
+RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
 
 
 def validate_dataframe(df, allowed_error):
