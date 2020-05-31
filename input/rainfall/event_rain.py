@@ -28,6 +28,23 @@ def get_ts_for_start_end(sim_adapter, all_stations, ts_start, ts_end):
     return formatted_stations
 
 
+def create_df(ts_start_str, ts_end_str):
+    time_series = []
+    ts_start = datetime.strptime(ts_start_str, '%Y-%m-%d %H:%M:%S')
+    ts_end = datetime.strptime(ts_end_str, '%Y-%m-%d %H:%M:%S')
+    ts_step = ts_start
+    while ts_step < ts_end:
+        next_ts_step = ts_step + timedelta(minutes=5)
+        time_series.append({'Time': ts_step.strftime('%Y-%m-%d %H:%M:%S'),
+                            'Rainfall1': Decimal(0.0),
+                            'Rainfall2': Decimal(0.0),
+                            'Rainfall3': Decimal(0.0),
+                            'Rainfall4': Decimal(0.0),
+                            'Rainfall5': Decimal(0.0)})
+        ts_step = next_ts_step
+    return time_series
+
+
 def get_basin_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime,
                    db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub'):
     try:
@@ -53,13 +70,12 @@ def get_basin_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allo
         output_file = os.path.join(output_dir, 'DailyRain.csv')
         while ts_step < ts_end:
             next_ts_step = ts_step + timedelta(minutes=60)
-            all_stations_tms = get_ts_for_start_end(sim_adapter, all_stations, ts_step.strftime('%Y-%m-%d %H:%M:%S'),
-                                                    next_ts_step.strftime('%Y-%m-%d %H:%M:%S'))
-            calculate_step_mean(shape_file, sub_catchment_shape_file, all_stations_tms, output_file, step_one)
-            # if len(all_stations_tms) > 0:
-            #     calculate_step_mean(shape_file, sub_catchment_shape_file, all_stations_tms, output_file, step_one)
-            # else:
-            #     print('get_basin_rain|xxxxxxxxxxxxxxxxxxxxxxxxxxx|all_stations_tms : ', all_stations_tms)
+            ts_start_str = ts_step.strftime('%Y-%m-%d %H:%M:%S')
+            ts_end_str = next_ts_step.strftime('%Y-%m-%d %H:%M:%S')
+            all_stations_tms = get_ts_for_start_end(sim_adapter, all_stations, ts_start_str, ts_end_str)
+            zero_tms_df = create_df(ts_start_str, ts_end_str)
+            calculate_step_mean(shape_file, sub_catchment_shape_file, all_stations_tms,
+                                output_file, step_one, zero_tms_df)
             step_one = False
             ts_step = next_ts_step
         file_handler = open(output_file, 'a')
@@ -70,7 +86,7 @@ def get_basin_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allo
         print('get_basin_rain|Exception : ', str(e))
 
 
-def calculate_step_mean(shape_file, sub_catchment_shape_file, station_infos, output_file, step_one):
+def calculate_step_mean(shape_file, sub_catchment_shape_file, station_infos, output_file, step_one, zero_tms_df):
     try:
         gauge_points = {}
         for station_info in station_infos:
@@ -119,9 +135,15 @@ def calculate_step_mean(shape_file, sub_catchment_shape_file, station_infos, out
                 csvWriter.writerow(second_row)
                 csvWriter.writerow(third_row)
                 file_handler.close()
-                mean_rain.to_csv(output_file, mode='a', header=False)
+                if len(station_infos) > 0:
+                    zero_tms_df.to_csv(output_file, mode='a', header=False)
+                else:
+                    mean_rain.to_csv(output_file, mode='a', header=False)
             else:
-                mean_rain.to_csv(output_file, mode='a', header=False)
+                if len(station_infos) > 0:
+                    zero_tms_df.to_csv(output_file, mode='a', header=False)
+                else:
+                    mean_rain.to_csv(output_file, mode='a', header=False)
     except Exception as e:
         print('calculate_step_mean|Exception : ', str(e))
 
