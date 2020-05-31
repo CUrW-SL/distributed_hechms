@@ -55,10 +55,11 @@ def get_basin_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allo
             next_ts_step = ts_step + timedelta(minutes=60)
             all_stations_tms = get_ts_for_start_end(sim_adapter, all_stations, ts_step.strftime('%Y-%m-%d %H:%M:%S'),
                                                     next_ts_step.strftime('%Y-%m-%d %H:%M:%S'))
-            if len(all_stations_tms) > 0:
-                calculate_step_mean(shape_file, sub_catchment_shape_file, all_stations_tms, output_file, step_one)
-            else:
-                print('get_basin_rain|xxxxxxxxxxxxxxxxxxxxxxxxxxx|all_stations_tms : ', all_stations_tms)
+            calculate_step_mean(shape_file, sub_catchment_shape_file, all_stations_tms, output_file, step_one)
+            # if len(all_stations_tms) > 0:
+            #     calculate_step_mean(shape_file, sub_catchment_shape_file, all_stations_tms, output_file, step_one)
+            # else:
+            #     print('get_basin_rain|xxxxxxxxxxxxxxxxxxxxxxxxxxx|all_stations_tms : ', all_stations_tms)
             step_one = False
             ts_step = next_ts_step
         file_handler = open(output_file, 'a')
@@ -70,57 +71,59 @@ def get_basin_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allo
 
 
 def calculate_step_mean(shape_file, sub_catchment_shape_file, station_infos, output_file, step_one):
-    # print('calculate_step_mean|ts_step : ', ts_step)
-    gauge_points = {}
-    for station_info in station_infos:
-        # station_info = {'station': '100046', 'hash_id':'3423423rwerwe23423234we',
-        # 'latitude': Decimal('7.167040'), 'longitude': Decimal('80.261460'), 'tms_df':'<data frame>'}
-        station = station_info['station']
-        gauge_points[station] = ['%.6f' % station_info['longitude'], '%.6f' % station_info['latitude']]
-    # print('calculate_step_mean|gauge_points : ', gauge_points)
-    gauge_points_thessian = get_thessian_polygon_from_gage_points(shape_file, gauge_points)
-    # print('calculate_step_mean|gauge_points_thessian : ', gauge_points_thessian)
-    catchment_df = gpd.GeoDataFrame.from_file(sub_catchment_shape_file)
-    sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
-    # print('calculate_step_mean|sub_ratios : ', sub_ratios)
-    catchment_rain = []
-    catchment_name_list = []
-    for sub_ratio in sub_ratios:
-        catchment_name = sub_ratio['sub_catchment_name']
-        catchment_ts_list = []
-        ratios = sub_ratio['ratios']
-        for ratio in ratios:
-            gauge_name = ratio['gage_name']
-            ratio = Decimal(ratio['ratio'])
-            gauge_info = next((sub for sub in station_infos if sub['station'] == gauge_name), None)
-            if gauge_info is not None:
-                gauge_ts = gauge_info['tms_df']
-                modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
-                catchment_ts_list.append(modified_gauge_ts)
-        total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
-        total_rain.rename(columns={'value': catchment_name}, inplace=True)
-        catchment_name_list.append(catchment_name)
-        catchment_rain.append(total_rain)
-    if len(catchment_rain) >= 1:
-        mean_rain = catchment_rain[0].join(catchment_rain[1:])
-        # print('calculate_step_mean|mean_rain : ', mean_rain)
-        if step_one == True:
-            file_handler = open(output_file, 'w')
-            csvWriter = csv.writer(file_handler, delimiter=',', quotechar='|')
-            first_row = ['Location Names']
-            first_row.extend(catchment_name_list)
-            second_row = ['Location Ids']
-            second_row.extend(catchment_name_list)
-            third_row = ['Time']
-            for i in range(len(catchment_name_list)):
-                third_row.append('Rainfall')
-            csvWriter.writerow(first_row)
-            csvWriter.writerow(second_row)
-            csvWriter.writerow(third_row)
-            file_handler.close()
-            mean_rain.to_csv(output_file, mode='a', header=False)
-        else:
-            mean_rain.to_csv(output_file, mode='a', header=False)
+    try:
+        gauge_points = {}
+        for station_info in station_infos:
+            # station_info = {'station': '100046', 'hash_id':'3423423rwerwe23423234we',
+            # 'latitude': Decimal('7.167040'), 'longitude': Decimal('80.261460'), 'tms_df':'<data frame>'}
+            station = station_info['station']
+            gauge_points[station] = ['%.6f' % station_info['longitude'], '%.6f' % station_info['latitude']]
+        # print('calculate_step_mean|gauge_points : ', gauge_points)
+        gauge_points_thessian = get_thessian_polygon_from_gage_points(shape_file, gauge_points)
+        # print('calculate_step_mean|gauge_points_thessian : ', gauge_points_thessian)
+        catchment_df = gpd.GeoDataFrame.from_file(sub_catchment_shape_file)
+        sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
+        # print('calculate_step_mean|sub_ratios : ', sub_ratios)
+        catchment_rain = []
+        catchment_name_list = []
+        for sub_ratio in sub_ratios:
+            catchment_name = sub_ratio['sub_catchment_name']
+            catchment_ts_list = []
+            ratios = sub_ratio['ratios']
+            for ratio in ratios:
+                gauge_name = ratio['gage_name']
+                ratio = Decimal(ratio['ratio'])
+                gauge_info = next((sub for sub in station_infos if sub['station'] == gauge_name), None)
+                if gauge_info is not None:
+                    gauge_ts = gauge_info['tms_df']
+                    modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
+                    catchment_ts_list.append(modified_gauge_ts)
+            total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
+            total_rain.rename(columns={'value': catchment_name}, inplace=True)
+            catchment_name_list.append(catchment_name)
+            catchment_rain.append(total_rain)
+        if len(catchment_rain) >= 1:
+            mean_rain = catchment_rain[0].join(catchment_rain[1:])
+            # print('calculate_step_mean|mean_rain : ', mean_rain)
+            if step_one == True:
+                file_handler = open(output_file, 'w')
+                csvWriter = csv.writer(file_handler, delimiter=',', quotechar='|')
+                first_row = ['Location Names']
+                first_row.extend(catchment_name_list)
+                second_row = ['Location Ids']
+                second_row.extend(catchment_name_list)
+                third_row = ['Time']
+                for i in range(len(catchment_name_list)):
+                    third_row.append('Rainfall')
+                csvWriter.writerow(first_row)
+                csvWriter.writerow(second_row)
+                csvWriter.writerow(third_row)
+                file_handler.close()
+                mean_rain.to_csv(output_file, mode='a', header=False)
+            else:
+                mean_rain.to_csv(output_file, mode='a', header=False)
+    except Exception as e:
+        print('calculate_step_mean|Exception : ', str(e))
 
 
 def calculate_intersection(thessian_df, catchment_df):
