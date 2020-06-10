@@ -16,6 +16,8 @@ from input.rainfall.event_rain import get_basin_rain, get_basin_init_discharge
 from decimal import Decimal
 from google.cloud import storage
 
+
+###------LOCAL CONFIG--------------------------------------------------------------------------------------------------------------
 GOOGLE_BUCKET_KEY_PATH = '/home/curw/uwcc-admin.json'
 BUCKET_NAME = 'curwsl_nfs'
 
@@ -23,10 +25,39 @@ RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
 OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
 HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'distributed_model')
 HEC_HMS_STATE_DIR = os.path.join(OUTPUT_DIR, 'distributed_model', 'basinStates')
+
 COPY_MODEL_TEMPLATE_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/distributed_model_prod_template/* /home/curw/git/distributed_hechms/output/distributed_model'
 COPY_MODEL_TEMPLATE1_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/distributed_model_event_template/* /home/curw/git/distributed_hechms/output/distributed_model'
+
+COPY_HDC_TEMPLATE_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/hdc_template/* /home/curw/git/distributed_hechms/output/distributed_model'
+COPY_HDE_TEMPLATE_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/hde_template/* /home/curw/git/distributed_hechms/output/distributed_model'
+COPY_HLC_TEMPLATE_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/hlc_template/* /home/curw/git/distributed_hechms/output/distributed_model'
+COPY_HLE_TEMPLATE_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/hle_template/* /home/curw/git/distributed_hechms/output/distributed_model'
+
 STATE_BACKUP_DIR = '/home/curw/basin_states'
 COPY_STATE_FILES_CMD = 'yes | cp -R /home/curw/basin_states/* /home/curw/git/distributed_hechms/output/distributed_model/basinStates'
+##----------------------------------------------------------------------------------------------------------------------------------
+
+###------CLOUD CONFIG--------------------------------------------------------------------------------------------------------------
+GOOGLE_BUCKET_KEY_PATH = '/home/uwcc-admin/uwcc-admin.json'
+BUCKET_NAME = 'curwsl_nfs'
+
+RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
+OUTPUT_DIR = '/home/uwcc-admin/git/distributed_hechms/output'
+HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'distributed_model')
+HEC_HMS_STATE_DIR = os.path.join(OUTPUT_DIR, 'distributed_model', 'basinStates')
+
+COPY_MODEL_TEMPLATE_CMD = 'yes | cp -R /home/uwcc-admin/git/distributed_hechms/distributed_model_prod_template/* /home/uwcc-admin/git/distributed_hechms/output/distributed_model'
+COPY_MODEL_TEMPLATE1_CMD = 'yes | cp -R /home/uwcc-admin/git/distributed_hechms/distributed_model_event_template/* /home/uwcc-admin/git/distributed_hechms/output/distributed_model'
+
+COPY_HDC_TEMPLATE_CMD = 'yes | cp -R /home/uwcc-admin/git/distributed_hechms/hdc_template/* /home/curw/git/distributed_hechms/output/distributed_model'
+COPY_HDE_TEMPLATE_CMD = 'yes | cp -R /home/uwcc-admin/git/distributed_hechms/hde_template/* /home/curw/git/distributed_hechms/output/distributed_model'
+COPY_HLC_TEMPLATE_CMD = 'yes | cp -R /home/uwcc-admin/git/distributed_hechms/hlc_template/* /home/curw/git/distributed_hechms/output/distributed_model'
+COPY_HLE_TEMPLATE_CMD = 'yes | cp -R /home/uwcc-admin/git/distributed_hechms/hle_template/* /home/curw/git/distributed_hechms/output/distributed_model'
+
+STATE_BACKUP_DIR = '/home/uwcc-admin/basin_states'
+COPY_STATE_FILES_CMD = 'yes | cp -R /home/uwcc-admin/basin_states/* /home/uwcc-admin/git/distributed_hechms/output/distributed_model/basinStates'
+##----------------------------------------------------------------------------------------------------------------------------------
 
 FILE_COPY_CMD_TEMPLATE = 'yes | cp -R {} {}'
 ALLOWED_RAIN_ERROR = 0.25
@@ -87,10 +118,14 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
         rain_fall_file = Path(output_file)
         if rain_fall_file.is_file():
             create_dir_if_not_exists(os.path.join(OUTPUT_DIR, 'distributed_model'))
-            if target_model == 'hechms_prod' :
-                subprocess.call(COPY_MODEL_TEMPLATE_CMD, shell=True)
-            else:
-                subprocess.call(COPY_MODEL_TEMPLATE1_CMD, shell=True)
+            if target_model == 'HDC':
+                subprocess.call(COPY_HDC_TEMPLATE_CMD, shell=True)
+            elif target_model == 'HDE':
+                subprocess.call(COPY_HDE_TEMPLATE_CMD, shell=True)
+            elif target_model == 'HLC':
+                subprocess.call(COPY_HLC_TEMPLATE_CMD, shell=True)
+            elif target_model == 'HLE':
+                subprocess.call(COPY_HLE_TEMPLATE_CMD, shell=True)
             subprocess.call(COPY_STATE_FILES_CMD, shell=True)
             create_gage_file_by_rain_file('distributed_model', output_file)
             create_control_file_by_rain_file('distributed_model', output_file)
@@ -188,7 +223,7 @@ def update_basin_init_values(init_date_time, db_user, db_pwd, db_host, sub_catch
         line_count = 1
         with open(basin_file, 'w') as actual:
             for line in lines:
-                if target_model == 'hechms_prod':
+                if target_model == 'HDC':
                     if line_count == 62:
                         discharge_value1 = init_discharge*area_ratio['SB-1']
                         new_line = '     Initial Baseflow: {}\n'.format(discharge_value1)
@@ -208,7 +243,7 @@ def update_basin_init_values(init_date_time, db_user, db_pwd, db_host, sub_catch
                         new_line = line
                     actual.write(new_line)
                     line_count += 1
-                else:
+                elif target_model == 'HDE':
                     if line_count == 45:
                         discharge_value1 = init_discharge * area_ratio['SB-1']
                         new_line = '     Initial Baseflow: {}\n'.format(discharge_value1)
