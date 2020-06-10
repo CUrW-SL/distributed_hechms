@@ -2,6 +2,7 @@ import csv
 import os
 from decimal import Decimal
 import geopandas as gpd
+import pandas as pd
 import numpy as np
 from scipy.spatial import Voronoi
 from shapely.geometry import Polygon, Point
@@ -9,7 +10,9 @@ from db_layer import CurwSimAdapter
 from functools import reduce
 from datetime import datetime, timedelta
 
-RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
 THESSIAN_DECIMAL_POINTS = 4
 MISSING_VALUE = -99999
 FILL_VALUE = 0
@@ -42,7 +45,7 @@ def create_df(ts_start_str, ts_end_str):
                             'Rainfall4': Decimal(0.0),
                             'Rainfall5': Decimal(0.0)})
         ts_step = next_ts_step
-    return time_series
+    return pd.DataFrame(time_series)
 
 
 def get_basin_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime,
@@ -82,6 +85,7 @@ def get_basin_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allo
         csvWriter = csv.writer(file_handler, delimiter=',', quotechar='|')
         csvWriter.writerow([ts_end, 0.0, 0.0, 0.0, 0.0, 0.0])
         file_handler.close()
+        sim_adapter.close_connection()
     except Exception as e:
         print('get_basin_rain|Exception : ', str(e))
 
@@ -136,14 +140,14 @@ def calculate_step_mean(shape_file, sub_catchment_shape_file, station_infos, out
                 csvWriter.writerow(third_row)
                 file_handler.close()
                 if len(station_infos) > 0:
-                    zero_tms_df.to_csv(output_file, mode='a', header=False)
-                else:
                     mean_rain.to_csv(output_file, mode='a', header=False)
+                else:
+                    zero_tms_df.to_csv(output_file, mode='a', header=False)
             else:
                 if len(station_infos) > 0:
-                    zero_tms_df.to_csv(output_file, mode='a', header=False)
-                else:
                     mean_rain.to_csv(output_file, mode='a', header=False)
+                else:
+                    zero_tms_df.to_csv(output_file, mode='a', header=False)
     except Exception as e:
         print('calculate_step_mean|Exception : ', str(e))
 
@@ -298,10 +302,10 @@ if __name__ == '__main__':
         db_user = "admin"
         db_pwd = "floody"
         MYSQL_DB = "curw_sim"
-        ts_start = '2020-05-22 00:00:00'
-        ts_end = '2020-05-27 00:00:00'
-        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/event_rain'
-        get_basin_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', 0.8, '2020-05-25 13:00:00',
+        ts_start = '2020-05-25 00:00:00'
+        ts_end = '2020-06-07 16:00:00'
+        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/2020-06-07'
+        get_basin_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', 0.8, '2020-06-07 16:00:00',
                        db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub')
-    except Exception as e:
+    except Exception as e:     
         print('Exception: ', str(e))
