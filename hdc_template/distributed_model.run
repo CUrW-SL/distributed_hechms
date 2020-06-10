@@ -1,0 +1,16 @@
+Run: distributed_model
+     Default Description: Yes
+     Log File: distributed_model.log
+     DSS File: distributed_model_run.dss
+     Last Modified Date: 9 February 2020
+     Last Modified Time: 24:00:00
+     Last Execution Date: 10 February 2020
+     Last Execution Time: 11:20:52
+     Basin: distributed_model
+     Precip: distributed_model
+     Control: distributed_model
+     Save State Name: State_2020_02_07_To_2020_02_08
+     Save State Date: 7 February 2020
+     Save State Time: 24:00
+End:
+
