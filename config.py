@@ -20,9 +20,12 @@ MYSQL_HOST = '192.168.1.43'
 MYSQL_PORT = '3306'
 MYSQL_DB = 'curw_sim'
 
+# VM_USER = 'curw'
+VM_USER = 'uwcc-admin'
+
 BACK_DAYS = 2
 
-OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
+OUTPUT_DIR = '/home/{}/git/distributed_hechms/output'.format(VM_USER)
 
 FILE_REMOVE_CMD = 'rm -f {FILE_NAME}'
 
@@ -37,7 +40,7 @@ GAGE_TEMPLATE = 'Gage: {GAGE_NAME}\n     Last Modified Date: 26 May 2018\n     L
                 '       DSS Pathname: //{GAGE_NAME}/PRECIP-INC//5MIN/GAGE/\n       Start Time: {START_DATE}\n' \
                 '       End Time: {END_DATE}\n     End Variant: Variant-1\nEnd:'
 
-GAGE_FILE_NAME = '/home/curw/git/distributed_hechms/output/distributed_model/{MODEL_NAME}.gage'
+GAGE_FILE_NAME = '/home/{}/git/distributed_hechms/output/distributed_model/{MODEL_NAME}.gage'.format(VM_USER)
 
 HEC_HMS_VERSION = '4.2.1'
 
@@ -46,7 +49,7 @@ CONTROL_TEMPLATE = 'Control: {MODEL_NAME}\n     Description: Distributed HecHms\
                    '    Start Time: {START_TIME}\n     End Date: {END_DATE}\n     End Time: {END_TIME}\n     Time Interval: 5\n' \
                    '     Grid Write Interval: 1440\n     Grid Write Time Shift: 0\nEnd:'
 
-CONTROL_FILE_NAME = '/home/curw/git/distributed_hechms/output/distributed_model/{MODEL_NAME}.control'
+CONTROL_FILE_NAME = '/home/{}/git/distributed_hechms/output/distributed_model/{MODEL_NAME}.control'.format(VM_USER)
 
 RUN_FILE_TEMPLATE0 = 'Run: {MODEL_NAME}\n     Default Description: Yes\n     Log File: {MODEL_NAME}.log\n' \
                      '     DSS File: {MODEL_NAME}_run.dss\n' \
@@ -77,16 +80,16 @@ RUN_FILE_TEMPLATE1 = 'Run: {MODEL_NAME}\n     Default Description: Yes\n     Log
                      '     Start State Name: State_{START_STATE_DATE_TIME}_To_{START_STATE_DATE}\n' \
                      'End:'
 
-RUN_FILE_NAME = '/home/curw/git/distributed_hechms/output/distributed_model/{MODEL_NAME}.run'
+RUN_FILE_NAME = '/home/{}/git/distributed_hechms/output/distributed_model/{MODEL_NAME}.run'.format(VM_USER)
 
-HEC_HMS_HOME = '/home/curw/distributed_hec/hec-hms-421'
+HEC_HMS_HOME = '/home/{}/distributed_hec/hec-hms-421'.format(VM_USER)
 HEC_HMS_SH = 'hec-hms.sh'
-HEC_DSSVUE_HOME = '/home/curw/distributed_hec/hec-dssvue201'
+HEC_DSSVUE_HOME = '/home/{}/distributed_hec/hec-dssvue201'.format(VM_USER)
 HEC_DSSVUE_SH = 'hec-dssvue.sh'
 BASIN_STATES_DIR = 'basinStates'
 HEC_EVENT = 'hec_event'
-PRE_PROCESSING_SCRIPT = '/home/curw/git/distributed_hechms/model/CSVTODSS.py'
-POST_PROCESSING_SCRIPT = '/home/curw/git/distributed_hechms/model/DSSTOCSV.py'
+PRE_PROCESSING_SCRIPT = '/home/{}/git/distributed_hechms/model/CSVTODSS.py'.format(VM_USER)
+POST_PROCESSING_SCRIPT = '/home/{}/git/distributed_hechms/model/DSSTOCSV.py'.format(VM_USER)
 HEC_INPUT_DSS = '{MODEL_NAME}_input.dss'
 HEC_OUTPUT_DSS = '{MODEL_NAME}_run.dss'
 # CONTROL_FILE_NAME = '{MODEL_NAME}.control'
