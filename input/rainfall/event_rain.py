@@ -10,9 +10,9 @@ from db_layer import CurwSimAdapter
 from functools import reduce
 from datetime import datetime, timedelta
 
-RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
 # RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
-# RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
+RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
 THESSIAN_DECIMAL_POINTS = 4
 MISSING_VALUE = -99999
 FILL_VALUE = 0
@@ -49,14 +49,122 @@ def create_df(ts_start_str, ts_end_str):
 
 
 def get_basin_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime,
-                   db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub'):
+                   db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub', target_model='HDC'):
+    print('[ts_start, ts_end, output_dir, model, pop_method, allowed_error, exec_datetime, target_model] : ',
+          [ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime, target_model])
+    if target_model == 'HDC' or target_model == 'HDE':
+        get_hd_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime, db_user,
+                         db_pwd, db_host, db_name, catchment)
+    else:
+        get_hl_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime, db_user,
+                         db_pwd, db_host, db_name, catchment)
+
+
+def get_hl_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime, db_user,
+                     db_pwd, db_host, db_name, catchment):
+    sim_adapter = None
+    print('get_hl_mean_rain|[ts_start, ts_end, output_dir, model, pop_method, allowed_error, exec_datetime] : ',
+          [ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime])
     try:
-        print('[ts_start, ts_end, output_dir, model, pop_method, allowed_error, exec_datetime] : ',
-              [ts_start_str, ts_end_str,
-               output_dir, model,
-               pop_method,
-               allowed_error,
-               exec_datetime])
+        basin_shape_file = os.path.join(RESOURCE_PATH, 'klb-wgs84/klb-wgs84.shp')
+        sim_adapter = CurwSimAdapter(db_user, db_pwd, db_host, db_name)
+        all_stations = sim_adapter.get_all_basin_stations()
+        #[{'station': station, 'hash_id': hash_id, 'latitude': latitude, 'longitude': longitude}]
+        print('get_basin_rain|all_stations : ', all_stations)
+        ts_start = datetime.strptime(ts_start_str, '%Y-%m-%d %H:%M:%S')
+        ts_end = datetime.strptime(ts_end_str, '%Y-%m-%d %H:%M:%S')
+        ts_step = ts_start
+        step_one = True
+        output_file = os.path.join(output_dir, 'DailyRain.csv')
+        while ts_step < ts_end:
+            next_ts_step = ts_step + timedelta(minutes=60)
+            ts_start_str = ts_step.strftime('%Y-%m-%d %H:%M:%S')
+            ts_end_str = next_ts_step.strftime('%Y-%m-%d %H:%M:%S')
+            all_stations_tms = get_ts_for_start_end(sim_adapter, all_stations, ts_start_str, ts_end_str)
+            zero_tms_df = create_df(ts_start_str, ts_end_str)
+            calculate_hl_step_mean(basin_shape_file, all_stations_tms, output_file, step_one, zero_tms_df)
+            step_one = False
+            ts_step = next_ts_step
+        file_handler = open(output_file, 'a')
+        csvWriter = csv.writer(file_handler, delimiter=',', quotechar='|')
+        csvWriter.writerow([ts_end, 0.0])
+        file_handler.close()
+        sim_adapter.close_connection()
+    except Exception as e:
+        if sim_adapter is not None:
+            sim_adapter.close_connection()
+        print('get_hl_mean_rain|Exception : ', str(e))
+
+
+def calculate_hl_step_mean(basin_shape_file, station_infos, output_file, step_one, zero_tms_df):
+    print('calculate_hl_step_mean|[basin_shape_file, station_infos] : ', [basin_shape_file, station_infos])
+    try:
+        gauge_points = {}
+        for station_info in station_infos:
+            # station_info = {'station': '100046', 'hash_id':'3423423rwerwe23423234we',
+            # 'latitude': Decimal('7.167040'), 'longitude': Decimal('80.261460'), 'tms_df':'<data frame>'}
+            station = station_info['station']
+            gauge_points[station] = ['%.6f' % station_info['longitude'], '%.6f' % station_info['latitude']]
+        print('calculate_step_mean|gauge_points : ', gauge_points)
+        gauge_points_thessian = get_thessian_polygon_from_gage_points(basin_shape_file, gauge_points)
+        print('calculate_step_mean|gauge_points_thessian : ', gauge_points_thessian)
+        catchment_df = gpd.GeoDataFrame.from_file(basin_shape_file)
+        sub_ratios = hl_calculate_intersection(gauge_points_thessian, catchment_df)
+        print('calculate_step_mean|sub_ratios : ', sub_ratios)
+        catchment_rain = []
+        catchment_name_list = []
+        for sub_ratio in sub_ratios:
+            catchment_name = sub_ratio['sub_catchment_name']
+            catchment_ts_list = []
+            ratios = sub_ratio['ratios']
+            for ratio in ratios:
+                gauge_name = ratio['gage_name']
+                ratio = Decimal(ratio['ratio'])
+                gauge_info = next((sub for sub in station_infos if sub['station'] == gauge_name), None)
+                if gauge_info is not None:
+                    gauge_ts = gauge_info['tms_df']
+                    modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
+                    catchment_ts_list.append(modified_gauge_ts)
+            total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
+            total_rain.rename(columns={'value': catchment_name}, inplace=True)
+            catchment_name_list.append(catchment_name)
+            catchment_rain.append(total_rain)
+        if len(catchment_rain) >= 1:
+            mean_rain = catchment_rain[0].join(catchment_rain[1:])
+            # print('calculate_step_mean|mean_rain : ', mean_rain)
+            if step_one == True:
+                file_handler = open(output_file, 'w')
+                csvWriter = csv.writer(file_handler, delimiter=',', quotechar='|')
+                first_row = ['Location Names']
+                first_row.extend(catchment_name_list)
+                second_row = ['Location Ids']
+                second_row.extend(catchment_name_list)
+                third_row = ['Time']
+                for i in range(len(catchment_name_list)):
+                    third_row.append('Rainfall')
+                csvWriter.writerow(first_row)
+                csvWriter.writerow(second_row)
+                csvWriter.writerow(third_row)
+                file_handler.close()
+                if len(station_infos) > 0:
+                    mean_rain.to_csv(output_file, mode='a', header=False)
+                else:
+                    zero_tms_df.to_csv(output_file, mode='a', header=False)
+            else:
+                if len(station_infos) > 0:
+                    mean_rain.to_csv(output_file, mode='a', header=False)
+                else:
+                    zero_tms_df.to_csv(output_file, mode='a', header=False)
+    except Exception as e:
+        print('calculate_hl_step_mean|Exception : ', str(e))
+
+
+def get_hd_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime, db_user,
+                     db_pwd, db_host, db_name, catchment):
+    sim_adapter = None
+    try:
+        print('get_hd_mean_rain|[ts_start, ts_end, output_dir, model, pop_method, allowed_error, exec_datetime] : ',
+              [ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime])
         sub_catchment_shape_file = os.path.join(RESOURCE_PATH, 'sub_catchments/sub_subcatchments.shp')
         if catchment == 'kub':
             shape_file = os.path.join(RESOURCE_PATH, 'kub-wgs84/kub-wgs84.shp')
@@ -77,7 +185,7 @@ def get_basin_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allo
             ts_end_str = next_ts_step.strftime('%Y-%m-%d %H:%M:%S')
             all_stations_tms = get_ts_for_start_end(sim_adapter, all_stations, ts_start_str, ts_end_str)
             zero_tms_df = create_df(ts_start_str, ts_end_str)
-            calculate_step_mean(shape_file, sub_catchment_shape_file, all_stations_tms,
+            calculate_hd_step_mean(shape_file, sub_catchment_shape_file, all_stations_tms,
                                 output_file, step_one, zero_tms_df)
             step_one = False
             ts_step = next_ts_step
@@ -87,10 +195,12 @@ def get_basin_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allo
         file_handler.close()
         sim_adapter.close_connection()
     except Exception as e:
-        print('get_basin_rain|Exception : ', str(e))
+        if sim_adapter is not None:
+            sim_adapter.close_connection()
+        print('get_hd_mean_rain|Exception : ', str(e))
 
 
-def calculate_step_mean(shape_file, sub_catchment_shape_file, station_infos, output_file, step_one, zero_tms_df):
+def calculate_hd_step_mean(shape_file, sub_catchment_shape_file, station_infos, output_file, step_one, zero_tms_df):
     try:
         gauge_points = {}
         for station_info in station_infos:
@@ -149,13 +259,30 @@ def calculate_step_mean(shape_file, sub_catchment_shape_file, station_infos, out
                 else:
                     zero_tms_df.to_csv(output_file, mode='a', header=False)
     except Exception as e:
-        print('calculate_step_mean|Exception : ', str(e))
+        print('calculate_hd_step_mean|Exception : ', str(e))
 
 
 def calculate_intersection(thessian_df, catchment_df):
     sub_ratios = []
     for i, catchment_polygon in enumerate(catchment_df['geometry']):
         sub_catchment_name = catchment_df.iloc[i]['Name_of_Su']
+        ratio_list = []
+        for j, thessian_polygon in enumerate(thessian_df['geometry']):
+            if catchment_polygon.intersects(thessian_polygon):
+                gage_name = thessian_df.iloc[j]['id']
+                intersection = catchment_polygon.intersection(thessian_polygon)
+                ratio = np.round(intersection.area / catchment_polygon.area, THESSIAN_DECIMAL_POINTS)
+                ratio_dic = {'gage_name': gage_name, 'ratio': ratio}
+                ratio_list.append(ratio_dic)
+        sub_dict = {'sub_catchment_name': sub_catchment_name, 'ratios': ratio_list}
+        sub_ratios.append(sub_dict)
+    return sub_ratios
+
+
+def hl_calculate_intersection(thessian_df, catchment_df):
+    sub_ratios = []
+    for i, catchment_polygon in enumerate(catchment_df['geometry']):
+        sub_catchment_name = 'KUB'
         ratio_list = []
         for j, thessian_polygon in enumerate(thessian_df['geometry']):
             if catchment_polygon.intersects(thessian_polygon):
@@ -302,10 +429,10 @@ if __name__ == '__main__':
         db_user = "admin"
         db_pwd = "floody"
         MYSQL_DB = "curw_sim"
-        ts_start = '2020-05-25 00:00:00'
-        ts_end = '2020-06-07 16:00:00'
-        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/2020-06-07'
-        get_basin_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', 0.8, '2020-06-07 16:00:00',
-                       db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub')
+        ts_start = '2020-06-10 00:00:00'
+        ts_end = '2020-06-10 04:00:00'
+        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/mean_rain'
+        get_basin_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', 0.8, '2020-06-11 06:00:00',
+                       db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub', target_model='HLC')
     except Exception as e:     
         print('Exception: ', str(e))
