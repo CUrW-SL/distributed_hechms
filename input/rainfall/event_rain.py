@@ -31,6 +31,19 @@ def get_ts_for_start_end(sim_adapter, all_stations, ts_start, ts_end):
     return formatted_stations
 
 
+def create_hl_df(ts_start_str, ts_end_str):
+    time_series = []
+    ts_start = datetime.strptime(ts_start_str, '%Y-%m-%d %H:%M:%S')
+    ts_end = datetime.strptime(ts_end_str, '%Y-%m-%d %H:%M:%S')
+    ts_step = ts_start
+    while ts_step < ts_end:
+        next_ts_step = ts_step + timedelta(minutes=5)
+        time_series.append({'Time': ts_step.strftime('%Y-%m-%d %H:%M:%S'),
+                            'Rainfall': Decimal(0.0)})
+        ts_step = next_ts_step
+    return pd.DataFrame(time_series)
+
+
 def create_df(ts_start_str, ts_end_str):
     time_series = []
     ts_start = datetime.strptime(ts_start_str, '%Y-%m-%d %H:%M:%S')
@@ -81,7 +94,7 @@ def get_hl_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, al
             ts_start_str = ts_step.strftime('%Y-%m-%d %H:%M:%S')
             ts_end_str = next_ts_step.strftime('%Y-%m-%d %H:%M:%S')
             all_stations_tms = get_ts_for_start_end(sim_adapter, all_stations, ts_start_str, ts_end_str)
-            zero_tms_df = create_df(ts_start_str, ts_end_str)
+            zero_tms_df = create_hl_df(ts_start_str, ts_end_str)
             calculate_hl_step_mean(basin_shape_file, all_stations_tms, output_file, step_one, zero_tms_df)
             step_one = False
             ts_step = next_ts_step
