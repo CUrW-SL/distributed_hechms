@@ -10,8 +10,8 @@ MISSING_VALUE = -99999
 FILL_VALUE = 0
 
 # RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
-# RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
-RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
+RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
 
 
 def validate_dataframe(df, allowed_error):
@@ -37,7 +37,7 @@ def get_null_count(results):
 
 
 def is_in_basin(station_info, basin='kub'): #{'station': station, 'hash_id': hash_id, 'latitude': latitude, 'longitude': longitude}
-    print('is_in_basin|station_info : ', station_info)
+    # print('is_in_basin|station_info : ', station_info)
     if basin == 'kub':
         shape_file = os.path.join(RESOURCE_PATH, 'kub-wgs84/kub-wgs84.shp')
     else:
@@ -47,7 +47,7 @@ def is_in_basin(station_info, basin='kub'): #{'station': station, 'hash_id': has
     shape_polygon_idx = shape_df.index[shape_df[shape_attribute[0]] == shape_attribute[1]][0]
     shape_polygon = shape_df['geometry'][shape_polygon_idx]
     if Point(station_info['longitude'], station_info['latitude']).within(shape_polygon):  # make a point and see if it's in the polygon
-        print('is_in_basin|True|station_info : ', station_info)
+        # print('is_in_basin|True|station_info : ', station_info)
         return True
     else:
         return False
@@ -441,31 +441,31 @@ class CurwSimAdapter:
             return available_stations
 
     def get_timeseries_by_hash_id(self, hash_id, ts_start, ts_end, allowed_error, time_step_size=5):
-        print('get_timeseries_by_hash_id|[hash_id, ts_start, ts_end, allowed_error] : ',
-              [hash_id, ts_start, ts_end, allowed_error])
+        # print('get_timeseries_by_hash_id|[hash_id, ts_start, ts_end, allowed_error] : ',
+        #       [hash_id, ts_start, ts_end, allowed_error])
         cursor = self.cursor
         data_sql = 'select time,value from curw_sim.data where time>=\'{}\' and time<\'{}\' ' \
                    'and id=\'{}\' '.format(ts_start, ts_end, hash_id)
         try:
-            print('get_timeseries_by_hash_id|data_sql : ', data_sql)
+            # print('get_timeseries_by_hash_id|data_sql : ', data_sql)
             cursor.execute(data_sql)
             results = cursor.fetchall()
             if len(results) > 0:
                 time_step_count = int((datetime.strptime(ts_end, '%Y-%m-%d %H:%M:%S')
                                        - datetime.strptime(ts_start, '%Y-%m-%d %H:%M:%S')).total_seconds() / (
                                               60 * time_step_size))
-                print('get_timeseries_by_hash_id|time_step_count : ', time_step_count)
+                # print('get_timeseries_by_hash_id|time_step_count : ', time_step_count)
                 missing_count = time_step_count - len(results)
-                print('get_timeseries_by_id|missing_count : ', missing_count)
+                # print('get_timeseries_by_id|missing_count : ', missing_count)
                 missing_count = get_null_count(results) + missing_count
-                print('get_timeseries_by_id|missing_count : ', missing_count)
+                # print('get_timeseries_by_id|missing_count : ', missing_count)
                 data_error = (missing_count / time_step_count)
-                print('get_timeseries_by_id|data_error : ', data_error)
+                # print('get_timeseries_by_id|data_error : ', data_error)
                 if data_error <= 0:
                     df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
                     return df
                 elif data_error > 0 and data_error <= allowed_error:
-                    print('get_timeseries_by_id|filling missing data.')
+                    # print('get_timeseries_by_id|filling missing data.')
                     formatted_ts = []
                     i = 0
                     for step in range(time_step_count):
@@ -482,7 +482,7 @@ class CurwSimAdapter:
                     df = pd.DataFrame(data=formatted_ts, columns=['time', 'value']).set_index(keys='time')
                     return df
                 else:
-                    print('get_timeseries_by_hash_id|data_error : {}'.format(data_error))
+                    # print('get_timeseries_by_hash_id|data_error : {}'.format(data_error))
                     print('get_timeseries_by_hash_id|Data error is too large')
                     return None
             else:
