@@ -38,24 +38,24 @@ COPY_STATE_FILES_CMD = 'yes | cp -R /home/curw/basin_states/* /home/curw/git/dis
 ##----------------------------------------------------------------------------------------------------------------------------------
 
 ###------CLOUD CONFIG--------------------------------------------------------------------------------------------------------------
-GOOGLE_BUCKET_KEY_PATH = '/home/uwcc-admin/uwcc-admin.json'
+GOOGLE_BUCKET_KEY_PATH = '/home/{}/uwcc-admin.json'
 BUCKET_NAME = 'curwsl_nfs'
 
-RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
-OUTPUT_DIR = '/home/uwcc-admin/git/distributed_hechms/output'
+RESOURCE_PATH = '/home/{}/git/distributed_hechms/resources'
+OUTPUT_DIR = '/home/{}/git/distributed_hechms/output'
 HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'distributed_model')
 HEC_HMS_STATE_DIR = os.path.join(OUTPUT_DIR, 'distributed_model', 'basinStates')
 
-COPY_MODEL_TEMPLATE_CMD = 'yes | cp -R /home/uwcc-admin/git/distributed_hechms/distributed_model_prod_template/* /home/uwcc-admin/git/distributed_hechms/output/distributed_model'
-COPY_MODEL_TEMPLATE1_CMD = 'yes | cp -R /home/uwcc-admin/git/distributed_hechms/distributed_model_event_template/* /home/uwcc-admin/git/distributed_hechms/output/distributed_model'
+COPY_MODEL_TEMPLATE_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/distributed_model_prod_template/* /home/{}/git/distributed_hechms/output/distributed_model'
+COPY_MODEL_TEMPLATE1_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/distributed_model_event_template/* /home/{}/git/distributed_hechms/output/distributed_model'
 
-COPY_HDC_TEMPLATE_CMD = 'yes | cp -R /home/uwcc-admin/git/distributed_hechms/hdc_template/* /home/curw/git/distributed_hechms/output/distributed_model'
-COPY_HDE_TEMPLATE_CMD = 'yes | cp -R /home/uwcc-admin/git/distributed_hechms/hde_template/* /home/curw/git/distributed_hechms/output/distributed_model'
-COPY_HLC_TEMPLATE_CMD = 'yes | cp -R /home/uwcc-admin/git/distributed_hechms/hlc_template/* /home/curw/git/distributed_hechms/output/distributed_model'
-COPY_HLE_TEMPLATE_CMD = 'yes | cp -R /home/uwcc-admin/git/distributed_hechms/hle_template/* /home/curw/git/distributed_hechms/output/distributed_model'
+COPY_HDC_TEMPLATE_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/hdc_template/* /home/{}/git/distributed_hechms/output/distributed_model'
+COPY_HDE_TEMPLATE_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/hde_template/* /home/{}/git/distributed_hechms/output/distributed_model'
+COPY_HLC_TEMPLATE_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/hlc_template/* /home/{}/git/distributed_hechms/output/distributed_model'
+COPY_HLE_TEMPLATE_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/hle_template/* /home/{}/git/distributed_hechms/output/distributed_model'
 
-STATE_BACKUP_DIR = '/home/uwcc-admin/basin_states'
-COPY_STATE_FILES_CMD = 'yes | cp -R /home/uwcc-admin/basin_states/* /home/uwcc-admin/git/distributed_hechms/output/distributed_model/basinStates'
+STATE_BACKUP_DIR = '/home/{}/basin_states'
+COPY_STATE_FILES_CMD = 'yes | cp -R /home/{}/basin_states/* /home/{}/git/distributed_hechms/output/distributed_model/basinStates'
 ##----------------------------------------------------------------------------------------------------------------------------------
 
 FILE_COPY_CMD_TEMPLATE = 'yes | cp -R {} {}'
@@ -82,7 +82,7 @@ def get_state_file_name(ts_start_datetime):
 
 def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'),
                         back_days=2, forward_days=3,
-                        initial_wl=0, pop_method='MME', target_model='HDC'):
+                        initial_wl=0, pop_method='MME', target_model='HDC', vm_user='uwcc-admin'):
     print('run_datetime : ', run_datetime)
     print('back_days : ', back_days)
     print('forward_days : ', forward_days)
@@ -103,7 +103,7 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
     to_date = to_date.strftime('%Y-%m-%d %H:%M:%S')
     print('{from_date, to_date} : ', {from_date, to_date})
     # output_dir = os.path.join(OUTPUT_DIR, file_date, file_time)
-    output_dir = OUTPUT_DIR
+    output_dir = OUTPUT_DIR.format(vm_user)
     print('output_dir : ', output_dir)
     output_file = os.path.join(output_dir, 'DailyRain.csv')
     try:
@@ -114,16 +114,16 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
         print('run_hechms_workflow|get_basin_rain|end')
         rain_fall_file = Path(output_file)
         if rain_fall_file.is_file():
-            create_dir_if_not_exists(os.path.join(OUTPUT_DIR, 'distributed_model'))
+            create_dir_if_not_exists(os.path.join(OUTPUT_DIR.format(vm_user), 'distributed_model'))
             if target_model == 'HDC':
-                subprocess.call(COPY_HDC_TEMPLATE_CMD, shell=True)
+                subprocess.call(COPY_HDC_TEMPLATE_CMD.format(vm_user), shell=True)
             elif target_model == 'HDE':
-                subprocess.call(COPY_HDE_TEMPLATE_CMD, shell=True)
+                subprocess.call(COPY_HDE_TEMPLATE_CMD.format(vm_user), shell=True)
             elif target_model == 'HLC':
-                subprocess.call(COPY_HLC_TEMPLATE_CMD, shell=True)
+                subprocess.call(COPY_HLC_TEMPLATE_CMD.format(vm_user), shell=True)
             elif target_model == 'HLE':
-                subprocess.call(COPY_HLE_TEMPLATE_CMD, shell=True)
-            subprocess.call(COPY_STATE_FILES_CMD, shell=True)
+                subprocess.call(COPY_HLE_TEMPLATE_CMD.format(vm_user), shell=True)
+            subprocess.call(COPY_STATE_FILES_CMD.format(vm_user), shell=True)
             create_gage_file_by_rain_file('distributed_model', output_file)
             create_control_file_by_rain_file('distributed_model', output_file)
             create_run_file('distributed_model', initial_wl, run_datetime.strftime('%Y-%m-%d %H:%M:%S'), from_date)
@@ -138,7 +138,7 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                 ts_start_date = (datetime.strptime(from_date, '%Y-%m-%d %H:%M:%S')).strftime('%Y-%m-%d')
                 ts_start_time = '00:00:00'
                 print('[ts_start_date, ts_start_time] : ', [ts_start_date, ts_start_time])
-                sub_catchment_shape_file = os.path.join(RESOURCE_PATH, 'sub_catchments/sub_subcatchments.shp')
+                sub_catchment_shape_file = os.path.join(RESOURCE_PATH.format(vm_user), 'sub_catchments/sub_subcatchments.shp')
                 update_basin_init_values('{} {}'.format(ts_start_date, ts_start_time), db_user, db_pwd, db_host,
                                          sub_catchment_shape_file, target_model)
                 ret_code = execute_pre_dssvue(exec_datetime, ts_start_date, ts_start_time)
@@ -150,9 +150,9 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                         ret_code = execute_post_dssvue(exec_datetime, ts_start_date, ts_start_time)
                         print('execute_post_dssvue|ret_code : ', ret_code)
                         if ret_code == 0:
-                            output_file = os.path.join(OUTPUT_DIR, 'DailyDischarge.csv')
+                            output_file = os.path.join(OUTPUT_DIR.format(vm_user), 'DailyDischarge.csv')
                             print('output_file : ', output_file)
-                            state_file_copy_cmd = FILE_COPY_CMD_TEMPLATE.format(state_file, STATE_BACKUP_DIR)
+                            state_file_copy_cmd = FILE_COPY_CMD_TEMPLATE.format(state_file, STATE_BACKUP_DIR.format(vm_user))
                             print('state_file_copy_cmd : ', state_file_copy_cmd)
                             subprocess.call(state_file_copy_cmd, shell=True)
                             try:
@@ -162,12 +162,8 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                                 extract_distrubuted_hechms_outputs(target_model, db_user, db_pwd, db_host, 'curw_fcst',
                                                                    output_file, file_date, '00:00:00')
                                 print('extract_distrubuted_hechms_outputs|cloud|completed')
-                                print('extract_distrubuted_hechms_outputs|local|started')
-                                extract_distrubuted_hechms_outputs(target_model, 'root', 'cfcwm07', '192.168.1.43',
-                                                                   'curw_fcst', output_file, file_date, '00:00:00')
-                                print('extract_distrubuted_hechms_outputs|local|completed')
-                                upload_rain_file = os.path.join(OUTPUT_DIR, 'DailyRain.csv')
-                                upload_discharge_file = os.path.join(OUTPUT_DIR, 'DailyDischarge.csv')
+                                upload_rain_file = os.path.join(OUTPUT_DIR.format(vm_user), 'DailyRain.csv')
+                                upload_discharge_file = os.path.join(OUTPUT_DIR.format(vm_user), 'DailyDischarge.csv')
                                 bucket_rain_file = 'event_hechms/{}/{}/DailyRain.csv'.format(file_date,
                                                                                              file_time)
                                 bucket_discharge_file = 'event_hechms/{}/{}/DailyDischarge.csv'.format(file_date,
@@ -180,9 +176,9 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                                       bucket_discharge_file)
                                 print('extract_distrubuted_hechms_outputs|file upload started')
                                 try:
-                                    upload_file_to_bucket(GOOGLE_BUCKET_KEY_PATH, BUCKET_NAME, upload_rain_file,
+                                    upload_file_to_bucket(GOOGLE_BUCKET_KEY_PATH.format(vm_user), BUCKET_NAME, upload_rain_file,
                                                           bucket_rain_file)
-                                    upload_file_to_bucket(GOOGLE_BUCKET_KEY_PATH, BUCKET_NAME, upload_discharge_file,
+                                    upload_file_to_bucket(GOOGLE_BUCKET_KEY_PATH.format(vm_user), BUCKET_NAME, upload_discharge_file,
                                                           bucket_discharge_file)
                                     print('extract_distrubuted_hechms_outputs|file upload completed')
                                 except Exception as e:
@@ -215,8 +211,8 @@ def update_basin_init_values(init_date_time, db_user, db_pwd, db_host, sub_catch
     if init_discharge is not None:
         area_ratio = get_sub_catchment_area_ratios(sub_catchment_shape_file)
         print('update_basin_init_values|area_ratio : ', area_ratio)
-        basin_template_file = os.path.join(OUTPUT_DIR, 'distributed_model', 'distributed_model_template.basin')
-        basin_file = os.path.join(OUTPUT_DIR, 'distributed_model', 'distributed_model.basin')
+        basin_template_file = os.path.join(OUTPUT_DIR.format(vm_user), 'distributed_model', 'distributed_model_template.basin')
+        basin_file = os.path.join(OUTPUT_DIR.format(vm_user), 'distributed_model', 'distributed_model.basin')
         template = open(basin_template_file, 'r')
         lines = template.readlines()
         line_count = 1
@@ -325,6 +321,7 @@ if __name__ == '__main__':
     db_host = args['db_host']
     db_name = args['db_name']
     target_model = args['target_model']
+    vm_user = 'uwcc-admin'
     print('**** HECHMS RUN **** run_datetime: {}'.format(run_datetime))
     print('**** HECHMS RUN **** forward: {}'.format(forward))
     print('**** HECHMS RUN **** backward: {}'.format(backward))
@@ -332,7 +329,7 @@ if __name__ == '__main__':
     print('**** HECHMS RUN **** pop_method: {}'.format(pop_method))
     print('**** HECHMS RUN **** target_model: {}'.format(target_model))
     if run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime, backward, forward, init_run, pop_method,
-                           target_model):
+                           target_model, vm_user):
         print('**** HECHMS RUN Completed****')
     else:
         print('**** HECHMS RUN Failed****')
