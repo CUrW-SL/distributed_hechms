@@ -49,10 +49,7 @@ HEC_HMS_STATE_DIR = os.path.join(OUTPUT_DIR, 'distributed_model', 'basinStates')
 COPY_MODEL_TEMPLATE_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/distributed_model_prod_template/* /home/{}/git/distributed_hechms/output/distributed_model'
 COPY_MODEL_TEMPLATE1_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/distributed_model_event_template/* /home/{}/git/distributed_hechms/output/distributed_model'
 
-COPY_HDC_TEMPLATE_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/hdc_template/* /home/{}/git/distributed_hechms/output/distributed_model'
-COPY_HDE_TEMPLATE_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/hde_template/* /home/{}/git/distributed_hechms/output/distributed_model'
-COPY_HLC_TEMPLATE_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/hlc_template/* /home/{}/git/distributed_hechms/output/distributed_model'
-COPY_HLE_TEMPLATE_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/hle_template/* /home/{}/git/distributed_hechms/output/distributed_model'
+COPY_TEMPLATE_CMD = 'yes | cp -R /home/{}/git/distributed_hechms/templates/{}/* /home/{}/git/distributed_hechms/output/distributed_model'
 
 STATE_BACKUP_DIR = '/home/{}/basin_states'
 COPY_STATE_FILES_CMD = 'yes | cp -R /home/{}/basin_states/* /home/{}/git/distributed_hechms/output/distributed_model/basinStates'
@@ -81,8 +78,7 @@ def get_state_file_name(ts_start_datetime):
 
 
 def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime.now().strftime('%Y-%m-%d_%H:%M:%S'),
-                        back_days=2, forward_days=3,
-                        initial_wl=0, pop_method='MME', target_model='HDC', vm_user='uwcc-admin'):
+                        back_days=2, forward_days=3, initial_wl=0, pop_method='MME', target_model='HDC', vm_user='uwcc-admin'):
     print('run_datetime : ', run_datetime)
     print('back_days : ', back_days)
     print('forward_days : ', forward_days)
@@ -115,14 +111,7 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
         rain_fall_file = Path(output_file)
         if rain_fall_file.is_file():
             create_dir_if_not_exists(os.path.join(OUTPUT_DIR.format(vm_user), 'distributed_model'))
-            if target_model == 'HDC':
-                subprocess.call(COPY_HDC_TEMPLATE_CMD.format(vm_user), shell=True)
-            elif target_model == 'HDE':
-                subprocess.call(COPY_HDE_TEMPLATE_CMD.format(vm_user), shell=True)
-            elif target_model == 'HLC':
-                subprocess.call(COPY_HLC_TEMPLATE_CMD.format(vm_user), shell=True)
-            elif target_model == 'HLE':
-                subprocess.call(COPY_HLE_TEMPLATE_CMD.format(vm_user), shell=True)
+            subprocess.call(COPY_TEMPLATE_CMD.format(target_model, vm_user), shell=True)
             subprocess.call(COPY_STATE_FILES_CMD.format(vm_user), shell=True)
             create_gage_file_by_rain_file('distributed_model', output_file)
             create_control_file_by_rain_file('distributed_model', output_file)
