@@ -11,8 +11,8 @@ from functools import reduce
 from datetime import datetime, timedelta
 
 # RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
-RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
-# RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
 THESSIAN_DECIMAL_POINTS = 4
 MISSING_VALUE = -99999
 FILL_VALUE = 0
@@ -23,11 +23,12 @@ def get_ts_for_start_end(sim_adapter, all_stations, ts_start, ts_end):
     for station_info in all_stations:
         hash_id = station_info['hash_id']
         tms_df = sim_adapter.get_timeseries_by_hash_id(hash_id, ts_start, ts_end, allowed_error=0.2, time_step_size=5)
-        # print('get_ts_for_start_end|tms_df : ', tms_df)
         if tms_df is not None:
-            station_info['tms_df'] = tms_df.replace(MISSING_VALUE,
-                                                    FILL_VALUE)
-            formatted_stations.append(station_info)
+            print('get_ts_for_start_end|tms_df : ', tms_df)
+            if tms_df is not None:
+                station_info['tms_df'] = tms_df.replace(MISSING_VALUE,
+                                                        FILL_VALUE)
+                formatted_stations.append(station_info)
     return formatted_stations
 
 
@@ -215,62 +216,58 @@ def get_hd_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, al
 
 def calculate_hd_step_mean(shape_file, sub_catchment_shape_file, station_infos, output_file, step_one, zero_tms_df):
     try:
+        print('calculate_hd_step_mean|station_infos : ', station_infos)
         gauge_points = {}
+        if len(station_infos) > 0:
+            print('')
         for station_info in station_infos:
-            # station_info = {'station': '100046', 'hash_id':'3423423rwerwe23423234we',
-            # 'latitude': Decimal('7.167040'), 'longitude': Decimal('80.261460'), 'tms_df':'<data frame>'}
             station = station_info['station']
             gauge_points[station] = ['%.6f' % station_info['longitude'], '%.6f' % station_info['latitude']]
-        # print('calculate_step_mean|gauge_points : ', gauge_points)
-        gauge_points_thessian = get_thessian_polygon_from_gage_points(shape_file, gauge_points)
-        # print('calculate_step_mean|gauge_points_thessian : ', gauge_points_thessian)
-        catchment_df = gpd.GeoDataFrame.from_file(sub_catchment_shape_file)
-        sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
-        # print('calculate_step_mean|sub_ratios : ', sub_ratios)
         catchment_rain = []
         catchment_name_list = []
-        for sub_ratio in sub_ratios:
-            catchment_name = sub_ratio['sub_catchment_name']
-            catchment_ts_list = []
-            ratios = sub_ratio['ratios']
-            for ratio in ratios:
-                gauge_name = ratio['gage_name']
-                ratio = Decimal(ratio['ratio'])
-                gauge_info = next((sub for sub in station_infos if sub['station'] == gauge_name), None)
-                if gauge_info is not None:
-                    gauge_ts = gauge_info['tms_df']
-                    modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
-                    catchment_ts_list.append(modified_gauge_ts)
-            total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
-            total_rain.rename(columns={'value': catchment_name}, inplace=True)
-            catchment_name_list.append(catchment_name)
-            catchment_rain.append(total_rain)
-        if len(catchment_rain) >= 1:
+        if gauge_points: ## TODO: check on empty gauge points
+            gauge_points_thessian = get_thessian_polygon_from_gage_points(shape_file, gauge_points)
+            catchment_df = gpd.GeoDataFrame.from_file(sub_catchment_shape_file)
+            sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
+            print('calculate_step_mean|sub_ratios : ', sub_ratios)
+            for sub_ratio in sub_ratios:
+                catchment_name = sub_ratio['sub_catchment_name']
+                catchment_ts_list = []
+                ratios = sub_ratio['ratios']
+                for ratio in ratios:
+                    gauge_name = ratio['gage_name']
+                    ratio = Decimal(ratio['ratio'])
+                    gauge_info = next((sub for sub in station_infos if sub['station'] == gauge_name), None)
+                    if gauge_info is not None:
+                        gauge_ts = gauge_info['tms_df']
+                        modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
+                        catchment_ts_list.append(modified_gauge_ts)
+                total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
+                total_rain.rename(columns={'value': catchment_name}, inplace=True)
+                catchment_name_list.append(catchment_name)
+                catchment_rain.append(total_rain)
+        if len(catchment_rain) > 0:
             mean_rain = catchment_rain[0].join(catchment_rain[1:])
-            # print('calculate_step_mean|mean_rain : ', mean_rain)
-            if step_one == True:
-                file_handler = open(output_file, 'w')
-                csvWriter = csv.writer(file_handler, delimiter=',', quotechar='|')
-                first_row = ['Location Names']
-                first_row.extend(catchment_name_list)
-                second_row = ['Location Ids']
-                second_row.extend(catchment_name_list)
-                third_row = ['Time']
-                for i in range(len(catchment_name_list)):
-                    third_row.append('Rainfall')
-                csvWriter.writerow(first_row)
-                csvWriter.writerow(second_row)
-                csvWriter.writerow(third_row)
-                file_handler.close()
-                if len(station_infos) > 0:
-                    mean_rain.to_csv(output_file, mode='a', header=False)
-                else:
-                    zero_tms_df.to_csv(output_file, mode='a', header=False)
-            else:
-                if len(station_infos) > 0:
-                    mean_rain.to_csv(output_file, mode='a', header=False)
-                else:
-                    zero_tms_df.to_csv(output_file, mode='a', header=False)
+            print('calculate_step_mean|mean_rain : ', mean_rain)
+        else:
+            mean_rain = zero_tms_df
+        if step_one:
+            file_handler = open(output_file, 'w')
+            csvWriter = csv.writer(file_handler, delimiter=',', quotechar='|')
+            first_row = ['Location Names']
+            first_row.extend(catchment_name_list)
+            second_row = ['Location Ids']
+            second_row.extend(catchment_name_list)
+            third_row = ['Time']
+            for i in range(len(catchment_name_list)):
+                third_row.append('Rainfall')
+            csvWriter.writerow(first_row)
+            csvWriter.writerow(second_row)
+            csvWriter.writerow(third_row)
+            file_handler.close()
+            mean_rain.to_csv(output_file, mode='a', header=False)
+        else:
+            mean_rain.to_csv(output_file, mode='a', header=False)
     except Exception as e:
         print('calculate_hd_step_mean|Exception : ', str(e))
 
@@ -442,10 +439,10 @@ if __name__ == '__main__':
         db_user = "admin"
         db_pwd = "floody"
         MYSQL_DB = "curw_sim"
-        ts_start = '2020-05-24 00:00:00'
-        ts_end = '2020-06-15 11:00:00'
-        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/2020-06-15'
-        get_basin_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', 0.8, '2020-06-15 11:00:00',
+        ts_start = '2020-05-27 12:00:00'
+        ts_end = '2020-05-27 17:00:00'
+        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/mean_rain'
+        get_basin_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', 0.8, '2020-06-15 15:00:00',
                        db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub', target_model='HDC')
     except Exception as e:     
         print('Exception: ', str(e))
