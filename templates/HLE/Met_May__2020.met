@@ -1,0 +1,27 @@
+Meteorology: Met_May__2020
+     Last Modified Date: 4 June 2020
+     Last Modified Time: 04:36:21
+     Version: 4.2.1
+     Unit System: Metric
+     Set Missing Data to Default: Yes
+     Precipitation Method: Specified Average
+     Short-Wave Radiation Method: None
+     Long-Wave Radiation Method: None
+     Snowmelt Method: None
+     Evapotranspiration Method: No Evapotranspiration
+     Use Basin Model: Kelani
+End:
+
+Precip Method Parameters: Specified Average
+     Last Modified Date: 16 September 2019
+     Last Modified Time: 14:37:48
+     Allow Depth Override: No
+End:
+
+Subbasin: KUB_CATCH
+     Last Modified Date: 30 May 2020
+     Last Modified Time: 15:25:53
+     Vapor Pressure Type: Relative Humidity
+     Relative Humidity Gage Name: --None--
+     Gage: KUB
+End:

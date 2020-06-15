@@ -1,0 +1,88 @@
+Basin: Kelani
+     Last Modified Date: 30 May 2020
+     Last Modified Time: 15:25:53
+     Version: 4.2.1
+     Filepath Separator: \
+     Unit System: Metric
+     Missing Flow To Zero: No
+     Enable Flow Ratio: No
+     Compute Local Flow At Junctions: No
+
+     Enable Sediment Routing: No
+
+     Enable Quality Routing: No
+End:
+
+Subbasin: KUB_CATCH
+     Last Modified Date: 3 June 2020
+     Last Modified Time: 15:11:25
+     Canvas X: 458743.250237808
+     Canvas Y: 496334.4183193398
+     Area: 1510
+     Observed Hydrograph Gage: Ranwala Dis
+
+     Canopy: Simple
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: Simple
+     Initial Canopy Storage Percent: 0
+     Canopy Storage Capacity: 10
+     Crop Coefficient: 1.0
+     End Canopy:
+
+     Surface: Simple
+     Initial Surface Storage Percent: 0
+     Surface Storage Capacity: 10
+     Surface Albedo: 0.20
+     End Surface:
+
+     LossRate: Soil Moisture Account
+     Percent Impervious Area: 45
+     Initial Soil Storage Percent: 67
+     Initial Gw1 Storage Percent: 43
+     Initial Gw2 Storage Percent: 78
+     Soil Maximum Infiltration: 9.6
+     Soil Storage Capacity: 125
+     Soil Tension Capacity: 75
+     Soil Maximum Percolation: 10
+     Groundwater 1 Storage Capacity: 100
+     Groundwater 1 Routing Coefficient: 45
+     Groundwater 1 Maximum Percolation: 1
+     Groundwater 2 Storage Capacity: 150
+     Groundwater 2 Routing Coefficient: 0.5
+     Groundwater 2 Maximum Percolation: 1
+
+     Transform: Clark
+     Time of Concentration: 9.9166
+     Storage Coefficient: 28.236
+     Time Area Method: Default
+
+     Baseflow: Recession
+     Recession Factor: 0.86436
+     Initial Baseflow: 30
+     Threshold Flow to Peak Ratio: 0.1
+End:
+
+Basin Schematic Properties:
+     Last View N: 517358.58212923084
+     Last View S: 483544.476721086
+     Last View W: 400998.4207443235
+     Last View E: 476309.0436383641
+     Maximum View N: 517358.58212923084
+     Maximum View S: 483544.476721086
+     Maximum View W: 400998.4207443235
+     Maximum View E: 476309.0436383641
+     Extent Method: Elements
+     Buffer: 0
+     Draw Icons: Yes
+     Draw Icon Labels: Name
+     Draw Map Objects: No
+     Draw Gridlines: Yes
+     Draw Flow Direction: Yes
+     Fix Element Locations: No
+     Fix Hydrologic Order: No
+     Map: hec.map.aishape.AiShapeMap
+     Map File Name: D:\HEC_af_2019\GIS\Lump Model\Glen_Tot_Catchment.shp
+     Minimum Scale: -2147483648
+     Maximum Scale: 2147483647
+     Map Shown: Yes
+End:

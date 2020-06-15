@@ -1,0 +1,71 @@
+Basin: Kelani
+     Last Modified Date: 30 May 2020
+     Last Modified Time: 15:25:53
+     Version: 4.2.1
+     Filepath Separator: \
+     Unit System: Metric
+     Missing Flow To Zero: No
+     Enable Flow Ratio: No
+     Compute Local Flow At Junctions: No
+
+     Enable Sediment Routing: No
+
+     Enable Quality Routing: No
+End:
+
+Subbasin: KUB_CATCH
+     Last Modified Date: 4 June 2020
+     Last Modified Time: 05:14:47
+     Canvas X: 458743.250237808
+     Canvas Y: 496334.4183193398
+     Area: 1510
+     Observed Hydrograph Gage: Ranwala Dis
+
+     Canopy: None
+     Allow Simultaneous Precip Et: No
+     Plant Uptake Method: None
+
+     Surface: None
+
+     LossRate: Green and Ampt
+     Percent Impervious Area: 0.0
+     Initial Content: 0.2163
+     Saturated Content: 0.464
+     Wetting Front Suction: 208
+     Hydraulic Conductivity: 1
+
+     Transform: Clark
+     Time of Concentration: 10
+     Storage Coefficient: 30
+     Time Area Method: Default
+
+     Baseflow: Recession
+     Recession Factor: 0.9
+     Initial Baseflow: 77
+     Threshold Flow to Peak Ratio: 0.1
+End:
+
+Basin Schematic Properties:
+     Last View N: 517358.58212923084
+     Last View S: 483544.476721086
+     Last View W: 400998.4207443235
+     Last View E: 476309.0436383641
+     Maximum View N: 517358.58212923084
+     Maximum View S: 483544.476721086
+     Maximum View W: 400998.4207443235
+     Maximum View E: 476309.0436383641
+     Extent Method: Elements
+     Buffer: 0
+     Draw Icons: Yes
+     Draw Icon Labels: Name
+     Draw Map Objects: No
+     Draw Gridlines: Yes
+     Draw Flow Direction: Yes
+     Fix Element Locations: No
+     Fix Hydrologic Order: No
+     Map: hec.map.aishape.AiShapeMap
+     Map File Name: D:\HEC_af_2019\GIS\Lump Model\Glen_Tot_Catchment.shp
+     Minimum Scale: -2147483648
+     Maximum Scale: 2147483647
+     Map Shown: Yes
+End:

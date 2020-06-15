@@ -1,0 +1,272 @@
+Meteorology: distributed_model
+     Last Modified Date: 29 March 2018
+     Last Modified Time: 04:08:34
+     Version: 4.2.1
+     Unit System: Metric
+     Set Missing Data to Default: Yes
+     Precipitation Method: Weighted Gages
+     Short-Wave Radiation Method: None
+     Long-Wave Radiation Method: None
+     Snowmelt Method: None
+     Evapotranspiration Method: Monthly Evaporation
+     Use Basin Model: distributed_model
+End:
+
+Gage: SB-1
+     Type: Recording
+End:
+
+Gage: SB-2
+     Type: Recording
+End:
+
+Gage: SB-3
+     Type: Recording
+End:
+
+Gage: SB-4
+     Type: Recording
+End:
+
+Gage: SB-5
+     Type: Recording
+End:
+
+Gage: SB-6
+     Type: Recording
+End:
+
+Precip Method Parameters: Weighted Gages
+     Last Modified Date: 3 March 2018
+     Last Modified Time: 03:23:45
+     Use HEC1 Weighting Scheme: Yes
+     Use Indexing: No
+     Allow Depth Override: No
+End:
+
+Evapotranspiration Method Parameters: Monthly Evaporation
+     Last Modified Date: 3 March 2018
+     Last Modified Time: 03:17:24
+End:
+
+Subbasin: SB-1
+     Last Modified Date: 22 March 2018
+     Last Modified Time: 09:38:50
+     Vapor Pressure Type: Relative Humidity
+     Relative Humidity Gage Name: --None--
+     Gage: SB-1
+     Volume Weight: 1
+     Temporal Distribution Weight: 1
+
+     Begin Et:
+     Pan Evaporation: 114.7
+     Pan Evaporation: 121.8
+     Pan Evaporation: 151.9
+     Pan Evaporation: 138
+     Pan Evaporation: 102.3
+     Pan Evaporation: 1.1
+     Pan Evaporation: 114.7
+     Pan Evaporation: 130.2
+     Pan Evaporation: 126
+     Pan Evaporation: 101.7
+     Pan Evaporation: 88.8
+     Pan Evaporation: 86.8
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     End Et:
+End:
+
+Subbasin: SB-3
+     Last Modified Date: 21 May 2018
+     Last Modified Time: 12:54:30
+     Vapor Pressure Type: Relative Humidity
+     Relative Humidity Gage Name: --None--
+     Gage: SB-3
+     Volume Weight: 1
+     Temporal Distribution Weight: 1
+
+     Begin Et:
+     Pan Evaporation: 114.7
+     Pan Evaporation: 121.8
+     Pan Evaporation: 151.9
+     Pan Evaporation: 138
+     Pan Evaporation: 102.3
+     Pan Evaporation: 1.1
+     Pan Evaporation: 114.7
+     Pan Evaporation: 130.2
+     Pan Evaporation: 126
+     Pan Evaporation: 101.7
+     Pan Evaporation: 88.8
+     Pan Evaporation: 86.8
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     End Et:
+End:
+
+Subbasin: SB-2
+     Last Modified Date: 21 May 2018
+     Last Modified Time: 12:54:30
+     Vapor Pressure Type: Relative Humidity
+     Relative Humidity Gage Name: --None--
+     Gage: SB-2
+     Volume Weight: 1
+     Temporal Distribution Weight: 1
+
+     Begin Et:
+     Pan Evaporation: 114.7
+     Pan Evaporation: 121.8
+     Pan Evaporation: 151.9
+     Pan Evaporation: 138
+     Pan Evaporation: 102.3
+     Pan Evaporation: 1.1
+     Pan Evaporation: 114.7
+     Pan Evaporation: 130.2
+     Pan Evaporation: 126
+     Pan Evaporation: 101.7
+     Pan Evaporation: 88.8
+     Pan Evaporation: 86.8
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     End Et:
+End:
+
+Subbasin: SB-4
+     Last Modified Date: 21 May 2018
+     Last Modified Time: 12:54:30
+     Vapor Pressure Type: Relative Humidity
+     Relative Humidity Gage Name: --None--
+     Gage: SB-4
+     Volume Weight: 1
+     Temporal Distribution Weight: 1
+
+     Begin Et:
+     Pan Evaporation: 114.7
+     Pan Evaporation: 121.8
+     Pan Evaporation: 151.9
+     Pan Evaporation: 138
+     Pan Evaporation: 102.3
+     Pan Evaporation: 1.1
+     Pan Evaporation: 114.7
+     Pan Evaporation: 130.2
+     Pan Evaporation: 126
+     Pan Evaporation: 101.7
+     Pan Evaporation: 88.8
+     Pan Evaporation: 86.8
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     End Et:
+End:
+
+Subbasin: SB-5
+     Last Modified Date: 21 May 2018
+     Last Modified Time: 12:54:30
+     Vapor Pressure Type: Relative Humidity
+     Relative Humidity Gage Name: --None--
+     Gage: SB-5
+     Volume Weight: 1
+     Temporal Distribution Weight: 1
+
+     Begin Et:
+     Pan Evaporation: 114.7
+     Pan Evaporation: 121.8
+     Pan Evaporation: 151.9
+     Pan Evaporation: 138
+     Pan Evaporation: 102.3
+     Pan Evaporation: 1.1
+     Pan Evaporation: 114.7
+     Pan Evaporation: 130.2
+     Pan Evaporation: 126
+     Pan Evaporation: 101.7
+     Pan Evaporation: 88.8
+     Pan Evaporation: 86.8
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     End Et:
+End:
+
+Subbasin: SB-6
+     Last Modified Date: 21 May 2018
+     Last Modified Time: 12:54:30
+     Vapor Pressure Type: Relative Humidity
+     Relative Humidity Gage Name: --None--
+     Gage: SB-6
+     Volume Weight: 1
+     Temporal Distribution Weight: 1
+
+     Begin Et:
+     Pan Evaporation: 114.7
+     Pan Evaporation: 121.8
+     Pan Evaporation: 151.9
+     Pan Evaporation: 138
+     Pan Evaporation: 102.3
+     Pan Evaporation: 1.1
+     Pan Evaporation: 114.7
+     Pan Evaporation: 130.2
+     Pan Evaporation: 126
+     Pan Evaporation: 101.7
+     Pan Evaporation: 88.8
+     Pan Evaporation: 86.8
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     Evapotranspiration Coefficient: 1
+     End Et:
+End:
