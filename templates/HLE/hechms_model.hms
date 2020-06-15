@@ -1,0 +1,25 @@
+Project: hechms_model
+     Description: Calibrate 20_04_2020 To 25_05_2020
+     Version: 4.2.1
+     Filepath Separator: \
+     DSS File Name: hechms_model_input.dss
+End:
+
+Precipitation: hechms_model
+     Filename: hechms_model.met
+     Description:
+     Last Modified Date: 4 June 2020
+     Last Modified Time: 04:36:21
+End:
+
+Basin: hechms_model
+     Filename: hechms_model.basin
+     Description:
+     Last Modified Date: 4 June 2020
+     Last Modified Time: 05:14:47
+End:
+
+Control: hechms_model
+     FileName: hechms_model.control
+     Description:
+End:

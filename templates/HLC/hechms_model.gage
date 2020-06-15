@@ -1,4 +1,4 @@
-Gage Manager: HEC_LUM_CON_001
+Gage Manager: hechms_model
      Version: 4.2.1
      Filepath Separator: \
 End:
@@ -17,7 +17,7 @@ Gage: KUB
        Last Variant Modified Date: 16 September 2019
        Last Variant Modified Time: 14:30:22
        Default Variant: Yes
-       DSS File Name: HEC_LUM_CON_001.dss
+       DSS File Name: hechms_model_input.dss
        DSS Pathname: //KUB/PRECIP-INC//5MIN/GAGE/
        Start Time: 7 May 2020, 21:05
        End Time: 20 May 2020, 15:00
@@ -37,10 +37,9 @@ Gage: Ranwala Dis
        Last Variant Modified Date: 26 April 2020
        Last Variant Modified Time: 10:17:13
        Default Variant: Yes
-       DSS File Name: HEC_LUM_CON_001.dss
+       DSS File Name: hechms_model_input.dss
        DSS Pathname: //Ranwala Dis/FLOW//15MIN/GAGE/
        Start Time: 20 April 2020, 00:00
        End Time: 25 May 2020, 20:15
      End Variant: Variant-1
 End:
-

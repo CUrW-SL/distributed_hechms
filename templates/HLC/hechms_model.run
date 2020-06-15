@@ -1,13 +1,12 @@
-Run: Run 1
+Run: hechms_model
      Default Description: Yes
-     Log File: Run_1.log
-     DSS File: Run_1.dss
+     Log File: hechms_model.log
+     DSS File: hechms_model_run.dss
      Last Modified Date: 3 June 2020
      Last Modified Time: 15:18:16
-     Basin: Kelani
-     Precip: Met_May__2020
-     Control: Con1
+     Basin: hechms_model
+     Precip: hechms_model
+     Control: hechms_model
      Save State Date: 25 May 2020
      Save State Time: 12:00
 End:
-
