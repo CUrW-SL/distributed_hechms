@@ -22,8 +22,8 @@ try :
         # print('Config :: ', CONFIG)
 
         NUM_METADATA_LINES = 3;
-        HEC_HMS_MODEL_DIR = './distributed_model'
-        DSS_INPUT_FILE = './distributed_model/distributed_model_input.dss'
+        HEC_HMS_MODEL_DIR = './hechms_model'
+        DSS_INPUT_FILE = './hechms_model/hechms_model_input.dss'
         RAIN_CSV_FILE = 'DailyRain.csv'
         OUTPUT_DIR = './OUTPUT'
 

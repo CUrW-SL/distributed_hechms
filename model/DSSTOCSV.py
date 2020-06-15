@@ -17,12 +17,12 @@ try:
         print
         'Jython version: ', sys.version
 
-        CONFIG = json.loads(open('/home/curw/git/distributed_hechms/model/CONFIG.json').read())
+        CONFIG = json.loads(open('/home/curw/git/hechms_model/model/CONFIG.json').read())
         # print('Config :: ', CONFIG)
 
         NUM_METADATA_LINES = 2;
-        HEC_HMS_MODEL_DIR = './distributed_model'
-        DSS_OUTPUT_FILE = './distributed_model/distributed_model_run.dss'
+        HEC_HMS_MODEL_DIR = './hechms_model'
+        DSS_OUTPUT_FILE = './hechms_model/hechms_model_run.dss'
         DISCHARGE_CSV_FILE = 'DailyDischarge.csv'
         OUTPUT_DIR = './OUTPUT'
 
