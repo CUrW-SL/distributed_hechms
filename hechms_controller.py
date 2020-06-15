@@ -22,13 +22,13 @@ BUCKET_NAME = 'curwsl_nfs'
 
 RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
 OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
-HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'distributed_model')
-HEC_HMS_STATE_DIR = os.path.join(OUTPUT_DIR, 'distributed_model', 'basinStates')
+HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'hechms_model')
+HEC_HMS_STATE_DIR = os.path.join(OUTPUT_DIR, 'hechms_model', 'basinStates')
 
-COPY_TEMPLATE_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/templates/{}/* /home/curw/git/distributed_hechms/output/distributed_model'
+COPY_TEMPLATE_CMD = 'yes | cp -R /home/curw/git/distributed_hechms/templates/{}/* /home/curw/git/distributed_hechms/output/hechms_model'
 
 STATE_BACKUP_DIR = '/home/curw/basin_states'
-COPY_STATE_FILES_CMD = 'yes | cp -R /home/curw/basin_states/* /home/curw/git/distributed_hechms/output/distributed_model/basinStates'
+COPY_STATE_FILES_CMD = 'yes | cp -R /home/curw/basin_states/* /home/curw/git/distributed_hechms/output/hechms_model/basinStates'
 ##----------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -87,15 +87,15 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
         print('run_hechms_workflow|get_basin_rain|end')
         rain_fall_file = Path(output_file)
         if rain_fall_file.is_file():
-            create_dir_if_not_exists(os.path.join(OUTPUT_DIR, 'distributed_model'))
+            create_dir_if_not_exists(os.path.join(OUTPUT_DIR, 'hechms_model'))
             subprocess.call(COPY_TEMPLATE_CMD.format(target_model), shell=True)
             subprocess.call(COPY_STATE_FILES_CMD, shell=True)
-            create_gage_file_by_rain_file('distributed_model', output_file)
-            create_control_file_by_rain_file('distributed_model', output_file)
-            create_run_file('distributed_model', initial_wl, run_datetime.strftime('%Y-%m-%d %H:%M:%S'), from_date)
+            create_gage_file_by_rain_file('hechms_model', output_file)
+            create_control_file_by_rain_file('hechms_model', output_file)
+            create_run_file('hechms_model', initial_wl, run_datetime.strftime('%Y-%m-%d %H:%M:%S'), from_date)
             state_file = get_state_file_name(from_date)
-            hechms_input = os.path.join(HEC_HMS_MODEL_DIR, HEC_INPUT_DSS.replace('{MODEL_NAME}', 'distributed_model'))
-            hechms_output = os.path.join(HEC_HMS_MODEL_DIR, HEC_OUTPUT_DSS.replace('{MODEL_NAME}', 'distributed_model'))
+            hechms_input = os.path.join(HEC_HMS_MODEL_DIR, HEC_INPUT_DSS.replace('{MODEL_NAME}', 'hechms_model'))
+            hechms_output = os.path.join(HEC_HMS_MODEL_DIR, HEC_OUTPUT_DSS.replace('{MODEL_NAME}', 'hechms_model'))
             try:
                 print('hechms_input : ', hechms_input)
                 subprocess.call(FILE_REMOVE_CMD.replace('{FILE_NAME}', hechms_input), shell=True)
@@ -177,8 +177,8 @@ def update_basin_init_values(init_date_time, db_user, db_pwd, db_host, sub_catch
     if init_discharge is not None:
         area_ratio = get_sub_catchment_area_ratios(sub_catchment_shape_file)
         print('update_basin_init_values|area_ratio : ', area_ratio)
-        basin_template_file = os.path.join(OUTPUT_DIR, 'distributed_model', 'distributed_model_template.basin')
-        basin_file = os.path.join(OUTPUT_DIR, 'distributed_model', 'distributed_model.basin')
+        basin_template_file = os.path.join(OUTPUT_DIR, 'hechms_model', 'hechms_model_template.basin')
+        basin_file = os.path.join(OUTPUT_DIR, 'hechms_model', 'hechms_model.basin')
         template = open(basin_template_file, 'r')
         lines = template.readlines()
         line_count = 1

@@ -11,8 +11,8 @@ from functools import reduce
 from datetime import datetime, timedelta
 
 # RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
-# RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
-RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
+RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
 THESSIAN_DECIMAL_POINTS = 4
 MISSING_VALUE = -99999
 FILL_VALUE = 0
@@ -79,7 +79,7 @@ def get_hl_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, al
     print('get_hl_mean_rain|[ts_start, ts_end, output_dir, model, pop_method, allowed_error, exec_datetime] : ',
           [ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime])
     try:
-        basin_shape_file = os.path.join(RESOURCE_PATH, 'klb-wgs84/klb-wgs84.shp')
+        basin_shape_file = os.path.join(RESOURCE_PATH, 'total_catchment/Glen_Tot_Catchment.shp')
         sim_adapter = CurwSimAdapter(db_user, db_pwd, db_host, db_name)
         all_stations = sim_adapter.get_all_basin_stations()
         #[{'station': station, 'hash_id': hash_id, 'latitude': latitude, 'longitude': longitude}]
@@ -295,7 +295,7 @@ def calculate_intersection(thessian_df, catchment_df):
 def hl_calculate_intersection(thessian_df, catchment_df):
     sub_ratios = []
     for i, catchment_polygon in enumerate(catchment_df['geometry']):
-        sub_catchment_name = 'KUB'
+        sub_catchment_name = catchment_df.iloc[i]['Name_of_Su']
         ratio_list = []
         for j, thessian_polygon in enumerate(thessian_df['geometry']):
             if catchment_polygon.intersects(thessian_polygon):
@@ -438,14 +438,14 @@ def get_basin_init_discharge(init_date_time, db_user, db_pwd, db_host, db_name='
 
 if __name__ == '__main__':
     try:
-        db_host = "35.227.163.211"
+        db_host = "35.197.98.125"
         db_user = "admin"
         db_pwd = "floody"
         MYSQL_DB = "curw_sim"
-        ts_start = '2020-06-10 00:00:00'
-        ts_end = '2020-06-10 04:00:00'
-        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/mean_rain'
-        get_basin_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', 0.8, '2020-06-11 06:00:00',
-                       db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub', target_model='HLC')
+        ts_start = '2020-05-24 00:00:00'
+        ts_end = '2020-06-15 11:00:00'
+        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/2020-06-15'
+        get_basin_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', 0.8, '2020-06-15 11:00:00',
+                       db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub', target_model='HDC')
     except Exception as e:     
         print('Exception: ', str(e))

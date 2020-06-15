@@ -487,6 +487,7 @@ class CurwSimAdapter:
                     return None
             else:
                 print('get_timeseries_by_hash_id|No data.')
+                print('get_timeseries_by_hash_id|data_sql : ', data_sql)
                 return None
         except Exception as e:
             print('get_timeseries_by_id|data fetch|Exception:', e)
