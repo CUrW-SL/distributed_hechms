@@ -110,7 +110,7 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                 ret_code = execute_pre_dssvue(exec_datetime, ts_start_date, ts_start_time)
                 print('execute_pre_dssvue|ret_code : ', ret_code)
                 if ret_code == 0:
-                    ret_code = execute_hechms('distributed_model', HEC_HMS_MODEL_DIR)
+                    ret_code = execute_hechms('hechms_model', HEC_HMS_MODEL_DIR)
                     print('execute_hechms|ret_code : ', ret_code)
                     if ret_code == 0:
                         ret_code = execute_post_dssvue(exec_datetime, ts_start_date, ts_start_time)
