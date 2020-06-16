@@ -1,0 +1,4 @@
+from hms.model.JythonHms import *
+OpenProject("hechms_model", "/home/curw/git/distributed_hechms/output/hechms_model")
+Compute("hechms_model")
+Exit(1)
