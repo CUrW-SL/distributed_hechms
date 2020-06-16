@@ -128,11 +128,12 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                                 extract_distrubuted_hechms_outputs(target_model, db_user, db_pwd, db_host, 'curw_fcst',
                                                                    output_file, file_date, '00:00:00')
                                 print('extract_distrubuted_hechms_outputs|cloud|completed')
+
                                 upload_rain_file = os.path.join(OUTPUT_DIR, 'DailyRain.csv')
                                 upload_discharge_file = os.path.join(OUTPUT_DIR, 'DailyDischarge.csv')
-                                bucket_rain_file = 'event_hechms/{}/{}/DailyRain.csv'.format(file_date,
+                                bucket_rain_file = 'hechms/{}/{}/{}/DailyRain.csv'.format(target_model, file_date,
                                                                                              file_time)
-                                bucket_discharge_file = 'event_hechms/{}/{}/DailyDischarge.csv'.format(file_date,
+                                bucket_discharge_file = 'hechms/{}/{}/{}/DailyDischarge.csv'.format(target_model, file_date,
                                                                                                        file_time)
                                 print('extract_distrubuted_hechms_outputs|upload_rain_file : ', upload_rain_file)
                                 print('extract_distrubuted_hechms_outputs|bucket_rain_file : ', bucket_rain_file)
