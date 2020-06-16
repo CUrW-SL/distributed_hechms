@@ -1,5 +1,5 @@
-Control: distributed_model
-     Description: Distributed HecHms
+Control: hechms_model
+     Description: HecHms Model
      Last Modified Date: 10 February 2020
      Last Modified Time: 11:19
      Version: 4.2.1
@@ -11,4 +11,3 @@ Control: distributed_model
      Grid Write Interval: 1440
      Grid Write Time Shift: 0
 End:
-
