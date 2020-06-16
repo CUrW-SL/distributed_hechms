@@ -42,7 +42,7 @@ def create_hl_df(ts_start_str, ts_end_str):
         time_series.append({'Time': ts_step.strftime('%Y-%m-%d %H:%M:%S'),
                             'Rainfall': Decimal(0.0)})
         ts_step = next_ts_step
-    mean_rain_df = pd.DataFrame(data=time_series, columns=['Time','Rain']).set_index('Time', inplace=True)
+    mean_rain_df = pd.DataFrame(data=time_series, columns=['Time', 'Rain']).set_index('Time', inplace=True)
     print('create_hl_df|mean_rain_df : ', mean_rain_df)
     return mean_rain_df
 
@@ -61,7 +61,8 @@ def create_df(ts_start_str, ts_end_str):
                             'Rainfall4': Decimal(0.0),
                             'Rainfall5': Decimal(0.0)})
         ts_step = next_ts_step
-    mean_rain_df = pd.DataFrame(data=time_series, columns=['Time', 'Rainfall1', 'Rainfall2', 'Rainfall3', 'Rainfall4', 'Rainfall5']).set_index(keys='Time')
+    mean_rain_df = pd.DataFrame(data=time_series,
+                                columns=['Time', 'Rainfall1', 'Rainfall2', 'Rainfall3', 'Rainfall4', 'Rainfall5']).set_index(keys='Time')
     print('create_df|mean_rain_df : ', mean_rain_df)
     return mean_rain_df
 
