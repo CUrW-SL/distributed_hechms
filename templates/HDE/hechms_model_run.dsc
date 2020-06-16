@@ -1,8 +1,8 @@
 
-     HECDSS Complete Catalog of Record Pathnames in File /home/curw/git/distributed_hechms/output/distributed_model/distributed_model_run.dss
+     HECDSS Complete Catalog of Record Pathnames in File /home/curw/git/distributed_hechms/output/hechms_model/hechms_model_run.dss
 
      Catalog Created on Oct 9, 2019, 03:19
-     Number of Records:0000590                   DSS 
+     Number of Records:0000590                   DSS
      Sort Order: ABCFED
 
   Ref.

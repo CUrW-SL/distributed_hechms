@@ -9,7 +9,7 @@ Meteorology: Met_may2020
      Long-Wave Radiation Method: None
      Snowmelt Method: None
      Evapotranspiration Method: No Evapotranspiration
-     Use Basin Model: distributed_model
+     Use Basin Model: hechms_model
 End:
 
 Precip Method Parameters: Specified Average

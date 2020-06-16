@@ -1,7 +1,7 @@
-Run: distributed_model
+Run: hechms_model
      Default Description: Yes
-     Log File: distributed_model.log
-     DSS File: distributed_model_run.dss
+     Log File: hechms_model.log
+     DSS File: hechms_model_run.dss
      Last Modified Date: 9 February 2020
      Last Modified Time: 24:00:00
      Last Execution Date: 10 February 2020
@@ -13,4 +13,3 @@ Run: distributed_model
      Save State Date: 7 February 2020
      Save State Time: 24:00
 End:
-

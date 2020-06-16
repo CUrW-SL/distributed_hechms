@@ -1,26 +1,26 @@
-Project: distributed_model
-     Description: 
+Project: hechms_model
+     Description:
      Version: 4.2.1
      Filepath Separator: /
-     DSS File Name: distributed_model_input.dss
+     DSS File Name: hechms_model_input.dss
      Time Zone ID: Asia/Colombo
 End:
 
-Precipitation: distributed_model
-     Filename: distributed_model.met
-     Description: 
-     Last Modified Date: 
-     Last Modified Time: 
+Precipitation: hechms_model
+     Filename: hechms_model.met
+     Description:
+     Last Modified Date:
+     Last Modified Time:
 End:
 
-Basin: distributed_model
-     Filename: distributed_model.basin
-     Description: 
+Basin: hechms_model
+     Filename: hechms_model.basin
+     Description:
      Last Modified Date: 29 May 2017
      Last Modified Time: 15:00:40
 End:
 
-Control: distributed_model
-     FileName: distributed_model.control
-     Description: 
+Control: hechms_model
+     FileName: hechms_model.control
+     Description:
 End:
