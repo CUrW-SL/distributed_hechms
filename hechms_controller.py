@@ -176,56 +176,78 @@ def update_basin_init_values(init_date_time, db_user, db_pwd, db_host, sub_catch
     init_discharge = get_basin_init_discharge(init_date_time, db_user, db_pwd, db_host)
     print('update_basin_init_values|init_discharge : ', init_discharge)
     if init_discharge is not None:
-        area_ratio = get_sub_catchment_area_ratios(sub_catchment_shape_file)
-        print('update_basin_init_values|area_ratio : ', area_ratio)
         basin_template_file = os.path.join(OUTPUT_DIR, 'hechms_model', 'hechms_model_template.basin')
         basin_file = os.path.join(OUTPUT_DIR, 'hechms_model', 'hechms_model.basin')
-        template = open(basin_template_file, 'r')
-        lines = template.readlines()
-        line_count = 1
-        with open(basin_file, 'w') as actual:
-            for line in lines:
-                if target_model == 'HDC':
-                    if line_count == 62:
-                        discharge_value1 = init_discharge * area_ratio['SB-1']
-                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value1)
-                    elif line_count == 129:
-                        discharge_value2 = init_discharge * area_ratio['SB-3']
-                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value2)
-                    elif line_count == 179:
-                        discharge_value3 = init_discharge * area_ratio['SB-2']
-                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value3)
-                    elif line_count == 255:
-                        discharge_value4 = init_discharge * area_ratio['SB-4']
-                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value4)
-                    elif line_count == 304:
-                        discharge_value5 = init_discharge * area_ratio['SB-5']
-                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value5)
-                    else:
-                        new_line = line
-                    actual.write(new_line)
-                    line_count += 1
-                elif target_model == 'HDE':
-                    if line_count == 45:
-                        discharge_value1 = init_discharge * area_ratio['SB-1']
-                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value1)
-                    elif line_count == 95:
-                        discharge_value2 = init_discharge * area_ratio['SB-3']
-                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value2)
-                    elif line_count == 128:
-                        discharge_value3 = init_discharge * area_ratio['SB-2']
-                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value3)
-                    elif line_count == 187:
-                        discharge_value4 = init_discharge * area_ratio['SB-4']
-                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value4)
-                    elif line_count == 219:
-                        discharge_value5 = init_discharge * area_ratio['SB-5']
-                        new_line = '     Initial Baseflow: {}\n'.format(discharge_value5)
-                    else:
-                        new_line = line
-                    actual.write(new_line)
-                    line_count += 1
-        template.close()
+        if target_model == 'HDC' or target_model == 'HDE':
+            area_ratio = get_sub_catchment_area_ratios(sub_catchment_shape_file)
+            print('update_basin_init_values|area_ratio : ', area_ratio)
+            template = open(basin_template_file, 'r')
+            lines = template.readlines()
+            line_count = 1
+            with open(basin_file, 'w') as actual:
+                for line in lines:
+                    if target_model == 'HDC':
+                        if line_count == 62:
+                            discharge_value1 = init_discharge * area_ratio['SB-1']
+                            new_line = '     Initial Baseflow: {}\n'.format(discharge_value1)
+                        elif line_count == 129:
+                            discharge_value2 = init_discharge * area_ratio['SB-3']
+                            new_line = '     Initial Baseflow: {}\n'.format(discharge_value2)
+                        elif line_count == 179:
+                            discharge_value3 = init_discharge * area_ratio['SB-2']
+                            new_line = '     Initial Baseflow: {}\n'.format(discharge_value3)
+                        elif line_count == 255:
+                            discharge_value4 = init_discharge * area_ratio['SB-4']
+                            new_line = '     Initial Baseflow: {}\n'.format(discharge_value4)
+                        elif line_count == 304:
+                            discharge_value5 = init_discharge * area_ratio['SB-5']
+                            new_line = '     Initial Baseflow: {}\n'.format(discharge_value5)
+                        else:
+                            new_line = line
+                        actual.write(new_line)
+                        line_count += 1
+                    elif target_model == 'HDE':
+                        if line_count == 45:
+                            discharge_value1 = init_discharge * area_ratio['SB-1']
+                            new_line = '     Initial Baseflow: {}\n'.format(discharge_value1)
+                        elif line_count == 95:
+                            discharge_value2 = init_discharge * area_ratio['SB-3']
+                            new_line = '     Initial Baseflow: {}\n'.format(discharge_value2)
+                        elif line_count == 128:
+                            discharge_value3 = init_discharge * area_ratio['SB-2']
+                            new_line = '     Initial Baseflow: {}\n'.format(discharge_value3)
+                        elif line_count == 187:
+                            discharge_value4 = init_discharge * area_ratio['SB-4']
+                            new_line = '     Initial Baseflow: {}\n'.format(discharge_value4)
+                        elif line_count == 219:
+                            discharge_value5 = init_discharge * area_ratio['SB-5']
+                            new_line = '     Initial Baseflow: {}\n'.format(discharge_value5)
+                        else:
+                            new_line = line
+                        actual.write(new_line)
+                        line_count += 1
+            template.close()
+        else:
+            template = open(basin_template_file, 'r')
+            lines = template.readlines()
+            line_count = 1
+            with open(basin_file, 'w') as actual:
+                for line in lines:
+                    if target_model == 'HLC':
+                        if line_count == 61:
+                            new_line = '     Initial Baseflow: {}\n'.format(init_discharge)
+                        else:
+                            new_line = line
+                        actual.write(new_line)
+                        line_count += 1
+                    elif target_model == 'HLE':
+                        if line_count == 44:
+                            new_line = '     Initial Baseflow: {}\n'.format(init_discharge)
+                        else:
+                            new_line = line
+                        actual.write(new_line)
+                        line_count += 1
+            template.close()
 
 
 def get_sub_catchment_area_ratios(sub_catchment_shape_file):
