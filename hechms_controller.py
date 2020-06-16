@@ -20,7 +20,8 @@ from google.cloud import storage
 GOOGLE_BUCKET_KEY_PATH = '/home/curw/uwcc-admin.json'
 BUCKET_NAME = 'curwsl_nfs'
 
-RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
 OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
 HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'hechms_model')
 HEC_HMS_STATE_DIR = os.path.join(OUTPUT_DIR, 'hechms_model', 'basinStates')
@@ -322,3 +323,20 @@ if __name__ == '__main__':
     else:
         print('**** HECHMS RUN Failed****')
 
+
+# if __name__ == '__main__':
+#     db_user = 'fcst_pusher'
+#     db_pwd = 'aquafcst'
+#     db_host = '35.197.98.125'
+#     db_name = 'curw_sim'
+#     run_datetime = '2020-06-17_14:00:00'
+#     backward = '3'
+#     forward = '2'
+#     init_run = '0'
+#     pop_method = 'MME'
+#     target_model = 'HDC'
+#     if run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime, backward, forward, init_run, pop_method,
+#                            target_model):
+#         print('**** HECHMS RUN Completed****')
+#     else:
+#         print('**** HECHMS RUN Failed****')

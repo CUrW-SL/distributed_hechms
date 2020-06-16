@@ -11,8 +11,8 @@ from functools import reduce
 from datetime import datetime, timedelta
 
 # RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
-RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
-# RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
 THESSIAN_DECIMAL_POINTS = 4
 MISSING_VALUE = -99999
 FILL_VALUE = 0
@@ -43,7 +43,7 @@ def create_hl_df(ts_start_str, ts_end_str):
                             'Rainfall': Decimal(0.0)})
         ts_step = next_ts_step
     mean_rain_df = pd.DataFrame(data=time_series, columns=['Time', 'Rain']).set_index('Time', inplace=True)
-    print('create_hl_df|mean_rain_df : ', mean_rain_df)
+    # print('create_hl_df|mean_rain_df : ', mean_rain_df)
     return mean_rain_df
 
 
@@ -63,7 +63,7 @@ def create_df(ts_start_str, ts_end_str):
         ts_step = next_ts_step
     mean_rain_df = pd.DataFrame(data=time_series,
                                 columns=['Time', 'Rainfall1', 'Rainfall2', 'Rainfall3', 'Rainfall4', 'Rainfall5']).set_index(keys='Time')
-    print('create_df|mean_rain_df : ', mean_rain_df)
+    # print('create_df|mean_rain_df : ', mean_rain_df)
     return mean_rain_df
 
 
@@ -208,8 +208,9 @@ def calculate_hd_step_mean(shape_file, sub_catchment_shape_file, station_infos, 
         if gauge_points:  ## TODO: check on empty gauge points
             gauge_points_thessian = get_thessian_polygon_from_gage_points(shape_file, gauge_points)
             catchment_df = gpd.GeoDataFrame.from_file(sub_catchment_shape_file)
+            print('calculate_hd_step_mean|calculating sub ratios')
             sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
-            print('calculate_step_mean|sub_ratios : ', sub_ratios)
+            print('calculate_hd_step_mean|sub_ratios : ', sub_ratios)
             for sub_ratio in sub_ratios:
                 catchment_name = sub_ratio['sub_catchment_name']
                 catchment_ts_list = []
@@ -226,10 +227,12 @@ def calculate_hd_step_mean(shape_file, sub_catchment_shape_file, station_infos, 
                 total_rain.rename(columns={'value': catchment_name}, inplace=True)
                 catchment_name_list.append(catchment_name)
                 catchment_rain.append(total_rain)
-        print('calculate_hd_step_mean|catchment_rain : ', catchment_rain)
+        print('calculate_hd_step_mean|len(catchment_rain) : ', len(catchment_rain))
         if len(catchment_rain) > 0:
+            print('calculate_hd_step_mean|Rain data')
             mean_rain = catchment_rain[0].join(catchment_rain[1:])
         else:
+            print('calculate_hd_step_mean|No Rain data')
             mean_rain = zero_tms_df
         _write_mean_rain_to_file(mean_rain, output_file, catchment_name_list, step_one)
     except Exception as e:
@@ -426,10 +429,14 @@ if __name__ == '__main__':
         db_user = "admin"
         db_pwd = "floody"
         MYSQL_DB = "curw_sim"
-        ts_start = '2020-05-27 12:00:00'
-        ts_end = '2020-05-27 17:00:00'
-        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/mean_rain'
-        get_basin_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', 0.8, '2020-06-15 15:00:00',
+        ts_start = '2020-06-15 18:00:00'
+        ts_end = '2020-06-15 22:00:00'
+        exec_date = '2020-06-16 20:00:00'
+        output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/'
+        output_dir = os.path.join(output_dir,exec_date)
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        get_basin_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', 0.8, exec_date,
                        db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub', target_model='HDC')
     except Exception as e:
         print('Exception: ', str(e))
