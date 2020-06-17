@@ -205,15 +205,15 @@ def calculate_hd_step_mean(shape_file, sub_catchment_shape_file, station_infos, 
             gauge_points[station] = ['%.6f' % station_info['longitude'], '%.6f' % station_info['latitude']]
         catchment_rain = []
         catchment_name_list = []
-        print('calculate_hd_step_mean|gauge_points : ', gauge_points)
+        # print('calculate_hd_step_mean|gauge_points : ', gauge_points)
         if gauge_points:  ## TODO: check on empty gauge points
             gauge_points_thessian = get_thessian_polygon_from_gage_points(shape_file, gauge_points)
             # print('calculate_hd_step_mean|gauge_points_thessian : ', gauge_points_thessian)
             catchment_df = gpd.GeoDataFrame.from_file(sub_catchment_shape_file)
             # print('calculate_hd_step_mean|catchment_df : ', catchment_df)
-            print('calculate_hd_step_mean|calculating sub ratios')
+            # print('calculate_hd_step_mean|calculating sub ratios')
             sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
-            print('calculate_hd_step_mean|sub_ratios : ', sub_ratios)
+            # print('calculate_hd_step_mean|sub_ratios : ', sub_ratios)
             for sub_ratio in sub_ratios:
                 catchment_name = sub_ratio['sub_catchment_name']
                 catchment_ts_list = []
@@ -230,12 +230,12 @@ def calculate_hd_step_mean(shape_file, sub_catchment_shape_file, station_infos, 
                 total_rain.rename(columns={'value': catchment_name}, inplace=True)
                 catchment_name_list.append(catchment_name)
                 catchment_rain.append(total_rain)
-        print('calculate_hd_step_mean|len(catchment_rain) : ', len(catchment_rain))
+        # print('calculate_hd_step_mean|len(catchment_rain) : ', len(catchment_rain))
         if len(catchment_rain) > 0:
-            print('calculate_hd_step_mean|Rain data')
+            # print('calculate_hd_step_mean|Rain data')
             mean_rain = catchment_rain[0].join(catchment_rain[1:])
         else:
-            print('calculate_hd_step_mean|No Rain data')
+            # print('calculate_hd_step_mean|No Rain data')
             mean_rain = zero_tms_df
         _write_mean_rain_to_file(mean_rain, output_file, catchment_name_list, step_one)
     except Exception as e:
