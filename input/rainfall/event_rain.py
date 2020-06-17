@@ -303,8 +303,9 @@ def hl_calculate_intersection(thessian_df, catchment_df):
 def get_thessian_polygon_from_gage_points(shape_file, gage_points):
     # shape = res_mgr.get_resource_path(shape_file)
     # calculate the voronoi/thesian polygons w.r.t given station points.
+    print('get_thessian_polygon_from_gage_points|shape_file : ', shape_file)
     voronoi_polygon = get_voronoi_polygons(gage_points, shape_file, ['OBJECTID', 1])
-    # #print('get_thessian_polygon_from_gage_points|voronoi_polygon : ', voronoi_polygon)
+    print('get_thessian_polygon_from_gage_points|voronoi_polygon : ', voronoi_polygon)
     return voronoi_polygon
 
 
