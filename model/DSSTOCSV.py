@@ -19,6 +19,7 @@ try:
 
         print
         'DSSTOCSV---xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+        
         CONFIG = json.loads(open('/home/curw/git/hechms_model/model/CONFIG.json').read())
         print
         'Config :: ', CONFIG
