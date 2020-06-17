@@ -33,6 +33,8 @@ def _execute_hec_dssvue(python_script, run_date, run_time, ts_start_date, ts_sta
 
 
 def execute_hechms(model_name, run_path):
+    print('execute_hechms|model_name : ', model_name)
+    print('execute_hechms|run_path : ', run_path)
     hec_hms_sh_fp = path.join(HEC_HMS_HOME, HEC_HMS_SH)
     model_event_script_fp = path.join(run_path, HEC_EVENT_SCRIPT.replace('{MODEL_NAME}', model_name))
     bash_command = "{hec_hms_sh} -s {hec_event_script}" \
