@@ -17,12 +17,8 @@ try:
         print
         'Jython version: ', sys.version
 
-        print
-        'DSSTOCSV---xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-        
-        CONFIG = json.loads(open('/home/curw/git/hechms_model/model/CONFIG.json').read())
-        print
-        'Config :: ', CONFIG
+        CONFIG = json.loads(open('/home/curw/git/distributed_hechms/model/CONFIG.json').read())
+        # print('Config :: ', CONFIG)
 
         NUM_METADATA_LINES = 2;
         HEC_HMS_MODEL_DIR = './hechms_model'

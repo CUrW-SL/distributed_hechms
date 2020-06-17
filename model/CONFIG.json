@@ -4,7 +4,7 @@
   "OUTPUT_DIR": "/home/curw/git/distributed_hechms/output",
   "HEC_HMS_MODEL_DIR": "/home/curw/git/distributed_hechms/output/hechms_model",
   "DSS_INPUT_FILE": "/home/curw/git/distributed_hechms/output/hechms_model/hechms_model_input.dss",
-  "DSS_OUTPUT_FILE": "/home/curw/git/distributed_hechms/output/hechms_model/hechms_model_runn.dss",
+  "DSS_OUTPUT_FILE": "/home/curw/git/distributed_hechms/output/hechms_model/hechms_model_run.dss",
   "HEC_HMS_CONTROL": "/home/curw/git/distributed_hechms/output/hechms_model/hechms_model.control",
   "HEC_HMS_RUN": "/home/curw/git/distributed_hechms/output/hechms_model/hechms_model.run",
   "HEC_HMS_GAGE": "/home/curw/git/distributed_hechms/output/hechms_model/hechms_model.gage",
