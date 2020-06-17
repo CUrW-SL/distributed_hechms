@@ -88,7 +88,6 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
         if rain_fall_file.is_file():
             create_dir_if_not_exists(os.path.join(OUTPUT_DIR, 'hechms_model'))
             subprocess.call(COPY_TEMPLATE_CMD.format(target_model), shell=True)
-            # subprocess.call(COPY_STATE_FILES_CMD, shell=True)
             create_gage_file_by_rain_file('hechms_model', output_file)
             create_control_file_by_rain_file('hechms_model', output_file)
             create_run_file('hechms_model', initial_wl, run_datetime.strftime('%Y-%m-%d %H:%M:%S'), from_date)

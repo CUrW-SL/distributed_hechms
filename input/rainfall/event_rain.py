@@ -122,12 +122,12 @@ def calculate_hl_step_mean(basin_shape_file, station_infos, output_file, step_on
         for station_info in station_infos:
             station = station_info['station']
             gauge_points[station] = ['%.6f' % station_info['longitude'], '%.6f' % station_info['latitude']]
-        print('calculate_step_mean|gauge_points : ', gauge_points)
+        # print('calculate_step_mean|gauge_points : ', gauge_points)
         gauge_points_thessian = get_thessian_polygon_from_gage_points(basin_shape_file, gauge_points)
-        print('calculate_step_mean|gauge_points_thessian : ', gauge_points_thessian)
+        # print('calculate_step_mean|gauge_points_thessian : ', gauge_points_thessian)
         catchment_df = gpd.GeoDataFrame.from_file(basin_shape_file)
         sub_ratios = hl_calculate_intersection(gauge_points_thessian, catchment_df)
-        print('calculate_step_mean|sub_ratios : ', sub_ratios)
+        # print('calculate_step_mean|sub_ratios : ', sub_ratios)
         catchment_rain = []
         catchment_name_list = []
         for sub_ratio in sub_ratios:
@@ -208,9 +208,9 @@ def calculate_hd_step_mean(shape_file, sub_catchment_shape_file, station_infos, 
         print('calculate_hd_step_mean|gauge_points : ', gauge_points)
         if gauge_points:  ## TODO: check on empty gauge points
             gauge_points_thessian = get_thessian_polygon_from_gage_points(shape_file, gauge_points)
-            print('calculate_hd_step_mean|gauge_points_thessian : ', gauge_points_thessian)
+            # print('calculate_hd_step_mean|gauge_points_thessian : ', gauge_points_thessian)
             catchment_df = gpd.GeoDataFrame.from_file(sub_catchment_shape_file)
-            print('calculate_hd_step_mean|catchment_df : ', catchment_df)
+            # print('calculate_hd_step_mean|catchment_df : ', catchment_df)
             print('calculate_hd_step_mean|calculating sub ratios')
             sub_ratios = calculate_intersection(gauge_points_thessian, catchment_df)
             print('calculate_hd_step_mean|sub_ratios : ', sub_ratios)
@@ -266,8 +266,8 @@ def _write_mean_rain_to_file(mean_rain, output_file, catchment_name_list, step_o
 
 
 def calculate_intersection(thessian_df, catchment_df):
-    print('calculate_intersection|thessian_df : ', thessian_df)
-    print('calculate_intersection|catchment_df : ', catchment_df)
+    # print('calculate_intersection|thessian_df : ', thessian_df)
+    # print('calculate_intersection|catchment_df : ', catchment_df)
     sub_ratios = []
     for i, catchment_polygon in enumerate(catchment_df['geometry']):
         sub_catchment_name = catchment_df.iloc[i]['Name_of_Su']
