@@ -10,9 +10,9 @@ from db_layer import CurwSimAdapter
 from functools import reduce
 from datetime import datetime, timedelta
 
-# RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
+RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
 # RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
-RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
 THESSIAN_DECIMAL_POINTS = 4
 MISSING_VALUE = -99999
 FILL_VALUE = 0

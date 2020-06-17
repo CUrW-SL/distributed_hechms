@@ -20,8 +20,8 @@ from google.cloud import storage
 GOOGLE_BUCKET_KEY_PATH = '/home/curw/uwcc-admin.json'
 BUCKET_NAME = 'curwsl_nfs'
 
-# RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
-RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
+RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
 OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
 HEC_HMS_MODEL_DIR = os.path.join(OUTPUT_DIR, 'hechms_model')
 HEC_HMS_STATE_DIR = os.path.join(OUTPUT_DIR, 'hechms_model', 'basinStates')
