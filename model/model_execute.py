@@ -8,6 +8,8 @@ from config import HEC_HMS_HOME, HEC_HMS_SH, HEC_DSSVUE_HOME, HEC_DSSVUE_SH, HEC
 
 
 def execute_pre_dssvue(run_date_time, ts_start_date, ts_start_time):
+    print('execute_pre_dssvue|[run_date_time, ts_start_date, ts_start_time] : ', [run_date_time, ts_start_date,
+                                                                                   ts_start_time])
     python_script_fp = PRE_PROCESSING_SCRIPT
     run_date = run_date_time.strftime('%Y-%m-%d')
     run_time = run_date_time.strftime('%H:%M:%S')
@@ -16,6 +18,8 @@ def execute_pre_dssvue(run_date_time, ts_start_date, ts_start_time):
 
 
 def execute_post_dssvue(run_date_time, ts_start_date, ts_start_time):
+    print('execute_post_dssvue|[run_date_time, ts_start_date, ts_start_time] : ', [run_date_time, ts_start_date,
+                                                                                   ts_start_time])
     python_script_fp = POST_PROCESSING_SCRIPT
     run_date = run_date_time.strftime('%Y-%m-%d')
     run_time = run_date_time.strftime('%H:%M:%S')
@@ -36,7 +40,9 @@ def execute_hechms(model_name, run_path):
     print('execute_hechms|model_name : ', model_name)
     print('execute_hechms|run_path : ', run_path)
     hec_hms_sh_fp = path.join(HEC_HMS_HOME, HEC_HMS_SH)
+    print('hec_hms_sh_fp|hec_hms_sh_fp : ', hec_hms_sh_fp)
     model_event_script_fp = path.join(run_path, HEC_EVENT_SCRIPT.replace('{MODEL_NAME}', model_name))
+    print('execute_hechms|model_event_script_fp : ', model_event_script_fp)
     bash_command = "{hec_hms_sh} -s {hec_event_script}" \
         .format(hec_hms_sh=hec_hms_sh_fp, hec_event_script=model_event_script_fp)
     print('execute_hechms|bash_command : ', bash_command)
