@@ -27,6 +27,9 @@ OUTPUT_DIR = '/home/curw/git/distributed_hechms/output'
 
 FILE_REMOVE_CMD = 'rm -f {FILE_NAME}'
 
+RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
+# RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
+
 
 GAGE_MANAGER_TEMPLATE = 'Gage Manager: {MODEL_NAME}\n     Version: 4.2.1\n     Filepath Separator: \ \nEnd:'
 
