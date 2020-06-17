@@ -14,11 +14,10 @@ import simplejson as json
 
 try:
     try:
-        print
-        'Jython version: ', sys.version
+        print 'Jython version: ', sys.version
 
         CONFIG = json.loads(open('/home/curw/git/distributed_hechms/model/CONFIG.json').read())
-        # print('Config :: ', CONFIG)
+        print('Config :: ', CONFIG)
 
         NUM_METADATA_LINES = 2;
         HEC_HMS_MODEL_DIR = './hechms_model'
@@ -57,8 +56,7 @@ try:
                           help="Path of HEC_HMS_MODEL_DIR directory. Otherwise using the `HEC_HMS_MODEL_DIR` from CONFIG.json")
 
         (options, args) = parser.parse_args()
-        print
-        'Commandline Options:', options
+        print 'Commandline Options:', options
 
         if options.date:
             date = options.date
