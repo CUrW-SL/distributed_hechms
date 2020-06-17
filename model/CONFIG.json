@@ -8,5 +8,6 @@
   "HEC_HMS_CONTROL": "/home/curw/git/distributed_hechms/output/hechms_model/hechms_model.control",
   "HEC_HMS_RUN": "/home/curw/git/distributed_hechms/output/hechms_model/hechms_model.run",
   "HEC_HMS_GAGE": "/home/curw/git/distributed_hechms/output/hechms_model/hechms_model.gage",
-  "RAIN_CSV_FILE": "/home/curw/git/distributed_hechms/output/DailyRain.csv"
+  "RAIN_CSV_FILE": "/home/curw/git/distributed_hechms/output/DailyRain.csv",
+  "DISCHARGE_CSV_FILE": "/home/curw/git/distributed_hechms/output/DailyDischarge.csv"
 }
