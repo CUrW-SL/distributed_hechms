@@ -204,6 +204,7 @@ def calculate_hd_step_mean(shape_file, sub_catchment_shape_file, station_infos, 
             gauge_points[station] = ['%.6f' % station_info['longitude'], '%.6f' % station_info['latitude']]
         catchment_rain = []
         catchment_name_list = []
+        print('calculate_hd_step_mean|gauge_points : ', gauge_points)
         if gauge_points:  ## TODO: check on empty gauge points
             gauge_points_thessian = get_thessian_polygon_from_gage_points(shape_file, gauge_points)
             catchment_df = gpd.GeoDataFrame.from_file(sub_catchment_shape_file)
@@ -428,9 +429,9 @@ if __name__ == '__main__':
         db_user = "admin"
         db_pwd = "floody"
         MYSQL_DB = "curw_sim"
-        ts_start = '2020-06-15 18:00:00'
-        ts_end = '2020-06-15 22:00:00'
-        exec_date = '2020-06-16 20:00:00'
+        ts_start = '2020-05-29 00:00:00'
+        ts_end = '2020-05-30 00:00:00'
+        exec_date = '2020-06-17 06:00:00'
         output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/'
         output_dir = os.path.join(output_dir,exec_date)
         if not os.path.exists(output_dir):
