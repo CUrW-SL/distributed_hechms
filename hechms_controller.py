@@ -250,15 +250,15 @@ def update_basin_init_values(init_date_time, db_user, db_pwd, db_host, sub_catch
 
 def get_sub_catchment_area_ratios(sub_catchment_shape_file):
     catchment_df = gpd.GeoDataFrame.from_file(sub_catchment_shape_file)
-    print('get_sub_catchment_area_ratios|catchment_df : ', catchment_df)
+    # print('get_sub_catchment_area_ratios|catchment_df : ', catchment_df)
     total_area = 0
     for index, row in catchment_df.iterrows():
         total_area += row['Area']
-    print('get_sub_catchment_area_ratios|total_area : ', total_area)
+    # print('get_sub_catchment_area_ratios|total_area : ', total_area)
     area_ratio = {}
     for index, row in catchment_df.iterrows():
         area_ratio[row['Name_of_Su']] = Decimal(row['Area'] / total_area)
-    print('get_sub_catchment_area_ratios|area_ratio : ', area_ratio)
+    # print('get_sub_catchment_area_ratios|area_ratio : ', area_ratio)
     return area_ratio
 
 
