@@ -67,9 +67,10 @@ def create_df(ts_start_str, ts_end_str):
 
 
 def get_basin_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime,
-                   db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub', target_model='HDC'):
-    print('[ts_start, ts_end, output_dir, model, pop_method, allowed_error, exec_datetime, target_model] : ',
-          [ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime, target_model])
+                   db_user, db_pwd, db_host, db_name='curw_sim', target_model='HDC', catchment='kub'):
+    print('[ts_start, ts_end, output_dir, model, pop_method, allowed_error, exec_datetime, target_model, catchment] : ',
+          [ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime, target_model,
+           catchment])
     if target_model == 'HDC' or target_model == 'HDE':
         get_hd_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime, db_user,
                          db_pwd, db_host, db_name, catchment)
@@ -158,8 +159,8 @@ def get_hd_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, al
                      db_pwd, db_host, db_name, catchment):
     sim_adapter = None
     try:
-        print('get_hd_mean_rain|[ts_start, ts_end, output_dir, model, pop_method, allowed_error, exec_datetime] : ',
-              [ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime])
+        print('get_hd_mean_rain|[ts_start, ts_end, output_dir, model, pop_method, allowed_error, exec_datetime, catchment] : ',
+              [ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime, catchment])
         sub_catchment_shape_file = os.path.join(RESOURCE_PATH, 'sub_catchments/sub_subcatchments.shp')
         if catchment == 'kub':
             shape_file = os.path.join(RESOURCE_PATH, 'kub-wgs84/kub-wgs84.shp')
