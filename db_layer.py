@@ -5,13 +5,10 @@ from decimal import Decimal
 from shapely.geometry import Polygon, Point
 import geopandas as gpd
 import os
+from config import RESOURCE_PATH
 
 MISSING_VALUE = -99999
 FILL_VALUE = 0
-
-RESOURCE_PATH = '/home/curw/git/distributed_hechms/resources'
-# RESOURCE_PATH = '/home/hasitha/PycharmProjects/distributed_hechms/resources'
-# RESOURCE_PATH = '/home/uwcc-admin/git/distributed_hechms/resources'
 
 
 def validate_dataframe(df, allowed_error):
