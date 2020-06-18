@@ -288,7 +288,8 @@ def calculate_intersection(thessian_df, catchment_df):
 def hl_calculate_intersection(thessian_df, catchment_df):
     sub_ratios = []
     for i, catchment_polygon in enumerate(catchment_df['geometry']):
-        sub_catchment_name = catchment_df.iloc[i]['Name_of_Su']
+        # sub_catchment_name = catchment_df.iloc[i]['Name_of_Su']
+        sub_catchment_name = 'KUB'
         ratio_list = []
         for j, thessian_polygon in enumerate(thessian_df['geometry']):
             if catchment_polygon.intersects(thessian_polygon):
