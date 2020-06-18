@@ -123,12 +123,12 @@ def calculate_hl_step_mean(basin_shape_file, station_infos, output_file, step_on
         for station_info in station_infos:
             station = station_info['station']
             gauge_points[station] = ['%.6f' % station_info['longitude'], '%.6f' % station_info['latitude']]
-        print('calculate_step_mean|gauge_points : ', gauge_points)
+        # print('calculate_step_mean|gauge_points : ', gauge_points)
         gauge_points_thessian = get_thessian_polygon_from_gage_points(basin_shape_file, gauge_points)
-        print('calculate_step_mean|gauge_points_thessian : ', gauge_points_thessian)
+        # print('calculate_step_mean|gauge_points_thessian : ', gauge_points_thessian)
         catchment_df = gpd.GeoDataFrame.from_file(basin_shape_file)
         sub_ratios = hl_calculate_intersection(gauge_points_thessian, catchment_df)
-        print('calculate_step_mean|sub_ratios : ', sub_ratios)
+        # print('calculate_step_mean|sub_ratios : ', sub_ratios)
         catchment_rain = []
         catchment_name_list = []
         for sub_ratio in sub_ratios:
@@ -305,9 +305,9 @@ def hl_calculate_intersection(thessian_df, catchment_df):
 def get_thessian_polygon_from_gage_points(shape_file, gage_points):
     # shape = res_mgr.get_resource_path(shape_file)
     # calculate the voronoi/thesian polygons w.r.t given station points.
-    print('get_thessian_polygon_from_gage_points|shape_file : ', shape_file)
+    # print('get_thessian_polygon_from_gage_points|shape_file : ', shape_file)
     voronoi_polygon = get_voronoi_polygons(gage_points, shape_file, ['OBJECTID', 1])
-    print('get_thessian_polygon_from_gage_points|voronoi_polygon : ', voronoi_polygon)
+    # print('get_thessian_polygon_from_gage_points|voronoi_polygon : ', voronoi_polygon)
     return voronoi_polygon
 
 
@@ -334,13 +334,13 @@ def get_voronoi_polygons(points_dict, shape_file, shape_attribute=None, output_s
     if shape_attribute is None:
         shape_attribute = ['OBJECTID', 1]
 
-    print('get_voronoi_polygons|shape_attribute : ', shape_attribute)
+    # print('get_voronoi_polygons|shape_attribute : ', shape_attribute)
     shape_df = gpd.GeoDataFrame.from_file(shape_file)
-    print('get_voronoi_polygons|shape_df : ', shape_df)
+    # print('get_voronoi_polygons|shape_df : ', shape_df)
     shape_polygon_idx = shape_df.index[shape_df[shape_attribute[0]] == shape_attribute[1]][0]
-    print('get_voronoi_polygons|shape_polygon_idx : ', shape_polygon_idx)
+    # print('get_voronoi_polygons|shape_polygon_idx : ', shape_polygon_idx)
     shape_polygon = shape_df['geometry'][shape_polygon_idx]
-    print('get_voronoi_polygons|shape_polygon : ', shape_polygon)
+    # print('get_voronoi_polygons|shape_polygon : ', shape_polygon)
 
     ids = [p if type(p) == str else np.asscalar(p) for p in points_dict.keys()]
     points = np.array(list(points_dict.values()))[:, :2]
