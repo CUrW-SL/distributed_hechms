@@ -122,12 +122,12 @@ def calculate_hl_step_mean(basin_shape_file, station_infos, output_file, step_on
         for station_info in station_infos:
             station = station_info['station']
             gauge_points[station] = ['%.6f' % station_info['longitude'], '%.6f' % station_info['latitude']]
-        # print('calculate_step_mean|gauge_points : ', gauge_points)
+        print('calculate_step_mean|gauge_points : ', gauge_points)
         gauge_points_thessian = get_thessian_polygon_from_gage_points(basin_shape_file, gauge_points)
-        # print('calculate_step_mean|gauge_points_thessian : ', gauge_points_thessian)
+        print('calculate_step_mean|gauge_points_thessian : ', gauge_points_thessian)
         catchment_df = gpd.GeoDataFrame.from_file(basin_shape_file)
         sub_ratios = hl_calculate_intersection(gauge_points_thessian, catchment_df)
-        # print('calculate_step_mean|sub_ratios : ', sub_ratios)
+        print('calculate_step_mean|sub_ratios : ', sub_ratios)
         catchment_rain = []
         catchment_name_list = []
         for sub_ratio in sub_ratios:
