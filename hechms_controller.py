@@ -116,9 +116,9 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                         if ret_code == 0:
                             output_file = os.path.join(OUTPUT_DIR, 'DailyDischarge.csv')
                             print('output_file : ', output_file)
-                            state_file_copy_cmd = FILE_COPY_CMD_TEMPLATE.format(state_file, STATE_BACKUP_DIR)
-                            print('state_file_copy_cmd : ', state_file_copy_cmd)
-                            subprocess.call(state_file_copy_cmd, shell=True)
+                            # state_file_copy_cmd = FILE_COPY_CMD_TEMPLATE.format(state_file, STATE_BACKUP_DIR)
+                            # print('state_file_copy_cmd : ', state_file_copy_cmd)
+                            # subprocess.call(state_file_copy_cmd, shell=True)
                             try:
                                 print('extract_distrubuted_hechms_outputs|[output_file, file_date] : ',
                                       [output_file, file_date])

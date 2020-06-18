@@ -13,7 +13,7 @@ def execute_pre_dssvue(run_date_time, ts_start_date, ts_start_time):
     python_script_fp = PRE_PROCESSING_SCRIPT
     run_date = run_date_time.strftime('%Y-%m-%d')
     run_time = run_date_time.strftime('%H:%M:%S')
-    print('[run_date, run_time] : ', [run_date, run_time])
+    print('execute_pre_dssvue|[run_date, run_time] : ', [run_date, run_time])
     return _execute_hec_dssvue(python_script_fp, run_date, run_time, ts_start_date, ts_start_time)
 
 
@@ -23,6 +23,7 @@ def execute_post_dssvue(run_date_time, ts_start_date, ts_start_time):
     python_script_fp = POST_PROCESSING_SCRIPT
     run_date = run_date_time.strftime('%Y-%m-%d')
     run_time = run_date_time.strftime('%H:%M:%S')
+    print('execute_post_dssvue|[run_date, run_time] : ', [run_date, run_time])
     return _execute_hec_dssvue(python_script_fp, run_date, run_time, ts_start_date, ts_start_time)
 
 
@@ -33,6 +34,8 @@ def _execute_hec_dssvue(python_script, run_date, run_time, ts_start_date, ts_sta
                                                                                                       ts_start_date,
                                                                                                       ts_start_time])
     dssvue_sh = path.join(HEC_DSSVUE_HOME, HEC_DSSVUE_SH)
+    print('execute_hec_dssvue|HEC_DSSVUE_HOME : ', HEC_DSSVUE_HOME)
+    print('execute_hec_dssvue|HEC_DSSVUE_SH : ', HEC_DSSVUE_SH)
     #bash_command = '/home/curw/distributed_hec/hec-dssvue201/hec-dssvue.sh {PYTHON_SCRIPT} --date 2019-02-20 --time 14:00:00 --start-date 2019-02-18 --start-time 14:00:00'
     bash_command = '{dssvue_sh} {python_script} --date {run_date} --time {run_time} --start-date {ts_start_date} --start-time {ts_start_time}'\
         .format(dssvue_sh=dssvue_sh, python_script=python_script, run_date=run_date, run_time=run_time, ts_start_date=ts_start_date, ts_start_time=ts_start_time)
