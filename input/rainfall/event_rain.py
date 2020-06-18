@@ -85,7 +85,8 @@ def get_hl_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, al
     print('get_hl_mean_rain|[ts_start, ts_end, output_dir, model, pop_method, allowed_error, exec_datetime] : ',
           [ts_start_str, ts_end_str, output_dir, model, pop_method, allowed_error, exec_datetime])
     try:
-        basin_shape_file = os.path.join(RESOURCE_PATH, 'total_catchment/Glen_Tot_Catchment.shp')
+        # basin_shape_file = os.path.join(RESOURCE_PATH, 'total_catchment/Glen_Tot_Catchment.shp')
+        basin_shape_file = os.path.join(RESOURCE_PATH, 'kub-wgs84/kub-wgs84.shp')
         sim_adapter = CurwSimAdapter(db_user, db_pwd, db_host, db_name)
         all_stations = sim_adapter.get_all_basin_stations()
         # [{'station': station, 'hash_id': hash_id, 'latitude': latitude, 'longitude': longitude}]
@@ -310,6 +311,15 @@ def get_thessian_polygon_from_gage_points(shape_file, gage_points):
     return voronoi_polygon
 
 
+# def get_thessian_polygon_from_gage_points(shape_file, gage_points):
+#     # shape = res_mgr.get_resource_path(shape_file)
+#     # calculate the voronoi/thesian polygons w.r.t given station points.
+#     print('get_thessian_polygon_from_gage_points|shape_file : ', shape_file)
+#     voronoi_polygon = get_voronoi_polygons(gage_points, shape_file, ['OBJECTID_2', 18])
+#     print('get_thessian_polygon_from_gage_points|voronoi_polygon : ', voronoi_polygon)
+#     return voronoi_polygon
+
+
 def get_voronoi_polygons(points_dict, shape_file, shape_attribute=None, output_shape_file=None, add_total_area=True):
     """
     :param points_dict: dict of points {'id' --> [lon, lat]}
@@ -324,9 +334,13 @@ def get_voronoi_polygons(points_dict, shape_file, shape_attribute=None, output_s
     if shape_attribute is None:
         shape_attribute = ['OBJECTID', 1]
 
+    print('get_voronoi_polygons|shape_attribute : ', shape_attribute)
     shape_df = gpd.GeoDataFrame.from_file(shape_file)
+    print('get_voronoi_polygons|shape_df : ', shape_df)
     shape_polygon_idx = shape_df.index[shape_df[shape_attribute[0]] == shape_attribute[1]][0]
+    print('get_voronoi_polygons|shape_polygon_idx : ', shape_polygon_idx)
     shape_polygon = shape_df['geometry'][shape_polygon_idx]
+    print('get_voronoi_polygons|shape_polygon : ', shape_polygon)
 
     ids = [p if type(p) == str else np.asscalar(p) for p in points_dict.keys()]
     points = np.array(list(points_dict.values()))[:, :2]
@@ -435,14 +449,14 @@ if __name__ == '__main__':
         db_user = "admin"
         db_pwd = "floody"
         MYSQL_DB = "curw_sim"
-        ts_start = '2020-05-29 00:00:00'
-        ts_end = '2020-05-30 00:00:00'
-        exec_date = '2020-06-17 06:00:00'
+        ts_start = '2020-06-18 00:00:00'
+        ts_end = '2020-06-18 06:00:00'
+        exec_date = '2020-06-18 14:00:00'
         output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/'
         output_dir = os.path.join(output_dir,exec_date)
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
         get_basin_rain(ts_start, ts_end, output_dir, 'hechms', 'MME', 0.8, exec_date,
-                       db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub', target_model='HDC')
+                       db_user, db_pwd, db_host, db_name='curw_sim', catchment='kub', target_model='HLC')
     except Exception as e:
         print('Exception: ', str(e))
