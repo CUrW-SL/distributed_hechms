@@ -111,7 +111,7 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                     ret_code = execute_hechms('hechms_model', HEC_HMS_MODEL_DIR)
                     print('execute_hechms|ret_code : ', ret_code)
                     if ret_code == 0:
-                        ret_code = execute_post_dssvue(exec_datetime, ts_start_date, ts_start_time)
+                        ret_code = execute_post_dssvue(exec_datetime, ts_start_date, ts_start_time, target_model)
                         print('execute_post_dssvue|ret_code : ', ret_code)
                         if ret_code == 0:
                             output_file = os.path.join(OUTPUT_DIR, 'DailyDischarge.csv')

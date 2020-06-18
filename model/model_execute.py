@@ -4,7 +4,7 @@ from os import path
 
 from config import HEC_HMS_HOME, HEC_HMS_SH, HEC_DSSVUE_HOME, HEC_DSSVUE_SH, HEC_EVENT_SCRIPT,\
     PRE_PROCESSING_SCRIPT, POST_PROCESSING_SCRIPT, \
-    HEC_INPUT_DSS, HEC_OUTPUT_DSS
+    HEC_INPUT_DSS, HEC_OUTPUT_DSS, POST_PROCESSING_HL_SCRIPT
 
 
 def execute_pre_dssvue(run_date_time, ts_start_date, ts_start_time):
@@ -17,10 +17,13 @@ def execute_pre_dssvue(run_date_time, ts_start_date, ts_start_time):
     return _execute_hec_dssvue(python_script_fp, run_date, run_time, ts_start_date, ts_start_time)
 
 
-def execute_post_dssvue(run_date_time, ts_start_date, ts_start_time):
+def execute_post_dssvue(run_date_time, ts_start_date, ts_start_time, target_model):
     print('execute_post_dssvue|[run_date_time, ts_start_date, ts_start_time] : ', [run_date_time, ts_start_date,
                                                                                    ts_start_time])
-    python_script_fp = POST_PROCESSING_SCRIPT
+    if target_model == 'HDC' or target_model == 'HDE':
+        python_script_fp = POST_PROCESSING_SCRIPT
+    else:
+        python_script_fp = POST_PROCESSING_HL_SCRIPT
     run_date = run_date_time.strftime('%Y-%m-%d')
     run_time = run_date_time.strftime('%H:%M:%S')
     print('execute_post_dssvue|[run_date, run_time] : ', [run_date, run_time])
