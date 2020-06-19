@@ -120,12 +120,12 @@ def run_hechms_workflow(db_user, db_pwd, db_host, db_name, run_datetime=datetime
                             # print('state_file_copy_cmd : ', state_file_copy_cmd)
                             # subprocess.call(state_file_copy_cmd, shell=True)
                             try:
-                                # print('extract_distrubuted_hechms_outputs|[output_file, file_date] : ',
-                                #       [output_file, file_date])
-                                # print('extract_distrubuted_hechms_outputs|cloud|started')
-                                # extract_distrubuted_hechms_outputs(target_model, db_user, db_pwd, db_host, 'curw_fcst',
-                                #                                    output_file, file_date, '00:00:00')
-                                # print('extract_distrubuted_hechms_outputs|cloud|completed')
+                                print('extract_distrubuted_hechms_outputs|[output_file, file_date] : ',
+                                      [output_file, file_date])
+                                print('extract_distrubuted_hechms_outputs|cloud|started')
+                                extract_distrubuted_hechms_outputs(target_model, db_user, db_pwd, db_host, 'curw_fcst',
+                                                                   output_file, file_date, '00:00:00')
+                                print('extract_distrubuted_hechms_outputs|cloud|completed')
 
                                 upload_rain_file = os.path.join(OUTPUT_DIR, 'DailyRain.csv')
                                 upload_discharge_file = os.path.join(OUTPUT_DIR, 'DailyDischarge.csv')
