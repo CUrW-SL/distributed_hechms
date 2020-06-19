@@ -9,7 +9,11 @@
   "sim_tag": "hourly_run",
 
   "model": "HECHMS",
-  "version": "event",
+
+  "version_config": {"HDC" : "distributed",
+              "HDE" : "distributed_event",
+              "HLC" : "single",
+              "HLE" : "single_event"},
 
   "unit": "m3/s",
   "unit_type": "Instantaneous",
