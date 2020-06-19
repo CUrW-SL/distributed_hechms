@@ -12,8 +12,8 @@
 
   "version_config": {"HDC" : "distributed",
               "HDE" : "distributed_event",
-              "HLC" : "single",
-              "HLE" : "single_event"},
+              "HLC" : "lumped_continuous",
+              "HLE" : "lumped_event"},
 
   "unit": "m3/s",
   "unit_type": "Instantaneous",
