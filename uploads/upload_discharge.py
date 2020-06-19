@@ -198,7 +198,11 @@ def extract_distrubuted_hechms_outputs(target_model, db_user, db_pwd, db_host, d
         # source details
         model = read_attribute_from_config_file('model', config, True)
         print("extract_distrubuted_hechms_outputs|model : ", model)
-        version = read_attribute_from_config_file('version', config, True)
+
+        version_config = read_attribute_from_config_file('version_config', config, True)
+        print("extract_distrubuted_hechms_outputs|version_config : ", version_config)
+
+        version = version_config[target_model]
         print("extract_distrubuted_hechms_outputs|version : ", version)
 
         # unit details
