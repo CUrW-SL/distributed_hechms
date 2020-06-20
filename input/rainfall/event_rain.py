@@ -41,8 +41,7 @@ def create_hl_df(ts_start_str, ts_end_str):
         time_series.append({'Time': ts_step.strftime('%Y-%m-%d %H:%M:%S'),
                             'Rainfall': Decimal(0.0)})
         ts_step = next_ts_step
-    mean_rain_df = pd.DataFrame(data=time_series, columns=['Time', 'Rain']).set_index('Time', inplace=True)
-    # print('create_hl_df|mean_rain_df : ', mean_rain_df)
+    mean_rain_df = pd.DataFrame(data=time_series, columns=['Time', 'Rainfall']).set_index(keys='Time')
     return mean_rain_df
 
 
@@ -62,7 +61,6 @@ def create_df(ts_start_str, ts_end_str):
         ts_step = next_ts_step
     mean_rain_df = pd.DataFrame(data=time_series,
                                 columns=['Time', 'Rainfall1', 'Rainfall2', 'Rainfall3', 'Rainfall4', 'Rainfall5']).set_index(keys='Time')
-    # print('create_df|mean_rain_df : ', mean_rain_df)
     return mean_rain_df
 
 
@@ -99,6 +97,7 @@ def get_hl_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, al
         while ts_step < ts_end:
             next_ts_step = ts_step + timedelta(minutes=60)
             ts_start_str = ts_step.strftime('%Y-%m-%d %H:%M:%S')
+            print('get_hl_mean_rain|ts_start_str : ', ts_start_str)
             ts_end_str = next_ts_step.strftime('%Y-%m-%d %H:%M:%S')
             all_stations_tms = get_ts_for_start_end(sim_adapter, all_stations, ts_start_str, ts_end_str)
             zero_tms_df = create_hl_df(ts_start_str, ts_end_str)
@@ -117,36 +116,37 @@ def get_hl_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, al
 
 
 def calculate_hl_step_mean(basin_shape_file, station_infos, output_file, step_one, zero_tms_df):
-    print('calculate_hl_step_mean|[basin_shape_file, station_infos] : ', [basin_shape_file, station_infos])
+    # print('calculate_hl_step_mean|[basin_shape_file, station_infos] : ', [basin_shape_file, station_infos])
     try:
         gauge_points = {}
         for station_info in station_infos:
             station = station_info['station']
             gauge_points[station] = ['%.6f' % station_info['longitude'], '%.6f' % station_info['latitude']]
         # print('calculate_step_mean|gauge_points : ', gauge_points)
-        gauge_points_thessian = get_thessian_polygon_from_gage_points(basin_shape_file, gauge_points)
-        # print('calculate_step_mean|gauge_points_thessian : ', gauge_points_thessian)
-        catchment_df = gpd.GeoDataFrame.from_file(basin_shape_file)
-        sub_ratios = hl_calculate_intersection(gauge_points_thessian, catchment_df)
-        # print('calculate_step_mean|sub_ratios : ', sub_ratios)
         catchment_rain = []
         catchment_name_list = []
-        for sub_ratio in sub_ratios:
-            catchment_name = sub_ratio['sub_catchment_name']
-            catchment_ts_list = []
-            ratios = sub_ratio['ratios']
-            for ratio in ratios:
-                gauge_name = ratio['gage_name']
-                ratio = Decimal(ratio['ratio'])
-                gauge_info = next((sub for sub in station_infos if sub['station'] == gauge_name), None)
-                if gauge_info is not None:
-                    gauge_ts = gauge_info['tms_df']
-                    modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
-                    catchment_ts_list.append(modified_gauge_ts)
-            total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
-            total_rain.rename(columns={'value': catchment_name}, inplace=True)
-            catchment_name_list.append(catchment_name)
-            catchment_rain.append(total_rain)
+        if gauge_points:
+            gauge_points_thessian = get_thessian_polygon_from_gage_points(basin_shape_file, gauge_points)
+            # print('calculate_step_mean|gauge_points_thessian : ', gauge_points_thessian)
+            catchment_df = gpd.GeoDataFrame.from_file(basin_shape_file)
+            sub_ratios = hl_calculate_intersection(gauge_points_thessian, catchment_df)
+            # print('calculate_step_mean|sub_ratios : ', sub_ratios)
+            for sub_ratio in sub_ratios:
+                catchment_name = sub_ratio['sub_catchment_name']
+                catchment_ts_list = []
+                ratios = sub_ratio['ratios']
+                for ratio in ratios:
+                    gauge_name = ratio['gage_name']
+                    ratio = Decimal(ratio['ratio'])
+                    gauge_info = next((sub for sub in station_infos if sub['station'] == gauge_name), None)
+                    if gauge_info is not None:
+                        gauge_ts = gauge_info['tms_df']
+                        modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
+                        catchment_ts_list.append(modified_gauge_ts)
+                total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
+                total_rain.rename(columns={'value': catchment_name}, inplace=True)
+                catchment_name_list.append(catchment_name)
+                catchment_rain.append(total_rain)
         if len(catchment_rain) > 0:
             mean_rain = catchment_rain[0].join(catchment_rain[1:])
         else:
@@ -244,6 +244,7 @@ def calculate_hd_step_mean(shape_file, sub_catchment_shape_file, station_infos, 
 
 
 def _write_mean_rain_to_file(mean_rain, output_file, catchment_name_list, step_one):
+    # print('write_mean_rain_to_file|mean_rain : ', mean_rain)
     try:
         if step_one:
             file_handler = open(output_file, 'w')
@@ -309,15 +310,6 @@ def get_thessian_polygon_from_gage_points(shape_file, gage_points):
     voronoi_polygon = get_voronoi_polygons(gage_points, shape_file, ['OBJECTID', 1])
     # print('get_thessian_polygon_from_gage_points|voronoi_polygon : ', voronoi_polygon)
     return voronoi_polygon
-
-
-# def get_thessian_polygon_from_gage_points(shape_file, gage_points):
-#     # shape = res_mgr.get_resource_path(shape_file)
-#     # calculate the voronoi/thesian polygons w.r.t given station points.
-#     print('get_thessian_polygon_from_gage_points|shape_file : ', shape_file)
-#     voronoi_polygon = get_voronoi_polygons(gage_points, shape_file, ['OBJECTID_2', 18])
-#     print('get_thessian_polygon_from_gage_points|voronoi_polygon : ', voronoi_polygon)
-#     return voronoi_polygon
 
 
 def get_voronoi_polygons(points_dict, shape_file, shape_attribute=None, output_shape_file=None, add_total_area=True):
@@ -449,9 +441,9 @@ if __name__ == '__main__':
         db_user = "admin"
         db_pwd = "floody"
         MYSQL_DB = "curw_sim"
-        ts_start = '2020-06-18 00:00:00'
-        ts_end = '2020-06-18 06:00:00'
-        exec_date = '2020-06-18 14:00:00'
+        ts_start = '2020-06-20 23:00:00'
+        ts_end = '2020-06-21 02:00:00'
+        exec_date = '2020-06-20 06:00:00'
         output_dir = '/home/hasitha/PycharmProjects/distributed_hechms/output/'
         output_dir = os.path.join(output_dir,exec_date)
         if not os.path.exists(output_dir):
