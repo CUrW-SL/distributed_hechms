@@ -17,13 +17,13 @@ MISSING_VALUE = -99999
 FILL_VALUE = 0
 
 
-def get_ts_for_start_end(sim_adapter, all_stations, ts_start, ts_end):
+def get_ts_for_start_end(sim_adapter, all_stations, ts_start, ts_end, allowed_error):
     formatted_stations = []
     for station_info in all_stations:
         hash_id = station_info['hash_id']
-        tms_df = sim_adapter.get_timeseries_by_hash_id(hash_id, ts_start, ts_end, allowed_error=0.2, time_step_size=5)
+        tms_df = sim_adapter.get_timeseries_by_hash_id(hash_id, ts_start, ts_end, allowed_error=allowed_error, time_step_size=5)
         if tms_df is not None:
-            # print('get_ts_for_start_end|tms_df : ', tms_df)
+            print('get_ts_for_start_end|tms_df : ', tms_df)
             if tms_df is not None:
                 station_info['tms_df'] = tms_df.replace(MISSING_VALUE,
                                                         FILL_VALUE)
@@ -99,7 +99,7 @@ def get_hl_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, al
             ts_start_str = ts_step.strftime('%Y-%m-%d %H:%M:%S')
             print('get_hl_mean_rain|ts_start_str : ', ts_start_str)
             ts_end_str = next_ts_step.strftime('%Y-%m-%d %H:%M:%S')
-            all_stations_tms = get_ts_for_start_end(sim_adapter, all_stations, ts_start_str, ts_end_str)
+            all_stations_tms = get_ts_for_start_end(sim_adapter, all_stations, ts_start_str, ts_end_str, allowed_error)
             zero_tms_df = create_hl_df(ts_start_str, ts_end_str)
             calculate_hl_step_mean(basin_shape_file, all_stations_tms, output_file, step_one, zero_tms_df)
             step_one = False
@@ -170,7 +170,7 @@ def get_hd_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, al
         sim_adapter = CurwSimAdapter(db_user, db_pwd, db_host, db_name)
         all_stations = sim_adapter.get_all_basin_stations()
         # [{'station': station, 'hash_id': hash_id, 'latitude': latitude, 'longitude': longitude}]
-        # print('get_basin_rain|all_stations : ', all_stations)
+        print('get_basin_rain|all_stations : ', all_stations)
         ts_start = datetime.strptime(ts_start_str, '%Y-%m-%d %H:%M:%S')
         ts_end = datetime.strptime(ts_end_str, '%Y-%m-%d %H:%M:%S')
         ts_step = ts_start
@@ -180,7 +180,7 @@ def get_hd_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, al
             next_ts_step = ts_step + timedelta(minutes=60)
             ts_start_str = ts_step.strftime('%Y-%m-%d %H:%M:%S')
             ts_end_str = next_ts_step.strftime('%Y-%m-%d %H:%M:%S')
-            all_stations_tms = get_ts_for_start_end(sim_adapter, all_stations, ts_start_str, ts_end_str)
+            all_stations_tms = get_ts_for_start_end(sim_adapter, all_stations, ts_start_str, ts_end_str, allowed_error)
             zero_tms_df = create_df(ts_start_str, ts_end_str)
             calculate_hd_step_mean(shape_file, sub_catchment_shape_file, all_stations_tms,
                                    output_file, step_one, zero_tms_df)
