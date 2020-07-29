@@ -199,7 +199,7 @@ def get_hd_mean_rain(ts_start_str, ts_end_str, output_dir, model, pop_method, al
 
 def calculate_hd_step_mean(shape_file, sub_catchment_shape_file, station_infos, output_file, step_one, zero_tms_df):
     try:
-        # print('calculate_hd_step_mean|station_infos : ', station_infos)
+        print('calculate_hd_step_mean|station_infos : ', station_infos)
         gauge_points = {}
         for station_info in station_infos:
             station = station_info['station']
