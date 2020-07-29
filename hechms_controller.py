@@ -32,7 +32,7 @@ COPY_STATE_FILES_CMD = 'yes | cp -R /home/curw/basin_states/* /home/curw/git/dis
 
 
 FILE_COPY_CMD_TEMPLATE = 'yes | cp -R {} {}'
-ALLOWED_RAIN_ERROR = 0.25
+ALLOWED_RAIN_ERROR = 0.5
 
 
 def create_dir_if_not_exists(path):
