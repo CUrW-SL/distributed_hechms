@@ -461,7 +461,7 @@ class CurwSimAdapter:
                     df = pd.DataFrame(data=results, columns=['time', 'value']).set_index(keys='time')
                     return df
                 elif data_error > 0 and data_error <= allowed_error:
-                    # print('get_timeseries_by_id|filling missing data.')
+                    print('get_timeseries_by_id|filling missing data.')
                     formatted_ts = []
                     i = 0
                     for step in range(time_step_count):
