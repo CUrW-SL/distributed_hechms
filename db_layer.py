@@ -444,7 +444,6 @@ class CurwSimAdapter:
         data_sql = 'select time,value from curw_sim.data where time>=\'{}\' and time<\'{}\' ' \
                    'and id=\'{}\' '.format(ts_start, ts_end, hash_id)
         try:
-            print('get_timeseries_by_hash_id|data_sql : ', data_sql)
             cursor.execute(data_sql)
             results = cursor.fetchall()
             if len(results) > 0:
@@ -479,7 +478,8 @@ class CurwSimAdapter:
                     df = pd.DataFrame(data=formatted_ts, columns=['time', 'value']).set_index(keys='time')
                     return df
                 else:
-                    # print('get_timeseries_by_hash_id|data_error : {}'.format(data_error))
+                    print('get_timeseries_by_hash_id|data_sql : ', data_sql)
+                    print('get_timeseries_by_hash_id|data_error : {}'.format(data_error))
                     print('get_timeseries_by_hash_id|Data error is too large')
                     return None
             else:
