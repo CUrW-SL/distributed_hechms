@@ -438,13 +438,13 @@ class CurwSimAdapter:
             return available_stations
 
     def get_timeseries_by_hash_id(self, hash_id, ts_start, ts_end, allowed_error, time_step_size=5):
-        # print('get_timeseries_by_hash_id|[hash_id, ts_start, ts_end, allowed_error] : ',
-        #       [hash_id, ts_start, ts_end, allowed_error])
+        print('get_timeseries_by_hash_id|[hash_id, ts_start, ts_end, allowed_error] : ',
+              [hash_id, ts_start, ts_end, allowed_error])
         cursor = self.cursor
         data_sql = 'select time,value from curw_sim.data where time>=\'{}\' and time<\'{}\' ' \
                    'and id=\'{}\' '.format(ts_start, ts_end, hash_id)
         try:
-            # print('get_timeseries_by_hash_id|data_sql : ', data_sql)
+            print('get_timeseries_by_hash_id|data_sql : ', data_sql)
             cursor.execute(data_sql)
             results = cursor.fetchall()
             if len(results) > 0:
