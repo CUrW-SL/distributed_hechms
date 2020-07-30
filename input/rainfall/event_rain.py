@@ -28,6 +28,8 @@ def get_ts_for_start_end(sim_adapter, all_stations, ts_start, ts_end, allowed_er
                 station_info['tms_df'] = tms_df.replace(MISSING_VALUE,
                                                         FILL_VALUE)
                 formatted_stations.append(station_info)
+        else:
+            print('get_ts_for_start_end|tms_df empty|[station_info, ts_start, ts_end] : ', [station_info, ts_start, ts_end])
     return formatted_stations
 
 
@@ -222,11 +224,15 @@ def calculate_hd_step_mean(shape_file, sub_catchment_shape_file, station_infos, 
                 for ratio in ratios:
                     gauge_name = ratio['gage_name']
                     ratio = Decimal(ratio['ratio'])
+                    print('calculate_hd_step_mean|[gauge_name, ratio] : ', [gauge_name, ratio])
                     gauge_info = next((sub for sub in station_infos if sub['station'] == gauge_name), None)
+                    print('calculate_hd_step_mean|gauge_info : ', gauge_info)
                     if gauge_info is not None:
                         gauge_ts = gauge_info['tms_df']
                         modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
                         catchment_ts_list.append(modified_gauge_ts)
+                    else:
+                        print('calculate_hd_step_mean|no gauge_info|gauge_name : ', gauge_name)
                 total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
                 total_rain.rename(columns={'value': catchment_name}, inplace=True)
                 catchment_name_list.append(catchment_name)
