@@ -229,13 +229,14 @@ def calculate_hd_step_mean(shape_file, sub_catchment_shape_file, station_infos, 
                     print('calculate_hd_step_mean|gauge_info : ', gauge_info)
                     if gauge_info is not None:
                         gauge_ts = gauge_info['tms_df']
-                        modified_gauge_ts = ratio * gauge_ts['value']
-                        print('calculate_hd_step_mean|modified_gauge_ts : ', modified_gauge_ts)
+                        gauge_ts['value'] = ratio * gauge_ts['value']
+                        print('calculate_hd_step_mean|gauge_ts : ', gauge_ts)
                         # modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
-                        catchment_ts_list.append(modified_gauge_ts)
+                        catchment_ts_list.append(gauge_ts)
                     else:
                         print('calculate_hd_step_mean|no gauge_info|gauge_name : ', gauge_name)
                 total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
+                print('calculate_hd_step_mean|total_rain : ', total_rain)
                 total_rain.rename(columns={'value': catchment_name}, inplace=True)
                 catchment_name_list.append(catchment_name)
                 catchment_rain.append(total_rain)
