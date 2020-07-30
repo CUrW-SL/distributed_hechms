@@ -143,8 +143,10 @@ def calculate_hl_step_mean(basin_shape_file, station_infos, output_file, step_on
                     gauge_info = next((sub for sub in station_infos if sub['station'] == gauge_name), None)
                     if gauge_info is not None:
                         gauge_ts = gauge_info['tms_df']
-                        modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
-                        catchment_ts_list.append(modified_gauge_ts)
+                        gauge_ts['value'] = ratio * gauge_ts['value']
+                        print('calculate_hd_step_mean|gauge_ts : ', gauge_ts)
+                        # modified_gauge_ts = gauge_ts.multiply(ratio, axis='value')
+                        catchment_ts_list.append(gauge_ts)
                 total_rain = reduce(lambda x, y: x.add(y, fill_value=0), catchment_ts_list)
                 total_rain.rename(columns={'value': catchment_name}, inplace=True)
                 catchment_name_list.append(catchment_name)
